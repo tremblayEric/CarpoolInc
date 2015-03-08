@@ -83,6 +83,10 @@ public abstract class PlusBaseActivity extends Activity
      * Try to sign in the user.
      */
     public void signIn() {
+
+
+        //ésactivation de google play pour le développement emulateur pour Gaelle
+        /*
         if (!mPlusClient.isConnected()) {
             // Show the dialog as we are now signing in.
             setProgressBarVisible(true);
@@ -98,9 +102,13 @@ public abstract class PlusBaseActivity extends Activity
                 // order to retrieve one.
                 initiatePlusClientConnect();
             }
-        }
+        }*/
 
+        setProgressBarVisible(true);
+        mAutoResolveOnFail = true;
         updateConnectButtonState();
+        startResolution();
+        initiatePlusClientConnect();
     }
 
     /**
