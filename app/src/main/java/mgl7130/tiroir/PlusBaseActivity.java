@@ -108,7 +108,7 @@ public abstract class PlusBaseActivity extends Activity
         mAutoResolveOnFail = true;
         updateConnectButtonState();
         startResolution();
-        initiatePlusClientConnect();
+        // initiatePlusClientConnect();
     }
 
     /**
