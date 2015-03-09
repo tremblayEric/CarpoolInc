@@ -4,9 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 
-import android.support.v4.app.Fragment;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -28,9 +26,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.carpool.model.data.CoteDTO;
+import com.carpool.model.data.OffreDTO;
+import com.carpool.model.data.PositionDTO;
+import com.carpool.model.data.ReservationDTO;
+import com.carpool.model.data.TrajetDTO;
+import com.carpool.model.data.UserDTO;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
+import com.parse.Parse;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +81,20 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //2015-03-08
+        //configuration pour l'acces a Parse + enregistrement des sous classes
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "b0qpztTLfYQeRZBAeQGHX6pywO3pcCUorGfEbnAZ", "EDWDuQ4TYxmW7bZf7Yz51M2OJSXULsW9syUWaC58");
+
+        ParseObject.registerSubclass(CoteDTO.class);
+        ParseObject.registerSubclass(OffreDTO.class);
+        ParseObject.registerSubclass(PositionDTO.class);
+        ParseObject.registerSubclass(ReservationDTO.class);
+        ParseObject.registerSubclass(TrajetDTO.class);
+        ParseUser.registerSubclass(UserDTO.class);
+
+
         // Find the Google+ sign in button.
         mPlusSignInButton = (SignInButton) findViewById(R.id.plus_sign_in_button);
         if (supportsGooglePlayServices()) {
@@ -114,6 +135,18 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
                 attemptLogin();
             }
         });
+
+        //2015-03-08
+        //bouton ajouté pour la navigation vers la page de creation de profil
+        Button registerButton = (Button) findViewById(R.id.register);
+        registerButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToCreeProfil();
+            }
+        });
+
+
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -177,6 +210,12 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
+    }
+
+    private void goToCreeProfil(){
+
+        Intent intent = new Intent(this, CreationProfil.class);
+        startActivity(intent);
     }
 
     private boolean isEmailValid(String email) {
