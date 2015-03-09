@@ -1,4 +1,4 @@
-package mgl7130.tiroir;
+package com.carpool.activity;
 
 import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
 
-public class Accueil extends ActionBarActivity
+public class AccueilActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -50,16 +50,16 @@ public class Accueil extends ActionBarActivity
         switch (position){
 
             case 0:
-                objFragment = new Profil();
+                objFragment = new ProfilActivity();
                 break;
             case 1:
-                objFragment = new Offre();
+                objFragment = new OffreActivity();
                 break;
             case 2:
-                objFragment = new Recherche();
+                objFragment = new RechercheActivity();
                 break;
             case 3:
-                objFragment = new Reservation();
+                objFragment = new ReservationActivity();
                 break;
 
 
@@ -160,7 +160,7 @@ public class Accueil extends ActionBarActivity
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((Accueil) activity).onSectionAttached(
+            ((AccueilActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }

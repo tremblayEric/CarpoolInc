@@ -1,4 +1,4 @@
-package mgl7130.tiroir;
+package com.carpool.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -26,12 +26,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.carpool.model.data.CoteDTO;
-import com.carpool.model.data.OffreDTO;
-import com.carpool.model.data.PositionDTO;
-import com.carpool.model.data.ReservationDTO;
-import com.carpool.model.data.TrajetDTO;
-import com.carpool.model.data.UserDTO;
+import com.carpool.model.Cote;
+import com.carpool.model.Offre;
+import com.carpool.model.Position;
+import com.carpool.model.Reservation;
+import com.carpool.model.Trajet;
+import com.carpool.model.User;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
@@ -81,18 +81,6 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //2015-03-08
-        //configuration pour l'acces a Parse + enregistrement des sous classes
-        // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "b0qpztTLfYQeRZBAeQGHX6pywO3pcCUorGfEbnAZ", "EDWDuQ4TYxmW7bZf7Yz51M2OJSXULsW9syUWaC58");
-
-        ParseObject.registerSubclass(CoteDTO.class);
-        ParseObject.registerSubclass(OffreDTO.class);
-        ParseObject.registerSubclass(PositionDTO.class);
-        ParseObject.registerSubclass(ReservationDTO.class);
-        ParseObject.registerSubclass(TrajetDTO.class);
-        ParseUser.registerSubclass(UserDTO.class);
 
 
         // Find the Google+ sign in button.
@@ -214,7 +202,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
 
     private void goToCreeProfil(){
 
-        Intent intent = new Intent(this, CreationProfil.class);
+        Intent intent = new Intent(this, CreationProfilActivity.class);
         startActivity(intent);
     }
 
@@ -418,7 +406,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
 
             if (success) {
 
-                Intent newActivity = new Intent(LoginActivity.this, Accueil.class);
+                Intent newActivity = new Intent(LoginActivity.this, AccueilActivity.class);
                 startActivity(newActivity);
                 finish();
             } else {

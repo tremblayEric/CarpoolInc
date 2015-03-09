@@ -1,4 +1,4 @@
-package com.carpool.model.data;
+package com.carpool.model;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
@@ -11,9 +11,9 @@ import java.util.Date;
  * Created by Gaëlle on 3/5/2015.
  */
 @ParseClassName("Trajet")
-public class TrajetDTO extends ParseObject implements Serializable {
-    PositionDTO positionDepart;
-    PositionDTO positionArrive;
+public class Trajet extends ParseObject implements Serializable {
+    Position positionDepart;
+    Position positionArrive;
     Date depart;
     Timestamp heureDebut;
     Timestamp heureFin;
@@ -42,24 +42,24 @@ public class TrajetDTO extends ParseObject implements Serializable {
         put("heureFin", heureFin);
     }
 
-    public void setPositionDepart(PositionDTO positionDepart)
+    public void setPositionDepart(Position positionDepart)
     {
         put("positionDepart", positionDepart);
     }
 
-    public PositionDTO getPositionDepart()
+    public Position getPositionDepart()
     {
-        return (PositionDTO)getParseObject("positionDepart");
+        return (Position)getParseObject("positionDepart");
     }
 
-    public void setPositionArrive(PositionDTO positionArrive)
+    public void setPositionArrive(Position positionArrive)
     {
         put("positionArrive", positionArrive);
     }
 
-    public PositionDTO getPositionArrive()
+    public Position getPositionArrive()
     {
-        return (PositionDTO)getParseObject("positionArrive");
+        return (Position)getParseObject("positionArrive");
     }
 }
 

@@ -1,4 +1,4 @@
-package mgl7130.tiroir;
+package com.carpool.activity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.carpool.model.data.UserDTO;
+import com.carpool.model.User;
 import com.parse.FindCallback;
 import com.parse.ParseQuery;
 
@@ -27,9 +27,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-
 // Class Création d'un profil utilisateur
-public class CreationProfil extends Activity {
+public class CreationProfilActivity extends Activity {
 
     // Variables representant les composants de l'ui
     private EditText pseudo;
@@ -252,7 +251,7 @@ public class CreationProfil extends Activity {
                                   String birthDay,String gender) throws ParseException {
 
         System.out.println(" appel a creer Utilisateur");
-        UserDTO us = new UserDTO();
+        User us = new User();
         us.setUsername(userName);
         us.setPassword(password);
         us.setEmail(email);
@@ -261,7 +260,7 @@ public class CreationProfil extends Activity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         us.setBirthday(sdf.parse(birthDay));
-        us.setGender(UserDTO.UserGender.valueOf(gender));
+        us.setGender(User.UserGender.valueOf(gender));
         System.out.println(" appel a saveInBackground");
         us.saveInBackground();
         System.out.println(" fin appel a saveInBackground");
@@ -333,11 +332,11 @@ public class CreationProfil extends Activity {
     //validation unicité pseudo dans la BD
 
     public void validerPseudoInDB() {
-        ParseQuery<UserDTO> query = ParseQuery.getQuery(UserDTO.class);
+        ParseQuery<User> query = ParseQuery.getQuery(User.class);
         query.whereEqualTo("username", "pop");
-        query.findInBackground(new FindCallback<UserDTO>() {
+        query.findInBackground(new FindCallback<User>() {
             @Override
-            public void done(List<UserDTO> listUsers, com.parse.ParseException e) {
+            public void done(List<User> listUsers, com.parse.ParseException e) {
                 System.out.println(" fin appel a saveInBackground"+listUsers.size());
             }
         });

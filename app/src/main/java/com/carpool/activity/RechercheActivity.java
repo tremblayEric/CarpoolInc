@@ -1,4 +1,4 @@
-package mgl7130.tiroir;
+package com.carpool.activity;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 /**
  * Created by Bart on 2015-03-07.
  */
-public class Recherche extends Fragment{
+public class RechercheActivity extends Fragment{
 View rootview;
     @Nullable
     @Override
