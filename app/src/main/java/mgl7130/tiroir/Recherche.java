@@ -17,8 +17,8 @@ View rootview;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.recherche_layout,container,false);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.recherche_layout);
+       // super.onCreate(savedInstanceState);
+        //setcontentview(R.layout.recherche_layout);
 
 
         return rootview;
