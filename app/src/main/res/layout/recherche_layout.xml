@@ -2,27 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="#c8e49d">
-<!--
-    <Button
-        android:id="@+id/btnButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button 1"/>
-
-    <Button
-        android:id="@+id/btnButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button 2"
-        android:layout_toRightOf="@+id/btnButton1"/>
-
-    <Button
-        android:id="@+id/btnButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button 3"
-        android:layout_below="@+id/btnButton1"/>
--->
 
     <EditText
         android:id="@+id/txtDepart"
@@ -66,37 +45,12 @@
         android:layout_height="wrap_content"
         android:text="Rechercher"
         android:layout_below="@+id/txtDestination"/>
-<!--
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/btnButton3" />
 
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/editText1"
-        android:text="Submit" />
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.google.android.gms.maps.MapFragment"/>
 
 
-
-    <TimePicker
-        android:id="@+id/timePicker1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_toEndOf="@+id/datePicker"
-        android:layout_below="@+id/timePicker2"/>
-
-    <TimePicker
-        android:id="@+id/timePicker2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_toEndOf="@+id/datePicker"/>
-    -->
 </RelativeLayout>
