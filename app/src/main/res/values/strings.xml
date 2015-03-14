@@ -16,5 +16,12 @@
     <string name="settings_pwd_not_equal">Confirmation invalide</string>
     <string name="title_activity_consultation_offre">ConsultationOffreActivity</string>
     <string name="hello_world">Hello world!</string>
-
+    <string name="menu_settings">Settings</string>
+    <string name="str_btn_find">Find</string>
+    <string name="hnt_et_location">Enter location</string>
+    <string name="title_activity_recherche">Recherche</string>
+    <string name="title_activity_recherche_adresse">rechercheAdresse</string>
+    <string name="title_activity_adresse">Adresse</string>
+    <string name="find">Find</string>
+    <string name="hint">Enter Place</string>
 </resources>

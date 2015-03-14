@@ -1,6 +1,7 @@
 package com.carpool.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -57,12 +58,11 @@ public class AccueilActivity extends ActionBarActivity
                 break;
             case 2:
                 objFragment = new RechercheActivity();
+            default:
                 break;
             case 3:
                 objFragment = new ReservationActivity();
                 break;
-
-
 
         }
         // update the main content by replacing fragments
