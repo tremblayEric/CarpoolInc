@@ -14,5 +14,7 @@
     <string name="title_activity_consulation_offre_encours">Consulation des Offre En cours</string>
     <string name="sexe_prompt">Choisir sexe</string>
     <string name="settings_pwd_not_equal">Confirmation invalide</string>
+    <string name="title_activity_consultation_offre">ConsultationOffreActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

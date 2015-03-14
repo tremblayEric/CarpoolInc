@@ -1,4 +1,4 @@
-package com.carpool.model.data;
+package com.carpool.model;
 
 import com.parse.ParseClassName;
 import com.parse.ParseUser;
@@ -11,8 +11,8 @@ import java.util.Date;
  */
 
 @ParseClassName("User")
-public class UserDTO extends ParseUser implements Serializable {
-    public UserDTO() {
+public class User extends ParseUser implements Serializable {
+    public User() {
 
     }
     public enum UserGender {
