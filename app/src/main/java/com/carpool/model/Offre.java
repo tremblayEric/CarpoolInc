@@ -4,12 +4,15 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Gaëlle on 3/5/2015.
  */
 @ParseClassName("Offre")
 public class Offre extends ParseObject implements Serializable {
+
 
     public Offre(){
 
@@ -27,7 +30,33 @@ public class Offre extends ParseObject implements Serializable {
         return getInt("reservationCount");
     }
 
-    public void setReservationCount(int reservationCount) {
+    public void setReservationCount(int reservationCount)
+    {
         put("reservationCount", reservationCount);
     }
+
+    public Date getDepart() {
+        return getDate("depart");
+    }
+
+    public void setDepart(Date depart) {
+        put("depart", depart);
+    }
+
+    public Date getHeureDebut() {
+        return getDate("heureDebut");
+    }
+
+    public void setHeureDebut(Date heureDebut) {
+        put("heureDebut", heureDebut);
+    }
+
+    public Date getHeureFin() {
+        return getDate("heureFin");
+    }
+
+    public void setHeureFin(Date heureFin) {
+        put("heureFin", heureFin);
+    }
+
 }

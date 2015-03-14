@@ -16,17 +16,17 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name="com.carpool.CarpoolApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name="com.carpool.CarpoolApplication">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".AccueilActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.carpool.activity.LoginActivity"
+            android:name=".LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateHidden" >
             <intent-filter>
@@ -43,6 +43,10 @@
         <activity
             android:name=".CreationProfilActivity"
             android:label="@string/title_activity_creation_profil" >
+        </activity>
+        <activity
+            android:name=".ConsultationOffreActivity"
+            android:label="@string/title_activity_consultation_offre" >
         </activity>
     </application>
 

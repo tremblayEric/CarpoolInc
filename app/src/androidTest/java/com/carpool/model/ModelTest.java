@@ -46,6 +46,9 @@ public class ModelTest extends ActivityInstrumentationTestCase2<LoginActivity> {
     // Test parse Offre
     public void testOffre() {
         Offre oo = new Offre();
+        oo.setDepart(new Date());
+        oo.setHeureDebut(new Date());
+        oo.setHeureFin(new Date());
         oo.setNbreProposition(3);
         oo.setReservationCount(3);
         oo.saveInBackground();
@@ -68,9 +71,7 @@ public class ModelTest extends ActivityInstrumentationTestCase2<LoginActivity> {
     // Test parse Trajet
     public void testTrajet() {
         Trajet tt = new Trajet();
-        tt.setDepart(new Date());
-        tt.setHeureDebut(new Date());
-        tt.setHeureFin(new Date());
+
         Position pos = new Position();
         pos.setLongitude(20);
         pos.setLatitude(20);
