@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="#c8e49d">
-
+<!--
     <EditText
         android:id="@+id/txtDepart"
         android:layout_marginTop="50dp"
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:text="Rechercher"
         android:layout_below="@+id/txtDestination"/>
-
+-->
 
 <!--
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"

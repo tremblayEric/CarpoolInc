@@ -25,21 +25,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.carpool.GeocodeJSONParser;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class Adresse extends FragmentActivity {
 
     Button mBtnFind;
     GoogleMap mMap;
-    EditText etPlace;
+    EditText depart;
+    EditText arrivee;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adresse);
 
@@ -57,7 +54,8 @@ public class Adresse extends FragmentActivity {
         }
 
         // Getting reference to EditText
-        etPlace = (EditText) findViewById(R.id.et_place);
+        depart = (EditText) findViewById(R.id.depart_place);
+        arrivee = (EditText) findViewById(R.id.et_place);
 
         // Setting click event listener for the find button
         mBtnFind.setOnClickListener(new OnClickListener() {
@@ -65,10 +63,16 @@ public class Adresse extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 // Getting the place entered
-                String location = etPlace.getText().toString();
+                String locationDepart = depart.getText().toString();
+                String locationArrivee = arrivee.getText().toString();
 
-                if(location==null || location.equals("")){
-                    Toast.makeText(getBaseContext(), "No Place is entered", Toast.LENGTH_SHORT).show();
+                if(locationArrivee==null || locationArrivee.equals("")){
+                    Toast.makeText(getBaseContext(), "Entrez une destination d'arrivée", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(locationDepart==null || locationDepart.equals("")){
+                    Toast.makeText(getBaseContext(), "Entrez une destination de départ", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -76,83 +80,107 @@ public class Adresse extends FragmentActivity {
 
                 try {
                     // encoding special characters like space in the user input place
-                    location = URLEncoder.encode(location, "utf-8");
+                    locationDepart = URLEncoder.encode(locationDepart, "utf-8");
+                    locationArrivee = URLEncoder.encode(locationArrivee, "utf-8");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
 
-                String address = "address=" + location;
+                String addressDepart = "address=" + locationDepart;
+                String addressArrivee = "address=" + locationArrivee;
 
                 String sensor = "sensor=false";
 
                 // url , from where the geocoding data is fetched
-                url = url + address + "&" + sensor;
+                String urlDepart = url + addressDepart + "&" + sensor;
+                String urlArrivee = url + addressArrivee + "&" + sensor;
 
                 // Instantiating DownloadTask to get places from Google Geocoding service
                 // in a non-ui thread
-                DownloadTask downloadTask = new DownloadTask();
+                DownloadTask downloadDepart = new DownloadTask();
+                DownloadTask downloadArrivee = new DownloadTask();
 
                 // Start downloading the geocoding places
-                downloadTask.execute(url);
+                downloadDepart.execute(urlDepart,urlArrivee);
             }
         });
     }
 
-    private String downloadUrl(String strUrl) throws IOException{
-        String data = "";
-        InputStream iStream = null;
-        HttpURLConnection urlConnection = null;
+    private  String[] downloadUrl(String strUrlDepart, String strUrlArrivee) throws IOException{
+        String[] data = new String[2];
+        InputStream iStreamDepart = null;
+        InputStream iStreamArrive = null;
+        HttpURLConnection urlConnectionDepart = null;
+        HttpURLConnection urlConnectionArrive = null;
         try{
-            URL url = new URL(strUrl);
+            URL urlDepart = new URL(strUrlDepart);
+            URL urlArrive = new URL(strUrlArrivee);
+
             // Creating an http connection to communicate with url
-            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnectionDepart = (HttpURLConnection) urlDepart.openConnection();
+            urlConnectionArrive = (HttpURLConnection) urlArrive.openConnection();
 
             // Connecting to url
-            urlConnection.connect();
+            urlConnectionDepart.connect();
+            urlConnectionArrive.connect();
 
             // Reading data from url
-            iStream = urlConnection.getInputStream();
+            iStreamDepart = urlConnectionDepart.getInputStream();
+            iStreamArrive = urlConnectionArrive.getInputStream();
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+            BufferedReader brDepart = new BufferedReader(new InputStreamReader(iStreamDepart));
+            BufferedReader brArrive = new BufferedReader(new InputStreamReader(iStreamArrive));
 
-            StringBuffer sb = new StringBuffer();
+            StringBuffer sbDepart = new StringBuffer();
+            StringBuffer sbArrive = new StringBuffer();
 
-            String line = "";
-            while( ( line = br.readLine()) != null){
-                sb.append(line);
+            String lineDepart = "";
+            String lineArrive = "";
+            while( ( lineDepart = brDepart.readLine()) != null){
+                sbDepart.append(lineDepart);
             }
 
-            data = sb.toString();
-            br.close();
+            while( ( lineArrive = brArrive.readLine()) != null){
+                sbArrive.append(lineArrive);
+            }
+
+            data[0] = sbDepart.toString();
+            data[1] = sbArrive.toString();
+
+            brDepart.close();
+            brArrive.close();
 
         }catch(Exception e){
             Log.d("Exception while downloading url", e.toString());
         }finally{
-            iStream.close();
-            urlConnection.disconnect();
+            iStreamDepart.close();
+            iStreamArrive.close();
+            urlConnectionDepart.disconnect();
+            urlConnectionArrive.disconnect();
         }
 
         return data;
     }
-    /** A class, to download Places from Geocoding webservice */
-    private class DownloadTask extends AsyncTask<String, Integer, String>{
 
-        String data = null;
+    /** A class, to download Places from Geocoding webservice */
+    private class DownloadTask extends AsyncTask<String, Integer, String[]> {
+
+        String[] urls = null;
 
         // Invoked by execute() method of this object
         @Override
-        protected String doInBackground(String... url) {
+        protected String[] doInBackground(String... url) {
             try{
-                data = downloadUrl(url[0]);
+                urls = downloadUrl(url[0],url[1]);
             }catch(Exception e){
                 Log.d("Background Task",e.toString());
             }
-            return data;
+            return urls;
         }
 
         // Executed after the complete execution of doInBackground() method
         @Override
-        protected void onPostExecute(String result){
+        protected void onPostExecute(String[] result){
 
             // Instantiating ParserTask which parses the json data from Geocoding webservice
             // in a non-ui thread
@@ -173,28 +201,52 @@ public class Adresse extends FragmentActivity {
         @Override
         protected List<HashMap<String,String>> doInBackground(String... jsonData) {
 
-            List<HashMap<String, String>> places = null;
+            List<HashMap<String, String>> result = null;
+            List<HashMap<String, String>> depart = null;
+            List<HashMap<String, String>> arrive = null;
             GeocodeJSONParser parser = new GeocodeJSONParser();
 
             try{
                 jObject = new JSONObject(jsonData[0]);
+                depart = parser.parse(jObject);
+                jObject = new JSONObject(jsonData[1]);
+                arrive = parser.parse(jObject);
 
-                /** Getting the parsed data as a an ArrayList */
-                places = parser.parse(jObject);
+                int o = 0;
 
             }catch(Exception e){
                 Log.d("Exception",e.toString());
             }
-            return places;
+
+            result = depart;
+
+            int count = arrive.size();
+            for (int i = 0 ; i < count; ++i){
+                result.add(arrive.get(i));
+            }
+
+
+            return result;
         }
 
         // Executed after the complete execution of doInBackground() method
         @Override
         protected void onPostExecute(List<HashMap<String,String>> list){
 
-            // Clears all the existing markers
-            mMap.clear();
 
+
+
+
+
+
+
+
+
+            // Clears all the existing markers
+           // mMap.clear();
+
+            int i = 0;
+            /*
             for(int i=0;i<list.size();i++){
 
                 // Creating a marker
@@ -226,7 +278,7 @@ public class Adresse extends FragmentActivity {
                 // Locate the first location
                 if(i==0)
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            }
+            }*/
         }
     }
 

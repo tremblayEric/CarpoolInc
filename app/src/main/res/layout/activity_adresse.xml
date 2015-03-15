@@ -4,15 +4,23 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.carpool.activity.Adresse">
+    tools:context="com.carpool.activity.Adresse"
+    android:background="#c8e49d">
+
+
+    <EditText
+        android:id="@+id/depart_place"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint"
+        android:inputType="text"/>
 
     <Button
         android:id="@+id/btn_show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/find"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentRight="true" />
 
     <EditText
         android:id="@+id/et_place"
@@ -20,6 +28,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/hint"
         android:inputType="text"
+        android:layout_below="@id/depart_place"
         android:layout_toLeftOf="@id/btn_show" />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
@@ -29,6 +38,25 @@
         android:layout_below="@id/et_place"
         class="com.google.android.gms.maps.SupportMapFragment" />
 
+  <!-- <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/datePicker"
+        android:calendarViewShown="false"
+        android:layout_toRightOf="@id/map" />
 
+    <TimePicker
+        android:id="@+id/timePicker1"
+        android:layout_marginTop="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/datePicker"/>
+
+    <TimePicker
+        android:id="@+id/timePicker2"
+        android:layout_marginTop="400dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timePicker1"/>-->
 
 </RelativeLayout>
