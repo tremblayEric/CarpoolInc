@@ -45,6 +45,8 @@
         android:layout_height="wrap_content"
         android:text="Rechercher"
         android:layout_below="@+id/txtDestination"/>
+
+
 <!--
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/map"

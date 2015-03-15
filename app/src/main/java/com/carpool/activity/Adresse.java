@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.carpool.GeocodeJSONParser;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -46,10 +47,14 @@ public class Adresse extends FragmentActivity {
         mBtnFind = (Button) findViewById(R.id.btn_show);
 
         // Getting reference to the SupportMapFragment
-        SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment)(getSupportFragmentManager().findFragmentById(R.id.map));
 
         // Getting reference to the Google Map
         mMap = mapFragment.getMap();
+        if (mMap != null) {
+            mMap.setMyLocationEnabled(true);
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        }
 
         // Getting reference to EditText
         etPlace = (EditText) findViewById(R.id.et_place);
