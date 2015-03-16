@@ -57,7 +57,7 @@ public class AccueilActivity extends ActionBarActivity
                 objFragment = new OffreActivity();
                 break;
             case 2:
-                objFragment = new RechercheActivity();
+                objFragment = new ResultatRechercheActivity();//new RechercheActivity();
             default:
                 break;
             case 3:

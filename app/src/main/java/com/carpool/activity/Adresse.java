@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -16,7 +17,9 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -241,8 +244,18 @@ public class Adresse extends FragmentActivity {
             DatePicker datePicker = (DatePicker) findViewById(R.id.dateRecherche);
             TimePicker tempsDepart = (TimePicker) findViewById(R.id.tempsDepartRecherche);
 
+            Fragment resultSearchFragment = new ResultatRechercheActivity();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("ListFromMap", (Serializable)list);
+            resultSearchFragment.setArguments(bundle);
 
-            ParseQuery<Offre> query = ParseQuery.getQuery(Offre.class);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, resultSearchFragment)
+                    .commit();
+
+
+            /*ParseQuery<Offre> query = ParseQuery.getQuery(Offre.class);
             //query.whereGreaterThanOrEqualTo("dateDepart", datePicker) ;
             query.findInBackground(
                     new FindCallback<Offre>()
@@ -263,14 +276,14 @@ public class Adresse extends FragmentActivity {
 
 
                             } else {
-                            /* fais qqchose avec trajetList*/
+                            *//* fais qqchose avec trajetList*//*
                             } }
                     });
 
             // Clears all the existing markers
            // mMap.clear();
 
-            int i = 0;
+            int i = 0;*/
             /*
             for(int i=0;i<list.size();i++){
 
