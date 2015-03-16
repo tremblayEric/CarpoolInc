@@ -20,6 +20,7 @@ public class CarpoolApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+   System.out.println("CarpoolApplication.oncreate");
         ParseObject.registerSubclass(Cote.class);
         ParseObject.registerSubclass(Offre.class);
         ParseObject.registerSubclass(Position.class);
@@ -31,5 +32,8 @@ public class CarpoolApplication extends Application {
         Parse.enableLocalDatastore(this);
 
         Parse.initialize(this, "b0qpztTLfYQeRZBAeQGHX6pywO3pcCUorGfEbnAZ", "EDWDuQ4TYxmW7bZf7Yz51M2OJSXULsW9syUWaC58");
+        System.out.println("CarpoolApplication.oncreate fin connx");
     }
+
+
 }

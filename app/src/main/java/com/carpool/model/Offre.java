@@ -13,9 +13,18 @@ import java.util.Date;
 @ParseClassName("Offre")
 public class Offre extends ParseObject implements Serializable {
 
+    Trajet trajet ;
 
     public Offre(){
 
+    }
+
+    public Trajet getTrajet() {
+        return (Trajet)getParseObject("trajetOffre");
+    }
+
+    public void setTrajet(Trajet trajet) {
+        put("trajetOffre", trajet);
     }
 
     public int getNbreProposition() {

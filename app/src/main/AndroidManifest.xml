@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name="com.carpool.CarpoolApplication"
@@ -44,10 +45,7 @@
             android:name=".CreationProfilActivity"
             android:label="@string/title_activity_creation_profil" >
         </activity>
-        <activity
-            android:name=".ConsultationOffreActivity"
-            android:label="@string/title_activity_consultation_offre" >
-        </activity>
+
     </application>
 
 </manifest>
