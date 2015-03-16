@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,12 +22,19 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.carpool.GeocodeJSONParser;
+import com.carpool.model.Offre;
+import com.carpool.model.Trajet;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 
 public class Adresse extends FragmentActivity {
 
@@ -211,9 +219,6 @@ public class Adresse extends FragmentActivity {
                 depart = parser.parse(jObject);
                 jObject = new JSONObject(jsonData[1]);
                 arrive = parser.parse(jObject);
-
-                int o = 0;
-
             }catch(Exception e){
                 Log.d("Exception",e.toString());
             }
@@ -233,14 +238,34 @@ public class Adresse extends FragmentActivity {
         @Override
         protected void onPostExecute(List<HashMap<String,String>> list){
 
+            DatePicker datePicker = (DatePicker) findViewById(R.id.dateRecherche);
+            TimePicker tempsDepart = (TimePicker) findViewById(R.id.tempsDepartRecherche);
+
+
+            ParseQuery<Offre> query = ParseQuery.getQuery(Offre.class);
+            //query.whereGreaterThanOrEqualTo("dateDepart", datePicker) ;
+            query.findInBackground(
+                    new FindCallback<Offre>()
+                    {
+                        public void done(List<Offre> offreList, ParseException e)
+                        {
+                            if (e == null) {
+//45.4993121,-73.5121567
+//45.5729842,-73.5615425
+//45.570686,-73.6252288
+//45.5412747,-73.6245851
+//45.5308588,-73.6081056
+                             String a =    offreList.toString();
+                            int o = 0;
 
 
 
 
 
-
-
-
+                            } else {
+                            /* fais qqchose avec trajetList*/
+                            } }
+                    });
 
             // Clears all the existing markers
            // mMap.clear();

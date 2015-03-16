@@ -36,27 +36,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/et_place"
-        class="com.google.android.gms.maps.SupportMapFragment" />
+        class="com.google.android.gms.maps.SupportMapFragment"
+        />
 
-  <!-- <DatePicker
+   <DatePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/datePicker"
+        android:id="@+id/dateRecherche"
         android:calendarViewShown="false"
-        android:layout_toRightOf="@id/map" />
+       android:layout_below="@id/et_place"/>
 
     <TimePicker
-        android:id="@+id/timePicker1"
-        android:layout_marginTop="200dp"
+        android:id="@+id/tempsDepartRecherche"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/datePicker"/>
+        android:layout_toRightOf="@id/dateRecherche"
+        android:layout_below="@id/et_place"/>
 
-    <TimePicker
-        android:id="@+id/timePicker2"
-        android:layout_marginTop="400dp"
+    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/listeOffre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/timePicker1"/>-->
+        android:layout_below="@id/dateRecherche"/>
 
 </RelativeLayout>
