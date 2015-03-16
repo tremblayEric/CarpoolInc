@@ -15,4 +15,12 @@
     <string name="sexe_prompt">Choisir sexe</string>
     <string name="settings_pwd_not_equal">Confirmation invalide</string>
 
+    <!-- String pour l'offre de covoiturage -->
+    <string name="activity_title_offer">Annoncer un départ</string>
+    <string name="textview_starting_offer">Ville de départ</string>
+    <string name="textview_destination_offer">Ville de d\'arrivée</string>
+    <string name="textview_date_offer">Date de départ</string>
+    <string name="textview_betweenStart_offer">Entre</string>
+    <string name="textview_betweenEnd_offer">Et</string>
+    <string name="button_submit_offer">Ajouter l\'offre</string>
 </resources>

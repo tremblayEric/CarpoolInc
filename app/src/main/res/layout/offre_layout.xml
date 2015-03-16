@@ -1,14 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<RelativeLayout
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#c8e49d">
 
     <TextView
+        android:id="@+id/tvTitleOffer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Offre"
-        android:id="@+id/textView"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="@string/activity_title_offer"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="34dp" />
+        android:layout_centerHorizontal="true"
+        android:textSize="40dp"/>
+
+    <TextView
+        android:id="@+id/tvStarting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dip"
+        android:textStyle="bold"
+        android:text="@string/textview_starting_offer"
+        android:layout_alignBottom="@+id/etStarting"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/etStarting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/tvTitleOffer"
+        android:layout_marginTop="38dp"
+        android:layout_alignEnd="@+id/etDestination"
+        android:layout_toEndOf="@+id/tvStarting"
+        android:layout_alignStart="@+id/etDestination" />
+
+    <TextView
+        android:id="@+id/tvDestination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dip"
+        android:textStyle="bold"
+        android:text="@string/textview_destination_offer"
+        android:layout_alignBottom="@+id/etDestination"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/etDestination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/tvStarting"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="43dp"
+        android:layout_toEndOf="@+id/tvDestination" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dip"
+        android:textStyle="bold"
+        android:text="@string/textview_date_offer"
+        android:layout_alignTop="@+id/etDate"
+        android:layout_toStartOf="@+id/etDate"
+        android:layout_marginTop="56dp" />
+
+    <DatePicker
+        android:id="@+id/etDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:inputType="date"
+        android:layout_below="@+id/tvDestination"
+        android:layout_alignStart="@+id/etDestination"
+        android:layout_marginTop="48dp"
+        android:layout_alignEnd="@+id/etDestination"
+        android:calendarViewShown="false"/>
+
+    <LinearLayout
+        android:id="@+id/lyInterval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etDate"
+        android:layout_marginTop="53dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_alignEnd="@+id/etDate"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvBetweenStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/textview_betweenStart_offer"
+                android:layout_gravity="center_horizontal" />
+
+            <TimePicker
+                android:id="@+id/etBetweenStart"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:inputType="date"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvBetweenEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/textview_betweenEnd_offer"
+                android:layout_gravity="center_horizontal" />
+
+            <TimePicker
+                android:id="@+id/etBetweenEnd"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:inputType="date"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSubmitOffer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lyInterval"
+        android:layout_marginTop="45dip"
+        android:layout_marginBottom="45dp"
+        android:layout_centerHorizontal="true"
+        android:background="#d6ebb5"
+        android:minHeight="35dp"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:text="@string/button_submit_offer"
+        android:textStyle="bold"
+        android:textSize="14sp" />
+
 </RelativeLayout>
+</ScrollView>
