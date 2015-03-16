@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <permission
         android:name="in.wptrafficanalyzer.locationgeocodingv2.permission.MAPS_RECEIVE"
@@ -70,18 +71,8 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAlmJpByv6Zq4eu_28CATvR9BcB6OMsdkU" />
 
-        <activity
-            android:name=".ConsultationOffreActivity"
-            android:label="@string/title_activity_consultation_offre" >
-        </activity>
-        <activity
-            android:name=".Recherche"
-            android:label="@string/title_activity_recherche" >
-        </activity>
-        <activity
-            android:name=".rechercheAdresse"
-            android:label="@string/title_activity_recherche_adresse" >
-        </activity>
+
+
         <activity
             android:name=".Adresse"
             android:label="@string/title_activity_adresse" >

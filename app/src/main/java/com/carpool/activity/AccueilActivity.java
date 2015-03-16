@@ -61,7 +61,7 @@ public class AccueilActivity extends ActionBarActivity
             default:
                 break;
             case 3:
-                objFragment = new ReservationActivity();
+                objFragment = new ConsultationOffreActivity();
                 break;
 
         }
@@ -84,7 +84,7 @@ public class AccueilActivity extends ActionBarActivity
                 mTitle = getString(R.string.titre_recherche);
                 break;
             case 4:
-                mTitle = getString(R.string.titre_reservation);
+                mTitle = getString(R.string.titre_consultation_offre);
                 break;
         }
     }
