@@ -148,6 +148,14 @@
             android:text="Modifier infos"
             android:layout_marginTop="20dp"
             />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id = "@+id/deconnexion"
+            android:text="Deconnexion"
+            android:layout_marginTop="20dp"
+            />
 </LinearLayout>
     
 </RelativeLayout>

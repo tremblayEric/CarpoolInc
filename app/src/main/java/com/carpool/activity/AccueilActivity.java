@@ -61,9 +61,6 @@ public class AccueilActivity extends ActionBarActivity
             case 3:
                 objFragment = new ConsultationOffreActivity();
                 break;
-
-
-
         }
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();

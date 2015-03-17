@@ -94,7 +94,7 @@ public class LoginActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_login);
         /*
         ParseObject.registerSubclass(Cote.class);
         ParseObject.registerSubclass(Offre.class);
@@ -110,7 +110,7 @@ public class LoginActivity extends ActionBarActivity {
 
 
 
-        setContentView(R.layout.activity_login);
+
 
 
 
