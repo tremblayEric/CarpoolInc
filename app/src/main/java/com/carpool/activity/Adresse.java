@@ -251,7 +251,7 @@ public class Adresse extends FragmentActivity {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, resultSearchFragment)
+                    .replace(R.id.layout_activity_adresse, resultSearchFragment)
                     .commit();
 
 
