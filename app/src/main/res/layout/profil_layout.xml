@@ -29,8 +29,6 @@
         <TextView
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-
-
             android:text="Pseudo:"
         />
 
@@ -38,7 +36,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Pseudo"
-            android:id ="@+id/txt_pseudo_user"
+            android:id ="@+id/txt_pseudo_userProfil"
             />
     
 
@@ -57,9 +55,9 @@
                 />
 
             <TextView
-                android:layout_width="60dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id ="@+id/txt_nom_user"
+                android:id ="@+id/txt_nom_userProfil"
                 android:text="Nom:"
                 />
           </LinearLayout>
@@ -77,9 +75,9 @@
                 />
 
             <TextView
-                android:layout_width="60dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id ="@+id/txt_prenom_user"
+                android:id ="@+id/txt_prenom_userProfil"
                 android:text="Prenom"
                 />
         </LinearLayout>
@@ -97,9 +95,9 @@
                 />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id ="@+id/txt_date_naiss_user"
+                android:id ="@+id/txt_date_naiss_userProfil"
                 android:text="Date naissance"
                 />
         </LinearLayout>
@@ -117,9 +115,9 @@
                 />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id ="@+id/txt_sexe_user"
+                android:id ="@+id/txt_sexe_userProfil"
                 android:text="Sexe"
                 />
         </LinearLayout>
@@ -137,16 +135,16 @@
                 />
 
             <TextView
-                android:layout_width="60dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id ="@+id/txt_courriel_user"
+                android:id ="@+id/txt_courriel_userProfil"
                 android:text="Courriel"
                 />
         </LinearLayout>
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id = "@+id/modifier_info"
+            android:id = "@+id/modifier_infoProfil"
             android:text="Modifier infos"
             android:layout_marginTop="20dp"
             />
