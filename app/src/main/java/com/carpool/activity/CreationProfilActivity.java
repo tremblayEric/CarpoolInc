@@ -40,7 +40,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import android.util.Log;
 
 // Class Création d'un profil utilisateur
 public class CreationProfilActivity extends Activity {
@@ -225,6 +225,7 @@ public class CreationProfilActivity extends Activity {
         strMdp = mdp.getText().toString();
         strConfMdp = confmdp.getText().toString();
         strMail = mail.getText().toString();
+
         strDateNais = dateNais.getText().toString();
         strNom = nom.getText().toString();
         strPrenom = prenom.getText().toString();
@@ -232,7 +233,7 @@ public class CreationProfilActivity extends Activity {
 
        if (TextUtils.isEmpty(strPseudo))
        {
-            pseudo.setError("Champ Obligatoire");
+           pseudo.setError("Champ Obligatoire");
            saisieValide = false;
            focusView = pseudo;
       }
@@ -255,11 +256,17 @@ public class CreationProfilActivity extends Activity {
            focusView = mail;
        }
 
-       int age = getYears(strDateNais);
-        if (age <18){
-            dateNais.setError("Age min 18 ans");
-            saisieValide = false;
-            focusView = dateNais;
+        if (TextUtils.isEmpty(strDateNais))
+        {
+            dateNais.setError("date de naissance requise");
+        }
+        else {
+            int age = getYears(strDateNais);
+            if (age < 18) {
+                dateNais.setError("Age min 18 ans");
+                saisieValide = false;
+                focusView = dateNais;
+            }
         }
        // validerPseudoInDB();
         System.out.println(" saisievalide = "+saisieValide);
@@ -275,6 +282,18 @@ public class CreationProfilActivity extends Activity {
               confmdp.setError(null);
               mail.setError(null);
             try {
+                String[] list = strDateNais.split("-");
+                int mm = Integer.valueOf(list[0].trim());
+                int dd = Integer.valueOf(list[1].trim());
+                int aaaa = Integer.valueOf(list[2].trim());
+
+                Log.d("annee", String.valueOf(aaaa));
+                Log.d("jour", String.valueOf(dd));
+                Log.d("mois", String.valueOf(mm));
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date d = new Date(aaaa-1900,mm-1,dd);
+                strDateNais = sdf.format(d);
                 creerUtilisateur(strPseudo, strMdp,strMail, strPrenom, strNom,strDateNais,strSex);
 
             }
@@ -282,6 +301,8 @@ public class CreationProfilActivity extends Activity {
                 ex.printStackTrace();
             }
         }
+
+
 
     }
 
@@ -356,7 +377,7 @@ public class CreationProfilActivity extends Activity {
             day   = selectedDay;
 
             // SOutputhow selected date
-            dateNais.setText(new StringBuilder().append(month + 1)
+            dateNais.setText(new StringBuilder().append(month+1)
                     .append("-").append(day).append("-").append(year)
                     .append(" "));
 
