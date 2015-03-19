@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -99,10 +100,11 @@ public class CreationProfilActivity extends Activity {
 
         // gestion affichage calendrier
         final EditText txtCalendar = (EditText) findViewById(R.id.txtCalendar);
-        txtCalendar.setOnClickListener(new View.OnClickListener(){
+        txtCalendar.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event) {
                 showDialog(DATE_PICKER_ID);
+                return false;
             }
         });
 
@@ -301,9 +303,6 @@ public class CreationProfilActivity extends Activity {
                 ex.printStackTrace();
             }
         }
-
-
-
     }
 
 
