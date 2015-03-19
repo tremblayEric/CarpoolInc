@@ -16,7 +16,7 @@ public class Position extends ParseObject implements Serializable {
     }
 
     public double getLatitude() {
-        return getInt("latitude");
+        return getDouble("latitude");
     }
 
     public void setLatitude(double latitude) {
@@ -24,7 +24,7 @@ public class Position extends ParseObject implements Serializable {
     }
 
     public double getLongitude() {
-        return getInt("longitude");
+        return getDouble("longitude");
     }
 
     public void setLongitude(double longitude) {
