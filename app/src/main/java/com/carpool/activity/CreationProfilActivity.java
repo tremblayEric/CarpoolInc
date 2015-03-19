@@ -244,6 +244,24 @@ public class CreationProfilActivity extends Activity {
            saisieValide = false;
            focusView = pseudo;
       }
+        if(TextUtils.isEmpty(strNom))
+        {
+            nom.setError("Champ obligatoire");
+            saisieValide = false;
+            focusView = nom;
+        }
+        if (TextUtils.isEmpty(strPrenom))
+        {
+            prenom.setError("Champ obligatoire");
+            saisieValide = false;
+            focusView = prenom;
+        }
+        if (TextUtils.isEmpty(strDateNais))
+        {
+            dateNais.setError("Champ obligatoire");
+            saisieValide = false;
+            focusView = dateNais;
+        }
         if (TextUtils.isEmpty(strMdp))
         {
             mdp.setError("Champ Obligatoire");
