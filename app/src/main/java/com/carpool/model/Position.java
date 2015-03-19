@@ -15,19 +15,19 @@ public class Position extends ParseObject implements Serializable {
 
     }
 
-    public int getLatitude() {
+    public double getLatitude() {
         return getInt("latitude");
     }
 
-    public void setLatitude(int latitude) {
+    public void setLatitude(double latitude) {
         put("latitude", latitude);
     }
 
-    public int getLongitude() {
+    public double getLongitude() {
         return getInt("longitude");
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(double longitude) {
         put("longitude", longitude);
     }
 }

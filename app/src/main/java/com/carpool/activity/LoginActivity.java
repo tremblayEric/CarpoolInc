@@ -638,7 +638,7 @@ public class LoginActivity extends ActionBarActivity {
             } else {
 
                 TextView texte = (TextView)findViewById(R.id.text_indic);
-                texte.setText("Email ou mot de passe incorrect");
+                texte.setText("Pseudo ou mot de passe incorrect");
 
                 //mPasswordView.setError(getString(R.string.error_incorrect_password));
                 //mPasswordView.requestFocus();

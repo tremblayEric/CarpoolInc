@@ -38,9 +38,7 @@ package com.carpool.activity;
     import java.util.ArrayList;
     import java.util.List;
 
-/**
-     * Created by Bart on 2015-03-07.
-     */
+
     public class ConsultationOffreActivity extends Fragment {
 
         View rootview;
@@ -127,11 +125,11 @@ package com.carpool.activity;
                     e1.printStackTrace();
                 }
 
-                int lattDep = trajetResultat.getPositionDepart().getLatitude();
-                int longDep = trajetResultat.getPositionDepart().getLongitude();
+                double lattDep = trajetResultat.getPositionDepart().getLatitude();
+                double longDep = trajetResultat.getPositionDepart().getLongitude();
 
-                int lattArr = trajetResultat.getPositionArrive().getLatitude();
-                int longArr = trajetResultat.getPositionArrive().getLongitude();
+                double lattArr = trajetResultat.getPositionArrive().getLatitude();
+                double longArr = trajetResultat.getPositionArrive().getLongitude();
 
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
