@@ -145,6 +145,8 @@ public class CreationProfilActivity extends Activity {
                 else{
                     password2.setError(null);
                 }
+
+
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -169,6 +171,36 @@ public class CreationProfilActivity extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
+
+        password1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && password1.getText().length()<5 && password1.getText().length() >0) {
+                    // code to execute when EditText loses focus
+
+                        // errormail.setText("Email invalide");
+                        password1.setError("mot de passe trop court: minimum 5 chiffres");
+                    }
+                    else if (password1.getText().length()>=5){
+                        password1.setError(null);
+                    }
+                }
+        });
+
+        pseudo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && pseudo.getText().length()<5 && pseudo.getText().length() >0) {
+                    // code to execute when EditText loses focus
+
+                    // errormail.setText("Email invalide");
+                    pseudo.setError("pseudo trop court: minimum 5 chiffres");
+                }
+                else if (pseudo.getText().length()>=5){
+                    pseudo.setError(null);
+                }
+            }
+        });
 
 
         // vérification du mail
