@@ -55,6 +55,7 @@ public class CreationProfilActivity extends Activity {
     private  EditText nom ;
     private  EditText prenom;
     private  TextView compteCree;
+    private RadioButton radioF;
 
     static String strPseudo ;
     static String strMdp ;
@@ -64,6 +65,7 @@ public class CreationProfilActivity extends Activity {
     static String strSex ;
     static String strNom;
     static String strPrenom ;
+    static String sexeF;
 
 
     private int year;
@@ -90,6 +92,9 @@ public class CreationProfilActivity extends Activity {
         nom = (EditText) findViewById(R.id.txtNom);
         prenom = (EditText) findViewById(R.id.txtPrenom);
         compteCree = (TextView) findViewById(R.id.compteCree);
+        radioF = (RadioButton)findViewById(R.id.radioF);
+        strSex = radioF.getText().toString();
+
 
         // Get current date by calender
         final Calendar c = Calendar.getInstance();
