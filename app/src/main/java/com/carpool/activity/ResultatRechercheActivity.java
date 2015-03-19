@@ -109,17 +109,18 @@ public class ResultatRechercheActivity extends Fragment {
             Offre uneOffre = lesOffres.get(i);
 
             Date dateDuDepart = uneOffre.getDepart();
-            Date heureDepartAuPlusTot = uneOffre.getHeureDebut();
-            Date heureDepartAuPlusTard = uneOffre.getHeureFin();
+            long heureDepartAuPlusTot = uneOffre.getHeureDebut().getHours();
+            long heureDepartAuPlusTard = uneOffre.getHeureFin().getHours();
 
 
             long diffTemps = dateDuDepart.getTime() - getDateFromDatePicker(datePicker).getTime();
             int jourDeDifference = (int) diffTemps / (1000 * 60 * 60 * 24);
 
 
+            int heureSouhaitable = tempsDepart.getCurrentHour();
+            boolean heureSouhaitableConcordeAvecOffre = ((heureDepartAuPlusTot <= heureSouhaitable ) && (heureDepartAuPlusTard >= heureSouhaitable));
 
-           if(jourDeDifference == 0 ){
-
+           if(jourDeDifference == 0 && heureSouhaitableConcordeAvecOffre){
 
                try {
                    uneOffre.getTrajet().fetchIfNeeded();
@@ -140,7 +141,7 @@ public class ResultatRechercheActivity extends Fragment {
                locationOfferte.setLongitude(trajetResultat.getPositionDepart().getLongitude());
 
                double distance = locationSouhaitable.distanceTo(locationOfferte) / 1000;
-               if (distance <= 100) {
+               if (distance <= 20) {
 
                    locationSouhaitable.setLatitude(Double.parseDouble(((HashMap<String, String>) list.get(1)).get("lat")));
                    locationSouhaitable.setLongitude(Double.parseDouble(((HashMap<String, String>) list.get(1)).get("lng")));
@@ -148,7 +149,7 @@ public class ResultatRechercheActivity extends Fragment {
                    locationOfferte.setLatitude(trajetResultat.getPositionArrive().getLatitude());
                    locationOfferte.setLongitude(trajetResultat.getPositionArrive().getLongitude());
                    distance = locationSouhaitable.distanceTo(locationOfferte) / 1000;
-                   if (distance <= 750) {
+                   if (distance <= 20) {
                        offresAcceptables.add(lesOffres.get(i));
                    }
                }
@@ -216,5 +217,7 @@ for (int i = 0; i < offres.size(); ++i){
         }
         return index;
     }
+
+
 
 }
