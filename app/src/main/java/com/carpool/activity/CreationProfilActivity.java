@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.carpool.CarpoolApplication;
@@ -56,6 +57,8 @@ public class CreationProfilActivity extends Activity {
     private  EditText prenom;
     private  TextView compteCree;
     private RadioButton radioF;
+    private RadioButton radioM;
+    private RadioGroup radioFM;
 
     static String strPseudo ;
     static String strMdp ;
@@ -79,6 +82,7 @@ public class CreationProfilActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_creation_profil);
@@ -93,6 +97,7 @@ public class CreationProfilActivity extends Activity {
         prenom = (EditText) findViewById(R.id.txtPrenom);
         compteCree = (TextView) findViewById(R.id.compteCree);
         radioF = (RadioButton)findViewById(R.id.radioF);
+        radioM = (RadioButton)findViewById(R.id.radioM);
         strSex = radioF.getText().toString();
 
 
@@ -145,9 +150,7 @@ public class CreationProfilActivity extends Activity {
                 else{
                     password2.setError(null);
                 }
-
-
-            }
+           }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -205,7 +208,7 @@ public class CreationProfilActivity extends Activity {
 
         // vérification du mail
         final EditText txtCourriel = (EditText) findViewById(R.id.txtCourriel);
-        final TextView errormail = (TextView) findViewById(R.id.TextView_mailProblem);
+        //final TextView errormail = (TextView) findViewById(R.id.TextView_mailProblem);
 
         txtCourriel.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
@@ -220,13 +223,53 @@ public class CreationProfilActivity extends Activity {
                     else{
                         txtCourriel.setError(null);
                     }
-
-                }
+               }
             }
         });
 
+        /*
+        dateNais.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
-    }
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus && dateNais.getText().length()>0 ) {
+                    // code to execute when EditText loses focus
+                    int age = getYears(dateNais.getText().toString());
+                    if (age < 18) {
+                        dateNais.setError("Age min 18 ans");
+                        //saisieValide = false;
+                        //focusView = dateNais;
+                    }
+
+                else {
+                    dateNais.setError(null);
+                }
+
+        }}});*/
+
+        dateNais.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s)
+            {
+                int age = getYears(dateNais.getText().toString());
+                if (age < 18) {
+                    dateNais.setError("Age min 18 ans");
+
+                    //saisieValide = false;
+                    //focusView = dateNais;
+                }
+
+                else {
+                    dateNais.setError(null);}
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            { dateNais.setError(null);}
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                dateNais.setError(null);
+            }
+        });
+
+  }
 
 
     @Override
@@ -315,16 +358,22 @@ public class CreationProfilActivity extends Activity {
 
         if (TextUtils.isEmpty(strDateNais))
         {
-            dateNais.setError("date de naissance requise");
-        }
-        else {
-            int age = getYears(strDateNais);
+            dateNais.setError("Champ obligatoire");
+            saisieValide = false;
+            focusView = dateNais;
+        } else {
+
+            int age = getYears(dateNais.getText().toString());
             if (age < 18) {
                 dateNais.setError("Age min 18 ans");
+
                 saisieValide = false;
                 focusView = dateNais;
             }
+             else {
+                dateNais.setError(null);}
         }
+
        // validerPseudoInDB();
         System.out.println(" saisievalide = "+saisieValide);
         if(!saisieValide)
@@ -460,12 +509,21 @@ public class CreationProfilActivity extends Activity {
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.radioM:
-                if (checked) strSex="M";
+                if (checked)  {strSex="M"; }
                 break;
             case R.id.radioF:
-                if (checked) strSex="F";
+                if (checked) {strSex="F"; }
+
                 break;
         }
+
+        TextView t = new TextView(this);
+
+       radioFM = (RadioGroup)findViewById(R.id.radio);
+       radioM.requestFocus();
+       // radioFM.has;
+
+       // getCurrentFocus();
     }
 // Calcul de l'age
 
