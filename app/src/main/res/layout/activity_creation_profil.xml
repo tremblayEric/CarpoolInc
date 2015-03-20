@@ -39,7 +39,7 @@
                     android:layout_marginRight="50dp"
                     />
 
-                <TextView android:text="CarPool Inc."
+                 <TextView android:text="CarPool Inc."
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView"
@@ -83,7 +83,7 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Pseudo"
+                    android:text="Pseudo *"
                     android:id="@+id/pseudo"
                     android:layout_alignParentStart="true"
                     android:textColor="#ff000000"
@@ -163,7 +163,7 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Date de naissance"
+                    android:text="Date de naissance *"
                     android:id="@+id/labelCalendarTextView"
                     android:layout_centerVertical="true"
                     android:layout_below="@+id/prenom"
@@ -231,7 +231,7 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Mot de passe"
+                    android:text="Mot de passe *"
                     android:id="@+id/mdp"
                     android:layout_below="@+id/courriel"
                     android:layout_alignParentStart="true"
@@ -259,7 +259,7 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Confirmer"
+                    android:text="Confirmer *"
                     android:id="@+id/confirm_mdp"
                     android:layout_below="@+id/mdp"
                     android:layout_alignParentStart="true"
@@ -276,18 +276,8 @@
                     />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/TextView_PwdProblem"
-                android:layout_alignParentStart="true"
-                android:textSize="@dimen/abc_text_size_small_material"
-                android:textColor="#FF0000"
-                android:layout_gravity="center|right" />
 
-
-            <LinearLayout
+           <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -297,7 +287,7 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Courriel"
+                    android:text="Courriel *"
                     android:id="@+id/courriel"
                     android:layout_below="@+id/sexe"
                     android:layout_alignParentStart="true"
@@ -311,15 +301,7 @@
                     android:layout_weight="0.75"
                     android:ems="10" />
             </LinearLayout>
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/TextView_mailProblem"
-                android:layout_alignParentStart="true"
-                android:textSize="@dimen/abc_text_size_small_material"
-                android:textColor="#FF0000"
-                android:layout_gravity="center|right" />
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -327,16 +309,15 @@
                 android:orientation="horizontal"
                 android:gravity="center">
 
-                <Button
-                    android:layout_width="wrap_content"
+                <Button android:id="@+id/buttonCreer"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="Créer"
-                    android:id="@+id/buttonCreer"
-                    android:background="#9fd054"
-                    />
+                    android:textStyle="bold" />
 
             </LinearLayout>
-
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
