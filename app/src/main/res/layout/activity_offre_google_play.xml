@@ -51,6 +51,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/date_offre"
-        android:layout_below="@id/arrivee_offert"/>
+        android:layout_below="@id/date_offre"/>
+
+    <TimePicker
+        android:id="@+id/temps_Arrivee_offert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/temps_Depart_offert"
+        android:layout_below="@id/temps_Depart_offert"/>
 
 </RelativeLayout>
