@@ -20,8 +20,11 @@ import android.widget.TextView;
 import android.widget.Button;
 import com.carpool.model.User;
 import android.content.Intent;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.w3c.dom.Text;
+import java.util.Calendar;
 
 /**
  * Created by Bart on 2015-03-07.
@@ -77,14 +80,31 @@ public class ProfilActivity extends Fragment {
             TextViewPseudo.setText(currentUser.getUsername());
             TextviewNom.setText(currentUser.getString("firstname"));
             TextViewPrenom.setText(currentUser.getString("lastname"));
-            TextViewdate_naissance.setText(String.valueOf(currentUser.getDate("birthday").getDay()));
-            TextViewdate_naissance.append(" "+String.valueOf(currentUser.getDate("birthday").getMonth()));
+            TextViewdate_naissance.setText(String.valueOf(getDayOfMonth(date_naiss)));
+           // TextViewdate_naissance.append(" "+String.valueOf(currentUser.getDate("birthday").getMonth()));
 
-            Log.d("valeur du mois", String.valueOf(currentUser.getDate("birthday").getMonth()));
-            switch(date_naiss.getMonth())
+            /*
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date d = new Date();
+            try {
+                d = sdf.parse(date_naiss.toString());
+            } catch (java.text.ParseException e) {
+                e.printStackTrace();
+            }
+
+
+            Log.d("valeur du jour modif", String.valueOf(d.getDay()));
+            Log.d("valeur du jour ancien", String.valueOf(date_naiss.getDay()));
+            Log.d("getDayofmonth", String.valueOf(getDayOfMonth(date_naiss)));
+
+            Log.d("valeur du mois ancien", String.valueOf(date_naiss.getMonth()));
+            Log.d("valeur du mois modifie", String.valueOf(d.getMonth()));
+
+            Log.d("valeur an ancien", String.valueOf(date_naiss.getYear()));
+            Log.d("valeur an modifie", String.valueOf(d.getYear()));*/
+
+            switch(date_naiss.getMonth()+1)
             {
-                case 0: TextViewdate_naissance.append(" Aucun mois ");
-                    break;
                 case 1: TextViewdate_naissance.append(" Janvier ");
                     break;
                 case 2: TextViewdate_naissance.append(" Fevrier ");
@@ -110,7 +130,7 @@ public class ProfilActivity extends Fragment {
                 case 12: TextViewdate_naissance.append(" Decembre ");
                     break;
             }
-            TextViewdate_naissance.append(" "+String.valueOf(date_naiss.getYear()));
+            TextViewdate_naissance.append(" "+String.valueOf(date_naiss.getYear()+1900));
 
             TextViewsexe.setText(currentUser.getString("gender"));
             TextViewcourriel.setText(currentUser.getString("email"));
@@ -179,8 +199,15 @@ public class ProfilActivity extends Fragment {
             activite.finish();
 
         }
-
     }
+
+    public static int getDayOfMonth(Date aDate) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(aDate);
+        return cal.get(Calendar.DAY_OF_MONTH);
+    }
+
+
 }
 
 

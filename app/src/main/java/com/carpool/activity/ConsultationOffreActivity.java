@@ -21,6 +21,7 @@ package com.carpool.activity;
     import com.parse.ParseException;
     import com.parse.ParseObject;
     import com.parse.ParseQuery;
+    import com.parse.ParseUser;
 
     import org.apache.http.HttpEntity;
     import org.apache.http.HttpResponse;
@@ -38,9 +39,7 @@ package com.carpool.activity;
     import java.util.ArrayList;
     import java.util.List;
 
-/**
-     * Created by Bart on 2015-03-07.
-     */
+
     public class ConsultationOffreActivity extends Fragment {
 
         View rootview;
@@ -73,7 +72,7 @@ package com.carpool.activity;
 
 
             ParseQuery<Offre> query = ParseQuery.getQuery("Offre");
-            //query.whereEqualTo("playerName", "Dan Stemkoski");
+            query.whereEqualTo("userOffre", ParseUser.getCurrentUser());
             query.findInBackground(new FindCallback<Offre>() {
                 @Override
                 public void done(List<Offre> offres, ParseException e) {

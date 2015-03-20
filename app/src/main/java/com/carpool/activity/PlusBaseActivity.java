@@ -106,7 +106,9 @@ public abstract class PlusBaseActivity extends ActionBarActivity {
         mAutoResolveOnFail = true;
         updateConnectButtonState();
         startResolution();
+
         //initiatePlusClientConnect();
+
     }
 
     /**

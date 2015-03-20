@@ -10,11 +10,13 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.carpool.CarpoolApplication;
@@ -40,7 +42,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import android.util.Log;
 
 // Class Création d'un profil utilisateur
 public class CreationProfilActivity extends Activity {
@@ -65,6 +67,7 @@ public class CreationProfilActivity extends Activity {
     static String strPrenom ;
 
 
+
     private int year;
     private int month;
     private int day;
@@ -76,6 +79,7 @@ public class CreationProfilActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_creation_profil);
@@ -90,6 +94,7 @@ public class CreationProfilActivity extends Activity {
         prenom = (EditText) findViewById(R.id.txtPrenom);
         compteCree = (TextView) findViewById(R.id.compteCree);
 
+
         // Get current date by calender
         final Calendar c = Calendar.getInstance();
         year  = c.get(Calendar.YEAR);
@@ -99,10 +104,11 @@ public class CreationProfilActivity extends Activity {
 
         // gestion affichage calendrier
         final EditText txtCalendar = (EditText) findViewById(R.id.txtCalendar);
-        txtCalendar.setOnClickListener(new View.OnClickListener(){
+        txtCalendar.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event) {
                 showDialog(DATE_PICKER_ID);
+                return false;
             }
         });
 
@@ -118,27 +124,23 @@ public class CreationProfilActivity extends Activity {
         // vérification de la confirmation de mot de passe
         final EditText password1 = (EditText) findViewById(R.id.txtMdp);
         final EditText password2 = (EditText) findViewById(R.id.txtConfMdp);
-        final TextView error = (TextView) findViewById(R.id.TextView_PwdProblem);
+
         strMdp = password1.getText().toString();
 
-     //   if (!TextUtils.isEmpty(strMdp) && !isPasswordValid(strMdp)) {
-      //      password1.setError("Mot de passe très court");
-       // }
 
-
-
+      // Controle sur la confirmation de Mdp
         password2.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
                 String strPass1 = password1.getText().toString();
                 String strPass2 = password2.getText().toString();
                 if (!strPass1.equals(strPass2)) {
-                   // error.setText(R.string.settings_pwd_not_equal);
+
                     password2.setError("Confirmation invalide");
                 }
                 else{
                     password2.setError(null);
                 }
-            }
+           }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -162,32 +164,80 @@ public class CreationProfilActivity extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
+     // Controle sur la taille du Mdp
+        password1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && password1.getText().length()<5 && password1.getText().length() >0) {
+                    // code to execute when EditText loses focus
+
+                       password1.setError("mot de passe trop court: minimum 5 caractères");
+                    }
+                    else if (password1.getText().length()>=5){
+                        password1.setError(null);
+                    }
+                }
+        });
+
+      /*  pseudo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && pseudo.getText().length()<5 && pseudo.getText().length() >0) {
+                    // code to execute when EditText loses focus
+
+                    // errormail.setText("Email invalide");
+                    pseudo.setError("Pseudo trop court: minimum 5 chiffres");
+                }
+                else if (pseudo.getText().length()>=5){
+                    pseudo.setError(null);
+                }
+            }
+        });*/
 
 
-        // vérification du mail
+        // Controle sur le format de l'adresse email
         final EditText txtCourriel = (EditText) findViewById(R.id.txtCourriel);
-        final TextView errormail = (TextView) findViewById(R.id.TextView_mailProblem);
-
         txtCourriel.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && txtCourriel.getText().length()>0) {
                     // code to execute when EditText loses focus
                     if(!isValidEmailAddress(txtCourriel.getText().toString()))
                     {
-                       // errormail.setText("Email invalide");
-                        txtCourriel.setError("Email invalide");
+                       txtCourriel.setError("Email invalide");
                     }
-                    else{
+                    else
+                    {
                         txtCourriel.setError(null);
                     }
-
-                }
+               }
             }
         });
 
+        // Controle sur l'age de l'utilisateur min 18 ans
+        dateNais.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s)
+            {
+                int age = getYears(dateNais.getText().toString());
+                if (age < 18)
+                {
+                    dateNais.setError("Age min 18 ans");
+                }
 
-    }
+                else
+                {
+                    dateNais.setError(null);
+                 }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            { dateNais.setError(null);}
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                dateNais.setError(null);
+            }
+        });
+
+  }
 
 
     @Override
@@ -215,7 +265,7 @@ public class CreationProfilActivity extends Activity {
     }
 
 
-    /** Called when the user clicks the Send button */
+    // Déclancher lors de clique sur le bouton Créer
     public void ajouterUtilisateur(View view) {
 
         boolean saisieValide = true;
@@ -225,6 +275,7 @@ public class CreationProfilActivity extends Activity {
         strMdp = mdp.getText().toString();
         strConfMdp = confmdp.getText().toString();
         strMail = mail.getText().toString();
+
         strDateNais = dateNais.getText().toString();
         strNom = nom.getText().toString();
         strPrenom = prenom.getText().toString();
@@ -232,11 +283,11 @@ public class CreationProfilActivity extends Activity {
 
        if (TextUtils.isEmpty(strPseudo))
        {
-            pseudo.setError("Champ Obligatoire");
+           pseudo.setError("Champ Obligatoire");
            saisieValide = false;
            focusView = pseudo;
       }
-        if (TextUtils.isEmpty(strMdp))
+      if (TextUtils.isEmpty(strMdp))
         {
             mdp.setError("Champ Obligatoire");
             saisieValide = false;
@@ -255,14 +306,16 @@ public class CreationProfilActivity extends Activity {
            focusView = mail;
        }
 
-       int age = getYears(strDateNais);
-        if (age <18){
-            dateNais.setError("Age min 18 ans");
+        if (TextUtils.isEmpty(strDateNais))
+        {
+            dateNais.setError("Champ obligatoire");
             saisieValide = false;
             focusView = dateNais;
         }
-       // validerPseudoInDB();
+
+
         System.out.println(" saisievalide = "+saisieValide);
+
         if(!saisieValide)
         {
             focusView.requestFocus();
@@ -275,6 +328,18 @@ public class CreationProfilActivity extends Activity {
               confmdp.setError(null);
               mail.setError(null);
             try {
+                String[] list = strDateNais.split("-");
+                int mm = Integer.valueOf(list[0].trim());
+                int dd = Integer.valueOf(list[1].trim());
+                int aaaa = Integer.valueOf(list[2].trim());
+
+                Log.d("annee", String.valueOf(aaaa));
+                Log.d("jour", String.valueOf(dd));
+                Log.d("mois", String.valueOf(mm));
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date d = new Date(aaaa-1900,mm-1,dd);
+                strDateNais = sdf.format(d);
                 creerUtilisateur(strPseudo, strMdp,strMail, strPrenom, strNom,strDateNais,strSex);
 
             }
@@ -282,10 +347,9 @@ public class CreationProfilActivity extends Activity {
                 ex.printStackTrace();
             }
         }
-
     }
 
-
+    // Ajout d'un nouveau utilisateur dans la BD
     private void creerUtilisateur(String userName, String password, String email,
                                   String firstName, String lastName,
                                   String birthDay,String gender) throws ParseException {
@@ -356,7 +420,7 @@ public class CreationProfilActivity extends Activity {
             day   = selectedDay;
 
             // SOutputhow selected date
-            dateNais.setText(new StringBuilder().append(month + 1)
+            dateNais.setText(new StringBuilder().append(month+1)
                     .append("-").append(day).append("-").append(year)
                     .append(" "));
 
@@ -364,7 +428,7 @@ public class CreationProfilActivity extends Activity {
     };
 
 
-    // valdation adresse mail
+    // valdation du format de l'adresse mail
     public boolean isValidEmailAddress(String emailAddress) {
         String emailRegEx;
         Pattern pattern;
@@ -385,15 +449,18 @@ public class CreationProfilActivity extends Activity {
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.radioM:
-                if (checked) strSex="M";
+                if (checked)  {strSex="M"; }
                 break;
             case R.id.radioF:
-                if (checked) strSex="F";
+                if (checked) {strSex="F"; }
+
                 break;
         }
-    }
-// Calcul de l'age
 
+       }
+
+
+     // Calcul de l'age
     public static int getYears(String strDate)
 
     {
