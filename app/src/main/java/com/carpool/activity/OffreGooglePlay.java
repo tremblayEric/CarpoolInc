@@ -249,7 +249,7 @@ public class OffreGooglePlay extends FragmentActivity {
         protected void onPostExecute(List<HashMap<String,String>> list){
 
             /*
-             * les position retournees par googl sont dans la liste reçue en parametre
+             * les position retournees par google sont dans la liste reçue en parametre
              *
              */
             DatePicker datePicker = (DatePicker) findViewById(R.id.date_offre);
