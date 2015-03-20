@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -55,7 +56,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import static android.app.PendingIntent.getActivity;
-
+import bolts.Task;
 
 /**
  * A login screen that offers login via email/password and via Google+ sign in.
@@ -90,56 +91,13 @@ public class LoginActivity extends ActionBarActivity {
     boolean succu;
     List<ParseObject> listUser;
     ParseUser utilis;
+    String abcd;
+    boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        /*
-        ParseObject.registerSubclass(Cote.class);
-        ParseObject.registerSubclass(Offre.class);
-        ParseObject.registerSubclass(Position.class);
-        ParseObject.registerSubclass(Reservation.class);
-        ParseObject.registerSubclass(Trajet.class);
-        ParseUser.registerSubclass(User.class);
-
-        // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-
-        Parse.initialize(this, "b0qpztTLfYQeRZBAeQGHX6pywO3pcCUorGfEbnAZ", "EDWDuQ4TYxmW7bZf7Yz51M2OJSXULsW9syUWaC58");*/
-
-
-
-
-
-
-
-        /***
-         *  Modifie par Jeanne
-         *
-         * on utilisera pas tout ce qui est service Google Play
-
-
-        // Find the Google+ sign in button.
-        mPlusSignInButton = (SignInButton) findViewById(R.id.plus_sign_in_button);
-        if (supportsGooglePlayServices()) {
-            // Set a listener to connect the user when the G+ button is clicked.
-            mPlusSignInButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    signIn();
-                }
-            });
-        } else {
-            // Don't offer G+ sign in if the app's version is too low to support Google Play
-            // Services.
-            mPlusSignInButton.setVisibility(View.GONE);
-            return;
-        }
-
-
-        **/
-
 
 
         // Set up the login form.
@@ -147,19 +105,6 @@ public class LoginActivity extends ActionBarActivity {
         //populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
-        /*
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });*/
-
-
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -186,19 +131,11 @@ public class LoginActivity extends ActionBarActivity {
             }
         });
 
-
-
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         mEmailLoginFormView = findViewById(R.id.email_login_form);
 
-
-
     }
-/*
-    private void populateAutoComplete() {
-        getLoaderManager().initLoader(0, null, this);
-    }*/
 
 
     /**
@@ -207,16 +144,6 @@ public class LoginActivity extends ActionBarActivity {
      * errors are presented and no actual login attempt is made.
      */
     public void attemptLogin() {
-
-        // si l'authentification est reussie: Ici il faut retournee un booleen qui va specifier si l'authentification est "ok"
-        /**
-         *  modifie par Jeanne
-         *  Ne pas s'etonner si l'authentification ne reussie pas
-         */
-
-        //if (mAuthTask != null) {
-        //  return;
-        //}
 
         // Reset errors.
         mUsername.setError(null);
@@ -240,17 +167,6 @@ public class LoginActivity extends ActionBarActivity {
                 focusView = mPasswordView;
                 cancel = true;
             }
-            /*
-            else if (!isEmailValid(email)) {
-                mUsername.setError(getString(R.string.error_invalid_email));
-                focusView = mUsername;
-                cancel = true;
-            } else if (!isPasswordValid(password)) {
-                mPasswordView.setError(getString(R.string.error_invalid_password));
-                focusView = mPasswordView;
-                cancel = true;
-            }*/
-
         }
         else if (TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
             mUsername.setError(getString(R.string.error_field_required));
@@ -285,20 +201,6 @@ public class LoginActivity extends ActionBarActivity {
 
         }
 
-
-
-
-        /*
-        if(TextUtils.isEmpty(password)){
-            mPasswordView.setError("mot de passe requis");
-            focusView = mPasswordView;
-            cancel = true;
-        } else if (!isPasswordValid(password)){
-            mPasswordView.setError("Mot de passe invalide");
-            focusView = mPasswordView;
-            cancel = true;
-        }*/
-
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -306,16 +208,12 @@ public class LoginActivity extends ActionBarActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+
             showProgress(true);
 
             // Ici l'authentification est a mettre
-
             mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
-
-            //connexion a la base de donnee Parse
-            // on recupere l'email et le mot de passe
-            //
+            mAuthTask.execute();
         }
     }
 
@@ -372,122 +270,10 @@ public class LoginActivity extends ActionBarActivity {
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+
+        //utilis = user;
     }
 
-    /*@Override
-    protected void onPlusClientSignIn() {
-        //Set up sign out and disconnect buttons.
-        /*Button signOutButton = (Button) findViewById(R.id.plus_sign_out_button);
-        //signOutButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signOut();
-            }
-        });
-       // Button disconnectButton = (Button) findViewById(R.id.plus_disconnect_button);
-        //disconnectButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                revokeAccess();
-            }
-        });
-    }*/
-/*
-    @Override
-    protected void onPlusClientBlockingUI(boolean show) {
-        showProgress(show);
-    }*/
-/*
-    @Override
-    protected void updateConnectButtonState() {
-        //TODO: Update this logic to also handle the user logged in by email.
-        boolean connected = getPlusClient().isConnected();
-
-//        mSignOutButtons.setVisibility(connected ? View.VISIBLE : View.GONE);
-        /***
-         * modifie par jeanne
-         */
-        //mPlusSignInButton.setVisibility(connected ? View.GONE : View.VISIBLE);
-        //mEmailLoginFormView.setVisibility(connected ? View.GONE : View.VISIBLE);
-  //  }*/
-
-    /*
-
-    @Override
-    protected void onPlusClientRevokeAccess() {
-        // TODO: Access to the user's G+ account has been revoked.  Per the developer terms, delete
-        // any stored user data here.
-    }
-
-    @Override
-    protected void onPlusClientSignOut() {
-
-    }*/
-
-    /**
-     * Check if the device supports Google Play Services.  It's best
-     * practice to check first rather than handling this as an error case.
-     *
-     * @return whether the device supports Google Play Services
-
-    private boolean supportsGooglePlayServices() {
-        return GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) ==
-                ConnectionResult.SUCCESS;
-    } */
-
-    /*@Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(this,
-                // Retrieve data rows for the device user's 'profile' contact.
-                Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
-
-                // Select only email addresses.
-                ContactsContract.Contacts.Data.MIMETYPE +
-                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
-                .CONTENT_ITEM_TYPE},
-
-                // Show primary email addresses first. Note that there won't be
-                // a primary email address if the user hasn't specified one.
-                ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
-    }*/
-
-    /*@Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> emails = new ArrayList<String>();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
-            cursor.moveToNext();
-        }
-
-        addEmailsToAutoComplete(emails);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
-    }
-
-    private interface ProfileQuery {
-        String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
-
-        int ADDRESS = 0;
-        int IS_PRIMARY = 1;
-    }
-
-
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mEmailView.setAdapter(adapter);
-    }
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
@@ -498,7 +284,8 @@ public class LoginActivity extends ActionBarActivity {
         private final String mEmail;
         private final String mPassword;
 
-        UserLoginTask(String email, String password) {
+        UserLoginTask(String email, String password)
+        {
             mEmail = email;
             mPassword = password;
         }
@@ -509,139 +296,50 @@ public class LoginActivity extends ActionBarActivity {
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            // remplir le tableau dummy_credential avec les donnees de la base de donnees
-
-            //connexion a la base de donnee Parse
-            //final TextView texte = (TextView)findViewById(R.id.text_indic);
-
-            /*
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Users");
-            query.whereEqualTo("email", "df11@yahoo.fr");
-            //query.whereEqualTo("password", mPassword);
-
-            query.getFirstInBackground(new GetCallback<ParseObject>()  {
-                String text ;
-                public void done(ParseObject object, ParseException e) {
-                    //ParseObject user = new ParseObject("Users");
-                        if (e == null) {
-
-                            // object will be your game score
-                            texte.setText("objet retrouvee "+object.getString("username"));
-                            succu = true;
-
-                        } else {
-                            // something went wrong
-                            succu = false;
-                            texte.setText("erreur "+object.getString("username"));
-                        }
-                    }
-            });*/
-
-            /*
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
-            query.whereEqualTo("email", mEmail);
-            query.whereEqualTo("password", "");
-            query.findInBackground(new FindCallback<ParseObject>() {
-                public void done(List<ParseObject> scoreList, ParseException e) {
-                    if (e == null) {
-                        if (scoreList.size() != 0) {
-                            listUser = scoreList;
-
-                            Log.d("email", "Retrieved " + scoreList.get(0).getObjectId() + " scores");
-                            texte.setText(scoreList.get(0).getString("password"));
-                            //succu = true;
-                        }
-
-
-                    } else {
-                        Log.d("username", "Error: " + e.getMessage());
-                        texte.setText(scoreList.get(0).getString("username"));
-                        //succu = false;
-                    }
-                }
-            });*/
-
             ParseUser.logInInBackground(mEmail, mPassword.trim().toString(), new LogInCallback() {
                 @Override
                 public void done(ParseUser user, ParseException e) {
                     if (user != null)
                     {
                         utilis = user;
-                        //Log.d("if", utilis.getObjectId());
-
-
-                    }else
-                    {
-                        //Log.d("failed", "failed");
+                        flag = true;
                     }
                 }
             });
 
 
-           // User user;
-           // string userName = user.setUsername().toString();
+            while (!flag)
+            {
 
-/*
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
             }
 
-            // TODO: register the new account here.
-            return false;*/
-            //texte.setText(String.valueOf(succu));
-
-            try {
-                Thread.currentThread().sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             if(utilis != null) {
-                //if (listUser.size() == 1) {
-
-                    Log.d("bon ", utilis.getObjectId());
                     return true;
-                //}
-               // else {
-
-                    //Log.d("requete faite ", "aucun utilisateur trouvee");
-                   // return false;
-               // }
             }
-            //Log.d("erreur", "erreur null");
             return false;
-
         }
 
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-            showProgress(false);
+
+            showProgress(true);
 
             if (success) {
 
+                Log.d("utilis", utilis.getObjectId());
+
                 Intent newActivity = new Intent(LoginActivity.this, AccueilActivity.class);
+
                 startActivity(newActivity);
+
                 finish();
+
             } else {
 
                 TextView texte = (TextView)findViewById(R.id.text_indic);
                 texte.setText("Email ou mot de passe incorrect");
-
-                //mPasswordView.setError(getString(R.string.error_incorrect_password));
-                //mPasswordView.requestFocus();
             }
         }
 
