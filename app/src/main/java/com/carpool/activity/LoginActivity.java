@@ -208,7 +208,7 @@ public class LoginActivity extends ActionBarActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-
+            flag = false;
             showProgress(true);
 
             // Ici l'authentification est a mettre
