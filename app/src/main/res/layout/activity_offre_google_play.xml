@@ -28,14 +28,14 @@
         android:layout_height="wrap_content"
         android:hint="@string/hint"
         android:inputType="text"
-        android:layout_below="@id/depart_place"
+        android:layout_below="@id/depart_offert"
         android:layout_toLeftOf="@id/btn_offrir" />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/map_offre"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/et_place"
+        android:layout_below="@id/arrivee_offert"
         class="com.google.android.gms.maps.SupportMapFragment"
         />
 
@@ -44,20 +44,20 @@
         android:layout_height="wrap_content"
         android:id="@+id/date_offre"
         android:calendarViewShown="false"
-        android:layout_below="@id/et_place"/>
+        android:layout_below="@id/arrivee_offert"/>
 
     <TimePicker
         android:id="@+id/temps_Depart_offert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/date_offre"
-        android:layout_below="@id/date_offre"/>
+        android:layout_below="@id/arrivee_offert"/>
 
     <TimePicker
         android:id="@+id/temps_Arrivee_offert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/temps_Depart_offert"
-        android:layout_below="@id/temps_Depart_offert"/>
+        android:layout_below="@id/arrivee_offert"/>
 
 </RelativeLayout>

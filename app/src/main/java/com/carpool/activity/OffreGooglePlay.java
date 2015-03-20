@@ -249,12 +249,16 @@ public class OffreGooglePlay extends FragmentActivity {
         protected void onPostExecute(List<HashMap<String,String>> list){
 
             /*
-             *
+             * les position retournees par googl sont dans la liste reçue en parametre
              *
              */
             DatePicker datePicker = (DatePicker) findViewById(R.id.date_offre);
             TimePicker tempsDepart = (TimePicker) findViewById(R.id.temps_Depart_offert);
             TimePicker tempsArrivee = (TimePicker) findViewById(R.id.temps_Arrivee_offert);
+
+            //utiliser les donne plus heut pour enregistrer la nouvelle position
+
+
 
             /*
             Fragment resultSearchFragment = new ResultatRechercheActivity();
