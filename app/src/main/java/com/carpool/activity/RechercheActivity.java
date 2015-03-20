@@ -26,7 +26,7 @@ View rootview;
        //super.onCreate(savedInstanceState);
         //setcontentview(R.layout.recherche_layout);
 
-//Pass the context and the Activity class you need to open from the Fragment Class, to the Intent
+       //Pass the context and the Activity class you need to open from the Fragment Class, to the Intent
         Intent intent = new Intent(context, Adresse.class);
         startActivity(intent);
         return rootview;

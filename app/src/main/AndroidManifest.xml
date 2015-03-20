@@ -75,6 +75,10 @@
             android:name=".Adresse"
             android:label="@string/title_activity_adresse" >
         </activity>
+        <activity
+            android:name=".OffreGooglePlay"
+            android:label="@string/title_activity_offreGooglePlay" >
+        </activity>
 
     </application>
 
