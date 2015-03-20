@@ -302,8 +302,8 @@ public class LoginActivity extends ActionBarActivity {
                     if (user != null)
                     {
                         utilis = user;
-                        flag = true;
-                    }
+
+                    }flag = true;
                 }
             });
 
@@ -336,7 +336,7 @@ public class LoginActivity extends ActionBarActivity {
 
                 finish();
 
-            } else {
+            } else {  showProgress(false);
 
                 TextView texte = (TextView)findViewById(R.id.text_indic);
 
