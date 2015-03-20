@@ -2,6 +2,7 @@ package com.carpool.model;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -21,21 +22,20 @@ public class Offre extends ParseObject implements Serializable {
 
     }
 
-
-    public User getUser() {
-        return (User)getParseObject("userOffre");
-    }
-
-    public void setUser(User user) {
-        put("userOffre", user);
-    }
-
     public Trajet getTrajet() {
         return (Trajet)getParseObject("trajetOffre");
     }
 
     public void setTrajet(Trajet trajet) {
         put("trajetOffre", trajet);
+    }
+
+    public ParseUser getUser() {
+        return (ParseUser)getParseUser("userOffre");
+    }
+
+    public void setUser(ParseUser user) {
+        put("userOffre", user);
     }
 
     public int getNbreProposition() {

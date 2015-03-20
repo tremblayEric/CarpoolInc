@@ -17,7 +17,12 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
 
     <permission
         android:name="in.wptrafficanalyzer.locationgeocodingv2.permission.MAPS_RECEIVE"
@@ -58,18 +63,23 @@
             </intent-filter>
         </activity>
 
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyCffC-xYqk8C6o5R6eXCZ3qRQ_RFIhzLGM"/>
 
         <activity
             android:name=".CreationProfilActivity"
             android:label="@string/title_activity_creation_profil" >
         </activity>
 
-        <meta-data
+        <!--<meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAlmJpByv6Zq4eu_28CATvR9BcB6OMsdkU" />
+            android:value="AIzaSyAlmJpByv6Zq4eu_28CATvR9BcB6OMsdkU" />-->
 
         <activity
             android:name=".Adresse"

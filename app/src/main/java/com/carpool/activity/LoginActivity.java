@@ -147,6 +147,7 @@ public class LoginActivity extends ActionBarActivity {
 
         // Reset errors.
         mUsername.setError(null);
+
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
