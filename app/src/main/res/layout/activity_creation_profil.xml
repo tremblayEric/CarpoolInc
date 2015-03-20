@@ -21,7 +21,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearLayout">
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -176,7 +177,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.75"
-                    android:ems="10" />
+                    android:ems="10"
+                    android:hint="Choisir une date"
+                    android:textColorHint="#ffa1ca75"
+                    android:textSize="@dimen/abc_text_size_small_material" />
             </LinearLayout>
 
             <LinearLayout
@@ -242,7 +246,6 @@
                     android:password="true"
                     />
             </LinearLayout>
-
 
 
             <LinearLayout
@@ -333,6 +336,18 @@
 
             </LinearLayout>
 
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/compteCree"
+                    android:layout_alignParentStart="true"
+                    android:textSize="@dimen/abc_text_size_small_material"
+                    android:textColor="#FF0000"
+                    android:layout_gravity="center|right" />
+
+
         </LinearLayout>
+
     </RelativeLayout>
 </ScrollView>

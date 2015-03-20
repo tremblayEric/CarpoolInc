@@ -3,8 +3,10 @@ package com.carpool.activity;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,13 +17,26 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.carpool.CarpoolApplication;
+import com.carpool.model.Cote;
+import com.carpool.model.Offre;
+import com.carpool.model.Position;
+import com.carpool.model.Reservation;
+import com.carpool.model.Trajet;
 import com.carpool.model.User;
 import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
+
+import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,6 +53,7 @@ public class CreationProfilActivity extends Activity {
     private  EditText dateNais ;
     private  EditText nom ;
     private  EditText prenom;
+    private  TextView compteCree;
 
     static String strPseudo ;
     static String strMdp ;
@@ -64,6 +80,7 @@ public class CreationProfilActivity extends Activity {
 
         setContentView(R.layout.activity_creation_profil);
 
+
         pseudo = (EditText) findViewById(R.id.txtPseudo);
         mdp = (EditText) findViewById(R.id.txtMdp);
         confmdp = (EditText) findViewById(R.id.txtConfMdp);
@@ -71,6 +88,7 @@ public class CreationProfilActivity extends Activity {
         dateNais = (EditText) findViewById(R.id.txtCalendar);
         nom = (EditText) findViewById(R.id.txtNom);
         prenom = (EditText) findViewById(R.id.txtPrenom);
+        compteCree = (TextView) findViewById(R.id.compteCree);
 
         // Get current date by calender
         final Calendar c = Calendar.getInstance();
@@ -101,16 +119,24 @@ public class CreationProfilActivity extends Activity {
         final EditText password1 = (EditText) findViewById(R.id.txtMdp);
         final EditText password2 = (EditText) findViewById(R.id.txtConfMdp);
         final TextView error = (TextView) findViewById(R.id.TextView_PwdProblem);
+        strMdp = password1.getText().toString();
+
+     //   if (!TextUtils.isEmpty(strMdp) && !isPasswordValid(strMdp)) {
+      //      password1.setError("Mot de passe très court");
+       // }
+
+
 
         password2.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
                 String strPass1 = password1.getText().toString();
                 String strPass2 = password2.getText().toString();
                 if (!strPass1.equals(strPass2)) {
-                    error.setText(R.string.settings_pwd_not_equal);
+                   // error.setText(R.string.settings_pwd_not_equal);
+                    password2.setError("Confirmation invalide");
                 }
                 else{
-                    error.setText("");
+                    password2.setError(null);
                 }
             }
 
@@ -123,10 +149,12 @@ public class CreationProfilActivity extends Activity {
                 String strPass1 = password1.getText().toString();
                 String strPass2 = password2.getText().toString();
                 if (!strPass1.equals(strPass2) && strPass2.length()>0) {
-                    error.setText(R.string.settings_pwd_not_equal);
+                    //error.setText(R.string.settings_pwd_not_equal);
+                    password2.setError("Confirmation invalide");
+
                 }
                 else{
-                    error.setText("");
+                    password2.setError(null);
                 }
             }
 
@@ -147,15 +175,18 @@ public class CreationProfilActivity extends Activity {
                     // code to execute when EditText loses focus
                     if(!isValidEmailAddress(txtCourriel.getText().toString()))
                     {
-                        errormail.setText("Email invalide");
+                       // errormail.setText("Email invalide");
+                        txtCourriel.setError("Email invalide");
                     }
                     else{
-                        errormail.setText("");
+                        txtCourriel.setError(null);
                     }
 
                 }
             }
         });
+
+
     }
 
 
@@ -188,6 +219,7 @@ public class CreationProfilActivity extends Activity {
     public void ajouterUtilisateur(View view) {
 
         boolean saisieValide = true;
+        View focusView = null;
 
         strPseudo = pseudo.getText().toString();
         strMdp = mdp.getText().toString();
@@ -198,42 +230,50 @@ public class CreationProfilActivity extends Activity {
         strPrenom = prenom.getText().toString();
 
 
-        if (strPseudo.length()==0)
-        {
+       if (TextUtils.isEmpty(strPseudo))
+       {
             pseudo.setError("Champ Obligatoire");
-            saisieValide = false;
-        }
-        if (strMdp.length()==0)
+           saisieValide = false;
+           focusView = pseudo;
+      }
+        if (TextUtils.isEmpty(strMdp))
         {
             mdp.setError("Champ Obligatoire");
             saisieValide = false;
-        }
-        if (strConfMdp.length()==0)
+            focusView = mdp;
+       }
+       if (TextUtils.isEmpty(strConfMdp))
         {
             confmdp.setError("Champ Obligatoire");
             saisieValide = false;
-        }
-        if (strMail.length()==0)
-        {
-            mail.setError("Champ Obligatoire");
-            saisieValide = false;
-        }
-        // Vérifier si le pseudo existe déjà dans la base
-//        if (saisieValide) {
-//            validerPseudoInDB();
-//            while (!validationPseudoDone) {
-//                saisieValide = true;
-//            }
-//            if (pseudoExisteInDB) {
-//                pseudo.setError("Pseudo dejà utilisé");
-//                saisieValide = false;
-//            }
-//        }
-        // Fin vérification existance de pseudo dans ls BD
+            focusView = confmdp;
+      }
+        if (TextUtils.isEmpty(strMail))
+       {
+          mail.setError("Champ Obligatoire");
+          saisieValide = false;
+           focusView = mail;
+       }
 
+       int age = getYears(strDateNais);
+        if (age <18){
+            dateNais.setError("Age min 18 ans");
+            saisieValide = false;
+            focusView = dateNais;
+        }
        // validerPseudoInDB();
-        System.out.println(" saisievalide");
-        if (saisieValide) {
+        System.out.println(" saisievalide = "+saisieValide);
+        if(!saisieValide)
+        {
+            focusView.requestFocus();
+        }
+         else //(saisieValide)
+          {
+              dateNais.setError(null);
+              pseudo.setError(null);
+              mdp.setError(null);
+              confmdp.setError(null);
+              mail.setError(null);
             try {
                 creerUtilisateur(strPseudo, strMdp,strMail, strPrenom, strNom,strDateNais,strSex);
 
@@ -249,7 +289,7 @@ public class CreationProfilActivity extends Activity {
     private void creerUtilisateur(String userName, String password, String email,
                                   String firstName, String lastName,
                                   String birthDay,String gender) throws ParseException {
-
+        View focusView = null;
         System.out.println(" appel a creer Utilisateur");
         User us = new User();
         us.setUsername(userName);
@@ -258,28 +298,37 @@ public class CreationProfilActivity extends Activity {
         us.setFirstname(firstName);
         us.setLastname(lastName);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
         us.setBirthday(sdf.parse(birthDay));
         us.setGender(User.UserGender.valueOf(gender));
-        System.out.println(" appel a saveInBackground");
+
         us.saveInBackground();
-        System.out.println(" fin appel a saveInBackground");
+        System.out.println("Fin saveinBackground");
 
+        us.signUpInBackground(new SignUpCallback() {
+            public void done(com.parse.ParseException e) {
+                if (e == null) {
+                    // Hooray! Let them use the app now.
+                    System.out.println("Exception signUpInBackground is null  ");
+                    compteCree.setError(null);
+                    compteCree.setText("Compte Créé avec succès!");
 
- //       us.signUpInBackground(new SignUpCallback() {
- //           public void done(com.parse.ParseException e) {
- //               if (e == null) {
- //                   // Hooray! Let them use the app now.
- //                } else {
- //                   // Sign up didn't succeed. Look at the ParseException
- //                   // to figure out what went wrong
- //               }
- //           }
- //       });
+                    Intent newActivity = new Intent(CreationProfilActivity.this, AccueilActivity.class);
+                    startActivity(newActivity);
+                    finish();
 
+                } else {
+                    // Sign up didn't succeed. Look at the ParseException
+                    // to figure out what went wrong
+                    System.out.println("Exception signUpInBackground is not null  "+e);
+                    compteCree.setError(e.getMessage().toString());
+                    compteCree.setText("Pseudo ou email déjà utilisé");
 
+                }
+            }
+        });
 
-    }
+        System.out.println(" Fin appel a creer Utilisateur");
+  }
 
     @Override
     protected Dialog onCreateDialog(int id)
@@ -329,18 +378,6 @@ public class CreationProfilActivity extends Activity {
         }
         return true;
     }
-    //validation unicité pseudo dans la BD
-
-    public void validerPseudoInDB() {
-        ParseQuery<User> query = ParseQuery.getQuery(User.class);
-        query.whereEqualTo("username", "pop");
-        query.findInBackground(new FindCallback<User>() {
-            @Override
-            public void done(List<User> listUsers, com.parse.ParseException e) {
-                System.out.println(" fin appel a saveInBackground"+listUsers.size());
-            }
-        });
-    }
 
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
@@ -354,6 +391,32 @@ public class CreationProfilActivity extends Activity {
                 if (checked) strSex="F";
                 break;
         }
+    }
+// Calcul de l'age
+
+    public static int getYears(String strDate)
+
+    {
+        Calendar curr = Calendar.getInstance();
+        Calendar birth =  Calendar.getInstance();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+
+        try {
+            birth.setTime(sdf.parse(strDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int yeardiff = curr.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+        curr.add(Calendar.YEAR,-yeardiff);
+        if(birth.after(curr))
+        {
+            yeardiff = yeardiff - 1;
+        }
+        System.out.println("yeardiff==  "+yeardiff);
+        return yeardiff;
+
+
     }
 
 }

@@ -14,33 +14,8 @@ import java.util.Date;
 public class Trajet extends ParseObject implements Serializable {
     Position positionDepart;
     Position positionArrive;
-    Date depart;
-    Timestamp heureDebut;
-    Timestamp heureFin;
 
-    public Date getDepart() {
-        return getDate("depart");
-    }
 
-    public void setDepart(Date depart) {
-        put("depart", depart);
-    }
-
-    public Date getHeureDebut() {
-        return getDate("heureDebut");
-    }
-
-    public void setHeureDebut(Date heureDebut) {
-        put("heureDebut", heureDebut);
-    }
-
-    public Date getHeureFin() {
-        return getDate("heureFin");
-    }
-
-    public void setHeureFin(Date heureFin) {
-        put("heureFin", heureFin);
-    }
 
     public void setPositionDepart(Position positionDepart)
     {

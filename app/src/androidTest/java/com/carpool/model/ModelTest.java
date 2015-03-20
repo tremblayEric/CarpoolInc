@@ -42,15 +42,19 @@ public class ModelTest extends ActivityInstrumentationTestCase2<LoginActivity> {
         cc.setNote(4);
         cc.saveInBackground();
     }
-
+/*
     // Test parse Offre
     public void testOffre() {
         Offre oo = new Offre();
+        oo.setDepart(new Date());
+        oo.setHeureDebut(new Date());
+        oo.setHeureFin(new Date());
         oo.setNbreProposition(3);
         oo.setReservationCount(3);
+
         oo.saveInBackground();
     }
-
+*/
     // Test parse Position
     public void testPosition() {
         Position pp = new Position();
@@ -64,13 +68,11 @@ public class ModelTest extends ActivityInstrumentationTestCase2<LoginActivity> {
         Reservation rr = new Reservation();
         rr.setStatut(Reservation.ReservationStatut.ATTENTE);
     }
-
+/*
     // Test parse Trajet
     public void testTrajet() {
         Trajet tt = new Trajet();
-        tt.setDepart(new Date());
-        tt.setHeureDebut(new Date());
-        tt.setHeureFin(new Date());
+
         Position pos = new Position();
         pos.setLongitude(20);
         pos.setLatitude(20);
@@ -80,6 +82,36 @@ public class ModelTest extends ActivityInstrumentationTestCase2<LoginActivity> {
         pos2.setLatitude(30);
         tt.setPositionArrive(pos2);
         tt.saveInBackground();
+    }
+*/
+
+
+
+
+
+    // Test parse Trajet
+    public void testTrajetAvecParentOffre() {
+        Trajet tt = new Trajet();
+        Position pos = new Position();
+        pos.setLongitude(20);
+        pos.setLatitude(20);
+        tt.setPositionDepart(pos);
+        Position pos2 = new Position();
+        pos2.setLongitude(30);
+        pos2.setLatitude(30);
+        tt.setPositionArrive(pos2);
+
+
+        Offre oo = new Offre();
+        oo.setDepart(new Date());
+        oo.setHeureDebut(new Date());
+        oo.setHeureFin(new Date());
+        oo.setNbreProposition(3);
+        oo.setReservationCount(3);
+
+        oo.setTrajet(tt);
+
+        oo.saveInBackground();
     }
 
     // Test parse user
