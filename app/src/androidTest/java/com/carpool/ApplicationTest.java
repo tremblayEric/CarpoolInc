@@ -1,4 +1,4 @@
-package com.carpool.model.test;
+package com.carpool;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

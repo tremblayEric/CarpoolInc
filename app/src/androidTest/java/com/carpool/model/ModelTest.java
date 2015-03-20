@@ -1,13 +1,14 @@
-package com.carpool.model.test;
+package com.carpool.model;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.carpool.model.data.CoteDTO;
-import com.carpool.model.data.OffreDTO;
-import com.carpool.model.data.PositionDTO;
-import com.carpool.model.data.ReservationDTO;
-import com.carpool.model.data.TrajetDTO;
-import com.carpool.model.data.UserDTO;
+import com.carpool.activity.LoginActivity;
+import com.carpool.model.Offre;
+import com.carpool.model.Cote;
+import com.carpool.model.Reservation;
+import com.carpool.model.Position;
+import com.carpool.model.Trajet;
+import com.carpool.model.User;
 import com.parse.CountCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -18,12 +19,9 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import mgl7130.tiroir.LoginActivity;
-
 /**
  * Created by Gaëlle on 3/6/2015.
  */
-
 public class ModelTest extends ActivityInstrumentationTestCase2<LoginActivity> {
     public ModelTest() {
         super(LoginActivity.class);
@@ -37,27 +35,29 @@ public class ModelTest extends ActivityInstrumentationTestCase2<LoginActivity> {
         getActivity();
     }
 
-    // Test parse Offre
-    public void testOffre() {
-        OffreDTO oo = new OffreDTO();
-        oo.setNbreProposition(3);
-        oo.setReservationCount(3);
-        oo.saveInBackground();
-    }
-
-
     // Test parse Cote
     public void testCote() {
-            CoteDTO cc = new CoteDTO();
-            cc.setCommentaire("Bad ride");
-            cc.setNote(4);
-            cc.saveInBackground();
+        Cote cc = new Cote();
+        cc.setCommentaire("Bad ride");
+        cc.setNote(4);
+        cc.saveInBackground();
     }
+/*
+    // Test parse Offre
+    public void testOffre() {
+        Offre oo = new Offre();
+        oo.setDepart(new Date());
+        oo.setHeureDebut(new Date());
+        oo.setHeureFin(new Date());
+        oo.setNbreProposition(3);
+        oo.setReservationCount(3);
 
-
+        oo.saveInBackground();
+    }
+*/
     // Test parse Position
     public void testPosition() {
-        PositionDTO pp = new PositionDTO();
+        Position pp = new Position();
         pp.setLatitude(50);
         pp.setLongitude(50);
         pp.saveInBackground();
@@ -65,30 +65,58 @@ public class ModelTest extends ActivityInstrumentationTestCase2<LoginActivity> {
 
     // Test parse Reservation
     public void testReservation() {
-        ReservationDTO rr = new ReservationDTO();
-        rr.setStatut(ReservationDTO.ReservationStatut.ATTENTE);
+        Reservation rr = new Reservation();
+        rr.setStatut(Reservation.ReservationStatut.ATTENTE);
     }
-
+/*
     // Test parse Trajet
     public void testTrajet() {
-        TrajetDTO tt = new TrajetDTO();
-        tt.setDepart(new Date());
-        tt.setHeureDebut(new Date());
-        tt.setHeureFin(new Date());
-        PositionDTO pos = new PositionDTO();
+        Trajet tt = new Trajet();
+
+        Position pos = new Position();
         pos.setLongitude(20);
         pos.setLatitude(20);
         tt.setPositionDepart(pos);
-        PositionDTO pos2 = new PositionDTO();
+        Position pos2 = new Position();
         pos2.setLongitude(30);
         pos2.setLatitude(30);
         tt.setPositionArrive(pos2);
         tt.saveInBackground();
     }
+*/
+
+
+
+
+
+    // Test parse Trajet
+    public void testTrajetAvecParentOffre() {
+        Trajet tt = new Trajet();
+        Position pos = new Position();
+        pos.setLongitude(20);
+        pos.setLatitude(20);
+        tt.setPositionDepart(pos);
+        Position pos2 = new Position();
+        pos2.setLongitude(30);
+        pos2.setLatitude(30);
+        tt.setPositionArrive(pos2);
+
+
+        Offre oo = new Offre();
+        oo.setDepart(new Date());
+        oo.setHeureDebut(new Date());
+        oo.setHeureFin(new Date());
+        oo.setNbreProposition(3);
+        oo.setReservationCount(3);
+
+        oo.setTrajet(tt);
+
+        oo.saveInBackground();
+    }
 
     // Test parse user
     public void testUser() {
-        UserDTO us = new UserDTO();
+        User us = new User();
         us.setUsername(getUsername());
         us.setPassword("1234");
 
@@ -96,7 +124,7 @@ public class ModelTest extends ActivityInstrumentationTestCase2<LoginActivity> {
         us.setFirstname("Joëlle");
         us.setLastname("Alifax");
         us.setBirthday(new Date());
-        us.setGender(UserDTO.UserGender.F);
+        us.setGender(User.UserGender.F);
         us.saveInBackground();
 
         us.signUpInBackground(new SignUpCallback() {
@@ -113,7 +141,7 @@ public class ModelTest extends ActivityInstrumentationTestCase2<LoginActivity> {
 
     // Test parse query
     public void testQuery(){
-        ParseQuery<CoteDTO> query = ParseQuery.getQuery(CoteDTO.class);
+        ParseQuery<Cote> query = ParseQuery.getQuery(Cote.class);
         query.whereEqualTo("note", 4).countInBackground(new CountCallback() {
             @Override
             public void done(int i, ParseException e) {

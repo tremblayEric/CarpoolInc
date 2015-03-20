@@ -1,4 +1,4 @@
-package mgl7130.tiroir;
+package com.carpool.activity;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
@@ -105,7 +105,7 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.titre_profil),
                         getString(R.string.titre_offre),
                         getString(R.string.titre_recherche),
-                        getString(R.string.titre_reservation),
+                        getString(R.string.titre_consultation_offre),
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
