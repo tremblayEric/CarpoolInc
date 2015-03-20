@@ -22,15 +22,6 @@ public class Offre extends ParseObject implements Serializable {
 
     }
 
-
-    public User getUser() {
-        return (User)getParseObject("userOffre");
-    }
-
-    public void setUser(User user) {
-        put("userOffre", user);
-    }
-
     public Trajet getTrajet() {
         return (Trajet)getParseObject("trajetOffre");
     }
