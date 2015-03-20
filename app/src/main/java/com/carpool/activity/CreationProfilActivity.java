@@ -10,11 +10,13 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.carpool.CarpoolApplication;
@@ -54,6 +56,9 @@ public class CreationProfilActivity extends Activity {
     private  EditText nom ;
     private  EditText prenom;
     private  TextView compteCree;
+    private RadioButton radioF;
+    private RadioButton radioM;
+    private RadioGroup radioFM;
 
     static String strPseudo ;
     static String strMdp ;
@@ -63,6 +68,7 @@ public class CreationProfilActivity extends Activity {
     static String strSex ;
     static String strNom;
     static String strPrenom ;
+    static String sexeF;
 
 
     private int year;
@@ -76,6 +82,7 @@ public class CreationProfilActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_creation_profil);
@@ -89,6 +96,10 @@ public class CreationProfilActivity extends Activity {
         nom = (EditText) findViewById(R.id.txtNom);
         prenom = (EditText) findViewById(R.id.txtPrenom);
         compteCree = (TextView) findViewById(R.id.compteCree);
+        radioF = (RadioButton)findViewById(R.id.radioF);
+        radioM = (RadioButton)findViewById(R.id.radioM);
+        strSex = radioF.getText().toString();
+
 
         // Get current date by calender
         final Calendar c = Calendar.getInstance();
@@ -99,10 +110,11 @@ public class CreationProfilActivity extends Activity {
 
         // gestion affichage calendrier
         final EditText txtCalendar = (EditText) findViewById(R.id.txtCalendar);
-        txtCalendar.setOnClickListener(new View.OnClickListener(){
+        txtCalendar.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event) {
                 showDialog(DATE_PICKER_ID);
+                return false;
             }
         });
 
@@ -138,7 +150,7 @@ public class CreationProfilActivity extends Activity {
                 else{
                     password2.setError(null);
                 }
-            }
+           }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -163,10 +175,40 @@ public class CreationProfilActivity extends Activity {
         });
 
 
+        password1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && password1.getText().length()<5 && password1.getText().length() >0) {
+                    // code to execute when EditText loses focus
+
+                        // errormail.setText("Email invalide");
+                        password1.setError("mot de passe trop court: minimum 5 chiffres");
+                    }
+                    else if (password1.getText().length()>=5){
+                        password1.setError(null);
+                    }
+                }
+        });
+
+        pseudo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && pseudo.getText().length()<5 && pseudo.getText().length() >0) {
+                    // code to execute when EditText loses focus
+
+                    // errormail.setText("Email invalide");
+                    pseudo.setError("pseudo trop court: minimum 5 chiffres");
+                }
+                else if (pseudo.getText().length()>=5){
+                    pseudo.setError(null);
+                }
+            }
+        });
+
 
         // vérification du mail
         final EditText txtCourriel = (EditText) findViewById(R.id.txtCourriel);
-        final TextView errormail = (TextView) findViewById(R.id.TextView_mailProblem);
+        //final TextView errormail = (TextView) findViewById(R.id.TextView_mailProblem);
 
         txtCourriel.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
@@ -181,13 +223,53 @@ public class CreationProfilActivity extends Activity {
                     else{
                         txtCourriel.setError(null);
                     }
-
-                }
+               }
             }
         });
 
+        /*
+        dateNais.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
-    }
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus && dateNais.getText().length()>0 ) {
+                    // code to execute when EditText loses focus
+                    int age = getYears(dateNais.getText().toString());
+                    if (age < 18) {
+                        dateNais.setError("Age min 18 ans");
+                        //saisieValide = false;
+                        //focusView = dateNais;
+                    }
+
+                else {
+                    dateNais.setError(null);
+                }
+
+        }}});*/
+
+        dateNais.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s)
+            {
+                int age = getYears(dateNais.getText().toString());
+                if (age < 18) {
+                    dateNais.setError("Age min 18 ans");
+
+                    //saisieValide = false;
+                    //focusView = dateNais;
+                }
+
+                else {
+                    dateNais.setError(null);}
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            { dateNais.setError(null);}
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                dateNais.setError(null);
+            }
+        });
+
+  }
 
 
     @Override
@@ -237,6 +319,24 @@ public class CreationProfilActivity extends Activity {
            saisieValide = false;
            focusView = pseudo;
       }
+        if(TextUtils.isEmpty(strNom))
+        {
+            nom.setError("Champ obligatoire");
+            saisieValide = false;
+            focusView = nom;
+        }
+        if (TextUtils.isEmpty(strPrenom))
+        {
+            prenom.setError("Champ obligatoire");
+            saisieValide = false;
+            focusView = prenom;
+        }
+        if (TextUtils.isEmpty(strDateNais))
+        {
+            dateNais.setError("Champ obligatoire");
+            saisieValide = false;
+            focusView = dateNais;
+        }
         if (TextUtils.isEmpty(strMdp))
         {
             mdp.setError("Champ Obligatoire");
@@ -258,16 +358,22 @@ public class CreationProfilActivity extends Activity {
 
         if (TextUtils.isEmpty(strDateNais))
         {
-            dateNais.setError("date de naissance requise");
-        }
-        else {
-            int age = getYears(strDateNais);
+            dateNais.setError("Champ obligatoire");
+            saisieValide = false;
+            focusView = dateNais;
+        } else {
+
+            int age = getYears(dateNais.getText().toString());
             if (age < 18) {
                 dateNais.setError("Age min 18 ans");
+
                 saisieValide = false;
                 focusView = dateNais;
             }
+             else {
+                dateNais.setError(null);}
         }
+
        // validerPseudoInDB();
         System.out.println(" saisievalide = "+saisieValide);
         if(!saisieValide)
@@ -301,9 +407,6 @@ public class CreationProfilActivity extends Activity {
                 ex.printStackTrace();
             }
         }
-
-
-
     }
 
 
@@ -406,12 +509,21 @@ public class CreationProfilActivity extends Activity {
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.radioM:
-                if (checked) strSex="M";
+                if (checked)  {strSex="M"; }
                 break;
             case R.id.radioF:
-                if (checked) strSex="F";
+                if (checked) {strSex="F"; }
+
                 break;
         }
+
+        TextView t = new TextView(this);
+
+       radioFM = (RadioGroup)findViewById(R.id.radio);
+       radioM.requestFocus();
+       // radioFM.has;
+
+       // getCurrentFocus();
     }
 // Calcul de l'age
 

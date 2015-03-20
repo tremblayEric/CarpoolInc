@@ -209,7 +209,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="F"
-                        android:onClick="onRadioButtonClicked"/>
+                        android:onClick="onRadioButtonClicked"
+                        android:checked="true"/>
                     <RadioButton android:id="@+id/radioM"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

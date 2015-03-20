@@ -83,6 +83,7 @@ public class ProfilActivity extends Fragment {
             TextViewdate_naissance.setText(String.valueOf(getDayOfMonth(date_naiss)));
            // TextViewdate_naissance.append(" "+String.valueOf(currentUser.getDate("birthday").getMonth()));
 
+            /*
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date d = new Date();
             try {
@@ -100,7 +101,7 @@ public class ProfilActivity extends Fragment {
             Log.d("valeur du mois modifie", String.valueOf(d.getMonth()));
 
             Log.d("valeur an ancien", String.valueOf(date_naiss.getYear()));
-            Log.d("valeur an modifie", String.valueOf(d.getYear()));
+            Log.d("valeur an modifie", String.valueOf(d.getYear()));*/
 
             switch(date_naiss.getMonth()+1)
             {
