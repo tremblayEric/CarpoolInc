@@ -23,6 +23,7 @@
     <string name="title_activity_recherche">Recherche</string>
     <string name="title_activity_recherche_adresse">rechercheAdresse</string>
     <string name="title_activity_adresse">Adresse</string>
+    <string name="title_activity_offreGooglePlay">Offre google play</string>
     <string name="find">Find</string>
     <string name="offrir">Offrir</string>
     <string name="hint">Enter Place</string>
