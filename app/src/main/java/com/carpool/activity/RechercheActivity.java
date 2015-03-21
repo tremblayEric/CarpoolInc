@@ -47,7 +47,6 @@ public class RechercheActivity extends Fragment {
         autoCompViewTo.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_autocomplete));
 
         ((TimePicker)rootview.findViewById(R.id.etBetweenStartSearch)).setIs24HourView(true);
-        ((TimePicker)rootview.findViewById(R.id.etBetweenEndSearch)).setIs24HourView(true);
 
 
 
