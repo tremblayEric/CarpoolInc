@@ -105,7 +105,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvBetweenStartSearch"
+                    android:id="@+id/tvBetweenStartTextSearch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -129,7 +129,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvBetweenEndSearch"
+                    android:id="@+id/tvBetweenEndTextSearch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"

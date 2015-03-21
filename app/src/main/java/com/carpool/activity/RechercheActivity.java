@@ -1,11 +1,11 @@
 package com.carpool.activity;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +19,11 @@ import android.widget.Filterable;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
 
+import com.carpool.utils.GeocodingLocation;
+import com.carpool.utils.PlaceAPI;
 import com.carpool.model.Offre;
 import com.carpool.model.Position;
 import com.carpool.model.Trajet;
-import com.carpool.utils.GeocodingLocation;
-import com.carpool.utils.PlaceAPI;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -31,7 +31,6 @@ import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import static com.carpool.activity.R.id.tvBetweenEndSearch;
 
 public class RechercheActivity extends Fragment {
 
@@ -48,7 +47,7 @@ public class RechercheActivity extends Fragment {
         autoCompViewTo.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_autocomplete));
 
         ((TimePicker)rootview.findViewById(R.id.etBetweenStartSearch)).setIs24HourView(true);
-        ((TimePicker)rootview.findViewById(tvBetweenEndSearch)).setIs24HourView(true);
+        ((TimePicker)rootview.findViewById(R.id.etBetweenEndSearch)).setIs24HourView(true);
 
 
 
@@ -68,7 +67,7 @@ public class RechercheActivity extends Fragment {
         return rootview;
     }
 
-    private void saveOffer(LinkedHashSet<double[]> locationAddress){
+    /*private void saveOffer(LinkedHashSet<double[]> locationAddress){
         Position depart = new Position();
         depart.setLatitude(((double[])locationAddress.toArray()[0])[0]);
         depart.setLongitude(((double[])locationAddress.toArray()[0])[1]);
@@ -84,7 +83,7 @@ public class RechercheActivity extends Fragment {
         Offre offre = new Offre() ;
 
         Calendar cal = Calendar.getInstance();
-        DatePicker dateDepart = (DatePicker)rootview.findViewById(R.id.etDate);
+        DatePicker dateDepart = (DatePicker)rootview.findViewById(R.id.etDateSearch);
         cal.set(dateDepart.getYear(), dateDepart.getMonth(), dateDepart.getDayOfMonth());
 
         offre.setDepart(cal.getTime());
@@ -95,7 +94,7 @@ public class RechercheActivity extends Fragment {
 
         offre.setHeureDebut(cal.getTime());
 
-        timePicker = (TimePicker)rootview.findViewById(R.id.tvBetweenEndSearch);
+        timePicker = (TimePicker)rootview.findViewById(R.id.etBetweenStartSearch);
         cal.set(Calendar.HOUR, timePicker.getCurrentHour());
         cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
 
@@ -111,7 +110,7 @@ public class RechercheActivity extends Fragment {
         fragmentManager.beginTransaction()
                 .replace(R.id.container, objFragment)
                 .commit();
-    }
+    }*/
 
 
     /*
@@ -131,7 +130,7 @@ public class RechercheActivity extends Fragment {
                 default:
                     locationAddress = null;
             }
-            saveOffer(locationAddress);
+            //saveOffer(locationAddress);
         }
     }
 
