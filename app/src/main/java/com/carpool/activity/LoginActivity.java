@@ -24,41 +24,16 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.util.Log;
-import com.carpool.model.Cote;
-import com.carpool.model.Offre;
-import com.carpool.model.Position;
-import com.carpool.model.Reservation;
-import com.carpool.model.Trajet;
-import com.carpool.model.User;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.SignInButton;
-import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.*;
 import com.parse.ParseUser;
 
-import java.io.Console;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-
-import com.carpool.model.User;
-import com.parse.Parse;
-import com.parse.ParseObject;
-import com.parse.ParseUser;
-
-import static android.app.PendingIntent.getActivity;
-import bolts.Task;
 import android.graphics.Typeface;
 
 /**
@@ -97,11 +72,15 @@ public class LoginActivity extends ActionBarActivity {
     String abcd;
     boolean flag = false;
     private Toolbar toolbar;
+    boolean fin = false;
+    TextView texte;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        texte = (TextView)findViewById(R.id.error_connection);
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -157,6 +136,8 @@ public class LoginActivity extends ActionBarActivity {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         mEmailLoginFormView = findViewById(R.id.email_login_form);
+
+        fin = true;
 
     }
 
@@ -232,6 +213,7 @@ public class LoginActivity extends ActionBarActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             flag = false;
+            fin = false;
             showProgress(true);
 
             // Ici l'authentification est a mettre
@@ -351,23 +333,27 @@ public class LoginActivity extends ActionBarActivity {
 
             if (success) {
 
+                texte.setText("");
                 Log.d("utilis", utilis.getObjectId());
 
-                Intent newActivity = new Intent(LoginActivity.this, AccueilActivity.class);
+                //showProgress(false);
+                Intent newActivity  = new Intent(LoginActivity.this, AccueilActivity.class);
+
+
+                Log.d("trouve", "utilisateur touve");
 
                 startActivity(newActivity);
 
                 finish();
 
-            } else {  showProgress(false);
+            } else {
+                      showProgress(false);
 
-                //TextView texte = (TextView)findViewById(R.id.text_indic);
-
-                //texte.setText("Pseudo ou mot de passe incorrect");
+                      texte.setText("** Pseudo ou mot de passe incorrect **");
+                      texte.setTextColor(Color.RED);
 
                 //mPasswordView.setError(getString(R.string.error_incorrect_password));
                 //mPasswordView.requestFocus();
-
             }
         }
 

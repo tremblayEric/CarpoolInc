@@ -1,6 +1,7 @@
 package com.carpool.activity;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -43,6 +44,9 @@ public class AccueilActivity extends ActionBarActivity{
 
     private ListView mDrawerList;
     private Toolbar toolbar;
+    Fragment objFragment = null;
+    Activity objActivite = null;
+    boolean init = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +94,8 @@ public class AccueilActivity extends ActionBarActivity{
                 "PROFIL", "OFFRE", "RECHERCHE", "CONSULTATIONS OFFRE", "DECONNEXION"
         };
 
-        final android.app.Fragment objFragment = null;
+
+
     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
             android.R.layout.simple_list_item_1, android.R.id.text1, values);
     mDrawerList.setAdapter(adapter);
@@ -104,42 +109,91 @@ public class AccueilActivity extends ActionBarActivity{
                     mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
                     toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
                     //slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                    //mDrawerLayout.closeDrawer(Gravity.START);
-                    //objFragment = new ProfilActivity();
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    objFragment = new ProfilActivity();
+
+                    //Intent intent = new Intent(AccueilActivity.this, ProfilActivity.class);
+
+                   // View rootView = inflater.inflate(R.layout.profil_layout, container, false);
+
                     break;
                 case 1:
                     mDrawerList.setBackgroundColor(getResources().getColor(R.color.red));
                     toolbar.setBackgroundColor(getResources().getColor(R.color.red));
                    // slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.red));
-                   // mDrawerLayout.closeDrawer(Gravity.START);
-
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    objFragment = new OffreActivity();
                     break;
                 case 2:
                     mDrawerList.setBackgroundColor(getResources().getColor(R.color.blue));
                     toolbar.setBackgroundColor(getResources().getColor(R.color.blue));
                     //slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.blue));
-                    //mDrawerLayout.closeDrawer(Gravity.START);
-
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    objFragment = new RechercheActivity();
                     break;
                 case 3:
                     mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
                     toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
                     //slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                    //mDrawerLayout.closeDrawer(Gravity.START);
+                    mDrawerLayout.closeDrawer(Gravity.START);
+                    objFragment = new ConsultationOffreActivity();
+
 
                     break;
                 case 4: // gerer la deconnexion
                     break;
 
             }
+
+            //ActivityManager activityManager;
+
+            // update the main content by replacing fragments
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, objFragment)
+                    .commit();
         }
     });
+
+
+
+        if (!init)
+        {
+            mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+            //slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+            mDrawerLayout.closeDrawer(Gravity.START);
+            objFragment = new ProfilActivity();
+
+            // update the main content by replacing fragments
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, objFragment)
+                    .commit();
+
+            init = true;
+        }
+
 }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (drawerToggle.onOptionsItemSelected(item)) {
+
+       //gerer la couleur de l'element qui a ete selectionee
+
+            Log.d("selection item", "un item est selectionne");
+
+            /*
+
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.menu, menu);
+                m = menu;
+                return true;
+             */
+
+
             return true;
         }
 

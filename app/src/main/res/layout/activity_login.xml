@@ -31,7 +31,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="com.carpool.activity.LoginActivity"
-        android:background="#fffbfae8"
+        android:background="@color/bg_activite"
         android:layout_marginTop="55dp">
 
 
@@ -43,7 +43,7 @@
     <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="false"
-        android:background="#fffbfae8">
+        android:background="@color/bg_activite">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="vertical">
 

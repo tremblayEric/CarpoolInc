@@ -18,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/dark_gray" />
+            android:background="@color/material_deep_teal_500" />
 
         <com.carpool.design.SlidingTabLayout
             android:id="@+id/sliding_tabs"
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
-            android:background="@android:color/white" />
+            android:background="@color/bg_activite" />
     </LinearLayout>
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat
@@ -53,7 +53,7 @@
         android:layout_width="@dimen/navdrawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/dark_gray"
+        android:background="@color/material_deep_teal_500"
         android:choiceMode="singleChoice"
         android:layout_marginTop="?attr/actionBarSize"
         android:divider="@android:color/white"
