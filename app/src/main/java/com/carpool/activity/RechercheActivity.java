@@ -67,52 +67,6 @@ public class RechercheActivity extends Fragment {
         return rootview;
     }
 
-    /*private void saveOffer(LinkedHashSet<double[]> locationAddress){
-        Position depart = new Position();
-        depart.setLatitude(((double[])locationAddress.toArray()[0])[0]);
-        depart.setLongitude(((double[])locationAddress.toArray()[0])[1]);
-
-        Position arrivee = new Position();
-        arrivee.setLatitude(((double[])locationAddress.toArray()[1])[0]);
-        arrivee.setLongitude(((double[])locationAddress.toArray()[1])[1]);
-
-        Trajet trajet = new Trajet();
-        trajet.setPositionDepart(depart);
-        trajet.setPositionArrive(arrivee);
-
-        Offre offre = new Offre() ;
-
-        Calendar cal = Calendar.getInstance();
-        DatePicker dateDepart = (DatePicker)rootview.findViewById(R.id.etDateSearch);
-        cal.set(dateDepart.getYear(), dateDepart.getMonth(), dateDepart.getDayOfMonth());
-
-        offre.setDepart(cal.getTime());
-
-        TimePicker timePicker = (TimePicker)rootview.findViewById(R.id.etBetweenStartSearch);
-        cal.set(Calendar.HOUR, timePicker.getCurrentHour());
-        cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
-
-        offre.setHeureDebut(cal.getTime());
-
-        timePicker = (TimePicker)rootview.findViewById(R.id.etBetweenStartSearch);
-        cal.set(Calendar.HOUR, timePicker.getCurrentHour());
-        cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
-
-        offre.setHeureFin(cal.getTime());
-
-        offre.setTrajet(trajet);
-        offre.setUser(ParseUser.getCurrentUser());
-
-        offre.saveInBackground();
-
-        Fragment objFragment = new ConsultationOffreActivity();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, objFragment)
-                .commit();
-    }*/
-
-
     /*
     Tiré de http://javapapers.com/android/android-geocoding-to-get-latitude-longitude-for-an-address/
      */
