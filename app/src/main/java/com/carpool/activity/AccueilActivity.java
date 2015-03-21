@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -24,6 +25,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 public class AccueilActivity extends ActionBarActivity{
@@ -88,16 +90,37 @@ public class AccueilActivity extends ActionBarActivity{
               //  return Color.WHITE;
             //}
        // });
+
+
+
+
+
+        /* checher comment mettre une font sur le profil
+        Typeface font = Typeface.createFromAsset( getAssets(), "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
+
+        TextView txtProfil = new TextView(this);
+        txtProfil.setText(R.string.strg_profil);
+        txtProfil.setPadding(-150,0,0,0);
+        txtProfil.setTextSize(20);
+        txtProfil.append("     PROFIL");
+        txtProfil.setTypeface(font);
+
+        String a = String.valueOf( R.string.strg_profil);
+        a.concat("  PROFIL") ;*/
+
         drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerListener(drawerToggle);
         String[] values = new String[]{
-                "PROFIL", "OFFRE", "RECHERCHE", "CONSULTATIONS OFFRE", "DECONNEXION"
+                " PROFIL", "OFFRE", "RECHERCHE", "CONSULTATIONS OFFRE", "DECONNEXION"
         };
 
 
 
     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
             android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+
+
     mDrawerList.setAdapter(adapter);
 
     mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

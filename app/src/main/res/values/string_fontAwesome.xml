@@ -4,4 +4,6 @@
     <string name="bt_register">&#xf0a6;</string>
     <string name="string_tt_pseudo">&#xf007;</string>
     <string name="string_tt_paswd">&#xf084;</string>
+    <string name="strg_profil">&#xf007;</string>
+    <string name="creer_user">&#xf1d8;</string>
 </resources>
