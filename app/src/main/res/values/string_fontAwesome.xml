@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bt_signIn">&#xf090;</string>
+    <string name="bt_register">&#xf0a6;</string>
+    <string name="string_tt_pseudo">&#xf007;</string>
+    <string name="string_tt_paswd">&#xf084;</string>
+    <string name="strg_profil">&#xf007;</string>
+    <string name="creer_user">&#xf1d8;</string>
+</resources>
