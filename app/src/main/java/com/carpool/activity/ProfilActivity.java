@@ -2,6 +2,7 @@ package com.carpool.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 //import com.carpool.activity.LoginActivity.UserLoginTask;
 
+import com.carpool.utils.FloatingActionButton;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -66,7 +68,7 @@ public class ProfilActivity extends Fragment {
 
 
         btn_deconnexion = (Button)rootview.findViewById(R.id.deconnexion);
-        btn_modifInfos = (Button) rootview.findViewById(R.id.modifier_infoProfil);
+        //btn_modifInfos = (Button) rootview.findViewById(R.id.modifier_infoProfil);
 
 
         final Intent newActivity;
@@ -185,6 +187,15 @@ public class ProfilActivity extends Fragment {
             this.finish();*/
 
         }
+
+        Typeface font = Typeface.createFromAsset( getActivity().getAssets(),
+                "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
+
+
+        FloatingActionButton fab = (FloatingActionButton)rootview.findViewById(R.id.fabButton);
+        fab.setDrawableIcon(getResources().getDrawable(R.drawable.plus));
+        //fab.setTypeface(font);
+        fab.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
 
         return rootview;
     }

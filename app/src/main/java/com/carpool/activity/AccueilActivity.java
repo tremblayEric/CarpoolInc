@@ -26,7 +26,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import com.carpool.utils.FloatingActionButton;
 
 public class AccueilActivity extends ActionBarActivity{
        // implements   { //NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -164,6 +164,9 @@ public class AccueilActivity extends ActionBarActivity{
 
                     break;
                 case 4: // gerer la deconnexion
+                    Intent intent = new Intent(AccueilActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                     break;
 
             }
