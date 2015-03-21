@@ -18,7 +18,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:background="@color/material_deep_teal_500" />
 
     </LinearLayout>
@@ -32,13 +32,14 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="com.carpool.activity.LoginActivity"
         android:background="@color/bg_activite"
-        android:layout_marginTop="55dp">
+        android:layout_marginTop="75dp">
+
+        <!-- Login progress -->
+        <ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" android:visibility="gone" />
 
 
-    <!-- Login progress -->
-    <ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" android:visibility="gone" />
 
     <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -47,9 +48,17 @@
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text = "CONNEXION"
+                android:gravity="center"
+                android:textSize="30dp"/>
+
+
             <LinearLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:orientation="vertical"
-                android:layout_marginTop="100dp">
+                android:layout_marginTop="30dp">
 
                 <AutoCompleteTextView android:id="@+id/username"
                     android:layout_width="match_parent"
@@ -86,7 +95,7 @@
                     android:textStyle="bold"
                     android:background="@color/material_deep_teal_500"
                     android:textColor="@android:color/white"
-                    android:src ="@drawable/carpool_logo"
+                    android:src ="@drawable/ic_launcher"
                     android:paddingLeft="-100dp"
                     android:textSize="20dp"
                     />
