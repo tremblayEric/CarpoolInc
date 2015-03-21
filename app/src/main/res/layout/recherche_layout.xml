@@ -44,7 +44,7 @@
             android:completionThreshold="3"/>
 
         <TextView
-            android:id="@+id/tvSearchStarting"
+            android:id="@+id/tvSearchDestination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dip"
@@ -58,10 +58,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_below="@+id/tvSearchStarting"
+            android:layout_below="@+id/tvDepart"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="43dp"
-            android:layout_toEndOf="@+id/tvSearchStarting"
+            android:layout_toEndOf="@+id/tvSearchDestination"
             android:completionThreshold="3"/>
 
 
@@ -73,7 +73,6 @@
             android:textStyle="bold"
             android:text="@string/textview_date_search"
             android:layout_alignTop="@+id/etDateSearch"
-            android:layout_toStartOf="@+id/etDateSearch"
             android:layout_marginTop="56dp" />
 
         <DatePicker
@@ -82,10 +81,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:inputType="date"
-            android:layout_below="@+id/tvDateSearch"
-            android:layout_alignStart="@+id/tvDateSearch"
-            android:layout_marginTop="90dp"
-            android:layout_alignEnd="@+id/tvDateSearch"
+            android:layout_below="@+id/tvSearchDestination"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="43dp"
+            android:layout_toEndOf="@+id/tvSearchDestination"
             android:calendarViewShown="false"/>
 
         <LinearLayout
