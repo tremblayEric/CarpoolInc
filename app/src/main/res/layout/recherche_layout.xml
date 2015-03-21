@@ -67,11 +67,10 @@
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/map"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="500dp"
             android:layout_below="@id/etSearchDestination"
             class="com.google.android.gms.maps.SupportMapFragment"
             />
-
 
         <TextView
             android:id="@+id/tvDateSearch"
@@ -80,52 +79,48 @@
             android:paddingRight="10dip"
             android:textStyle="bold"
             android:text="@string/textview_date_search"
-            android:layout_alignTop="@+id/etDateSearch"
+            android:layout_below="@id/etSearchDestination"
             android:layout_marginTop="56dp" />
 
         <DatePicker
             android:id="@+id/etDateSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:inputType="date"
-            android:layout_below="@+id/tvSearchDestination"
-            android:layout_alignParentEnd="true"
             android:layout_marginTop="43dp"
-            android:layout_toEndOf="@+id/tvSearchDestination"
+            android:layout_below="@id/etSearchDestination"
             android:calendarViewShown="false"/>
 
         <LinearLayout
             android:id="@+id/lyInterval"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etDateSearch"
+            android:layout_below="@+id/etSearchDestination"
             android:layout_marginTop="53dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_alignEnd="@+id/etDateSearch"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_toRightOf="@id/etDateSearch" >
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/etDateSearch"
+                >
 
                 <TextView
                     android:id="@+id/tvBetweenStartTextSearch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:text="@string/textview_betweenStart_search"
-                    android:layout_gravity="center_horizontal" />
+                    android:text="@string/textview_betweenStart_search"/>
 
                 <TimePicker
                     android:id="@+id/etBetweenStartSearch"
                     android:layout_width="145dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:inputType="date"
-                    android:layout_gravity="center_vertical" />
+                    android:inputType="date" />
 
             </LinearLayout>
 
@@ -133,23 +128,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="35dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/etBetweenStartSearch" >
 
                 <TextView
                     android:id="@+id/tvBetweenEndTextSearch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:text="@string/textview_betweenEnd_search"
-                    android:layout_gravity="center_horizontal" />
+                    android:text="@string/textview_betweenEnd_search" />
 
                 <TimePicker
                     android:id="@+id/etBetweenEndSearch"
                     android:layout_width="145dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:inputType="date"
-                    android:layout_gravity="center_vertical" />
+                    android:inputType="date" />
 
             </LinearLayout>
 
