@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -43,9 +46,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import android.util.Log;
-
+import android.support.v7.app.ActionBarActivity;
 // Class Création d'un profil utilisateur
-public class CreationProfilActivity extends Activity {
+public class CreationProfilActivity extends ActionBarActivity {
 
     // Variables representant les composants de l'ui
     private EditText pseudo;
@@ -72,7 +75,7 @@ public class CreationProfilActivity extends Activity {
     private int month;
     private int day;
     static final int DATE_PICKER_ID = 1111;
-
+    Toolbar toolbar;
 
     public static boolean validationPseudoDone = false;
     static boolean pseudoExisteInDB = false;
@@ -83,6 +86,16 @@ public class CreationProfilActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_creation_profil);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            //toolbar.setNavigationIcon(R.drawable.carpool_logo);
+            toolbar.setLogo(R.drawable.carpool_logo);
+            toolbar.setTitle("      CARPOOL INC.       ");
+            toolbar.setTitleTextColor(Color.WHITE);
+            Log.d("toolbar", "dans la toolbar");
+        }
 
 
         pseudo = (EditText) findViewById(R.id.txtPseudo);
@@ -114,6 +127,13 @@ public class CreationProfilActivity extends Activity {
 
 
         final Button buttonCreation = (Button) findViewById(R.id.buttonCreer);
+
+        Typeface font = Typeface.createFromAsset( getAssets(), "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
+        buttonCreation.append("    CREATION");
+
+        buttonCreation.setTypeface(font);
+
+
         buttonCreation.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click

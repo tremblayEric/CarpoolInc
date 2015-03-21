@@ -5,9 +5,34 @@
     tools:context=".MainActivity">
 
     <!-- As the main content view, the view below consumes the entire
-         space available using match_parent in both dimensions. -->
+         space available using match_parent in both dimensions.
     <FrameLayout android:id="@+id/container" android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" android:id="@+id/container">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/material_deep_teal_500" />
+
+        <com.carpool.design.SlidingTabLayout
+            android:id="@+id/sliding_tabs"
+            android:background="@android:color/holo_green_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:background="@color/bg_activite" />
+    </LinearLayout>
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat
          this as a sliding drawer on the left side for left-to-right
@@ -16,9 +41,42 @@
          android:layout_gravity="left" instead. -->
     <!-- The drawer is given a fixed width in dp and extends the full height of
          the container. -->
+
+    <!--
     <fragment android:id="@+id/navigation_drawer"
         android:layout_width="@dimen/navigation_drawer_width" android:layout_height="match_parent"
         android:layout_gravity="start" android:name="com.carpool.activity.NavigationDrawerFragment"
-        tools:layout="@layout/fragment_navigation_drawer" />
+        tools:layout="@layout/fragment_navigation_drawer" />-->
+
+    <ListView
+        android:id="@+id/navdrawer"
+        android:layout_width="@dimen/navdrawer_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/material_deep_teal_500"
+        android:choiceMode="singleChoice"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:divider="@android:color/white"
+        android:dividerHeight="1dp"
+        android:drawSelectorOnTop="false"/>
 
 </android.support.v4.widget.DrawerLayout>
+
+
+
+
+
+<!--
+<ListView
+    android:id="@+id/navdrawer"
+    android:layout_width="@dimen/navdrawer_width"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="?attr/colorPrimaryDark"
+    android:choiceMode="singleChoice"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:divider="@android:color/white"
+    android:dividerHeight="1dp"
+    android:drawSelectorOnTop="false"></ListView>
+
+</android.support.v4.widget.DrawerLayout>-->
