@@ -27,6 +27,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parse.ParseUser;
+
 
 public class AccueilActivity extends ActionBarActivity{
        // implements   { //NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -55,6 +57,22 @@ public class AccueilActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Get current user data from Parse.com
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            // Send logged in users to Profil
+            Fragment objFragment = new ProfilActivity();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, objFragment)
+                    .commit();
+        }
+        else {
+            // Send user to Login
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
         /*
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
