@@ -156,7 +156,7 @@
                                 android:textColor="#ff000000"
                                 android:textSize="@dimen/abc_text_size_small_material"
                                 android:layout_gravity="center|right" />
-                            <EditText
+                            <AutoCompleteTextView
                                 android:id="@+id/txtPrenom"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -183,7 +183,7 @@
                                 android:textSize="@dimen/abc_text_size_small_material"
                                 android:layout_gravity="center|right"
                                 />
-                            <EditText
+                            <AutoCompleteTextView
                                 android:id="@+id/txtCalendar"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -288,15 +288,6 @@
                                 />
                         </LinearLayout>
 
-                        <TextView
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:id="@+id/TextView_PwdProblem"
-                            android:layout_alignParentStart="true"
-                            android:textSize="@dimen/abc_text_size_small_material"
-                            android:textColor="#FF0000"
-                            android:layout_gravity="center|right" />
 
 
                         <LinearLayout
@@ -316,26 +307,18 @@
                                 android:textColor="#ff000000"
                                 android:textSize="@dimen/abc_text_size_small_material"
                                 android:layout_gravity="center|right" />
-                            <EditText
+                            <AutoCompleteTextView
                                 android:id="@+id/txtCourriel"
                                 android:layout_width="250dp"
                                 android:layout_height="wrap_content"
-
+                                android:layout_weight="0.75"
                                 />
                         </LinearLayout>
-                        <TextView
-                            android:layout_width="150dp"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:id="@+id/TextView_mailProblem"
-                            android:layout_alignParentStart="true"
-                            android:textSize="@dimen/abc_text_size_small_material"
-                            android:textColor="#FF0000"
-                            android:layout_gravity="center|right" />
+
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="30dp"
                             android:orientation="horizontal"
                             android:gravity="center">
 

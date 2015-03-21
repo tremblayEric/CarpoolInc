@@ -333,6 +333,12 @@ public class CreationProfilActivity extends ActionBarActivity {
             focusView = dateNais;
         }
 
+        if (TextUtils.isEmpty(strMail))
+        {
+            mail.setError("Champ obligatoire");
+            saisieValide = false;
+            focusView = mail;
+        }
 
         System.out.println(" saisievalide = "+saisieValide);
 
