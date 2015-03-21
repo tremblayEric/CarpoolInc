@@ -2,6 +2,7 @@ package com.carpool.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 //import com.carpool.activity.LoginActivity.UserLoginTask;
 
+import com.carpool.utils.FloatingActionButton;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -46,18 +48,28 @@ public class ProfilActivity extends Fragment {
     UserSignOutTask mDeconnexionTask;
     Activity activite ;
 
-    @Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.profil_layout, container, false);
 
+    /*
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.profil_layout);*/
 
         //protected void onCreate(Bundle savedInstanceState) {
         //  super.onCreate(savedInstanceState);
         //setContentView(R.layout.profil_layout);
 
 
-        btn_deconnexion = (Button) rootview.findViewById(R.id.deconnexion);
-        btn_modifInfos = (Button) rootview.findViewById(R.id.modifier_infoProfil);
+//        btn_deconnexion = (Button) findViewById(R.id.deconnexion);
+  //      btn_modifInfos = (Button) findViewById(R.id.modifier_infoProfil);
+
+
+        btn_deconnexion = (Button)rootview.findViewById(R.id.deconnexion);
+        //btn_modifInfos = (Button) rootview.findViewById(R.id.modifier_infoProfil);
+
 
         final Intent newActivity;
 
@@ -68,12 +80,22 @@ public class ProfilActivity extends Fragment {
         ParseUser currentUser = ParseUser.getCurrentUser();
 
         if (currentUser != null) {
+
+
+
             TextViewcourriel = (TextView) rootview.findViewById(R.id.txt_courriel_userProfil);
             TextViewdate_naissance = (TextView) rootview.findViewById(R.id.txt_date_naiss_userProfil);
             TextViewsexe = (TextView) rootview.findViewById(R.id.txt_sexe_userProfil);
             TextviewNom = (TextView) rootview.findViewById(R.id.txt_nom_userProfil);
             TextViewPrenom = (TextView) rootview.findViewById(R.id.txt_prenom_userProfil);
             TextViewPseudo = (TextView) rootview.findViewById(R.id.txt_pseudo_userProfil);
+
+            /*TextViewcourriel = (TextView) findViewById(R.id.txt_courriel_userProfil);
+            TextViewdate_naissance = (TextView) findViewById(R.id.txt_date_naiss_userProfil);
+            TextViewsexe = (TextView) findViewById(R.id.txt_sexe_userProfil);
+            TextviewNom = (TextView) findViewById(R.id.txt_nom_userProfil);
+            TextViewPrenom = (TextView) findViewById(R.id.txt_prenom_userProfil);
+            TextViewPseudo = (TextView) findViewById(R.id.txt_pseudo_userProfil);*/
 
             Date date_naiss = currentUser.getDate("birthday");
 
@@ -154,11 +176,26 @@ public class ProfilActivity extends Fragment {
         if (deconOK) {
             // ActionBarActivity actionBar = new ActionBarActivity();
 
+
             Intent intent = new Intent(this.getActivity(), LoginActivity.class);
             startActivity(intent);
             this.getActivity().finish();
-            //rootview.getContext().fifinish();
+            /*//rootview.getContext().fifinish(); */
+
+            /*Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            this.finish();*/
+
         }
+
+        Typeface font = Typeface.createFromAsset( getActivity().getAssets(),
+                "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
+
+
+        FloatingActionButton fab = (FloatingActionButton)rootview.findViewById(R.id.fabButton);
+        fab.setDrawableIcon(getResources().getDrawable(R.drawable.plus));
+        //fab.setTypeface(font);
+        fab.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
 
         return rootview;
     }

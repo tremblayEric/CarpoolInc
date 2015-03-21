@@ -1,14 +1,14 @@
 <resources>
-    <string name="title_activity_login">Carpool</string>
+    <string name="title_activity_login">   CARPOOL INC.   </string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="action_register">register</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
+    <string name="prompt_email">Pseudo</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="action_sign_in">CONNEXION</string>
+    <string name="action_sign_in_short">CONNEXION</string>
+    <string name="action_register">INSCRIPTION</string>
+    <string name="error_invalid_email">Email invalide!!</string>
+    <string name="error_invalid_password">Mot de passe trop court!!</string>
+    <string name="error_incorrect_password">Mot de passe incorrect!!</string>
+    <string name="error_field_required">Champ obligatoire!!</string>
 </resources>
