@@ -35,6 +35,7 @@ import com.parse.ParseUser;
 
 import java.util.List;
 import android.graphics.Typeface;
+import android.widget.Toast;
 
 /**
  * A login screen that offers login via email/password and via Google+ sign in.
@@ -297,7 +298,6 @@ public class LoginActivity extends ActionBarActivity {
         }
 
 
-
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
@@ -337,6 +337,8 @@ public class LoginActivity extends ActionBarActivity {
                 texte.setText("");
                 Log.d("utilis", utilis.getObjectId());
 
+
+
                 //showProgress(false);
                 Intent newActivity  = new Intent(LoginActivity.this, AccueilActivity.class);
 
@@ -346,6 +348,10 @@ public class LoginActivity extends ActionBarActivity {
                 startActivity(newActivity);
 
                 finish();
+
+                //Ecrire un message pour signifier a l'utlisateur qu'il c'est connecte
+
+
 
             } else {
                       showProgress(false);
