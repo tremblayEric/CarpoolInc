@@ -117,8 +117,8 @@ public class ResultatRechercheActivity extends Fragment {
             int jourDeDifference = (int) diffTemps / (1000 * 60 * 60 * 24);
 
 
-            int heureSouhaitable = tempsDepart.getCurrentHour();
-            boolean heureSouhaitableConcordeAvecOffre = ((heureDepartAuPlusTot <= heureSouhaitable ) && (heureDepartAuPlusTard >= heureSouhaitable));
+            long heureSouhaitable = tempsDepart.getCurrentHour();
+            boolean heureSouhaitableConcordeAvecOffre = (((heureDepartAuPlusTot + 1.5) <= heureSouhaitable ) && ((heureDepartAuPlusTard + 1.5) >= heureSouhaitable));
 
            if(jourDeDifference == 0 && heureSouhaitableConcordeAvecOffre){
 
