@@ -3,12 +3,13 @@ package com.carpool.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-
+import android.content.res.AssetManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -18,6 +19,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -57,6 +59,7 @@ import com.parse.ParseUser;
 
 import static android.app.PendingIntent.getActivity;
 import bolts.Task;
+import android.graphics.Typeface;
 
 /**
  * A login screen that offers login via email/password and via Google+ sign in.
@@ -93,11 +96,23 @@ public class LoginActivity extends ActionBarActivity {
     ParseUser utilis;
     String abcd;
     boolean flag = false;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            //toolbar.setNavigationIcon(R.drawable.carpool_logo);
+            toolbar.setLogo(R.drawable.carpool_logo);
+            toolbar.setTitle("      CARPOOL INC.       ");
+            toolbar.setTitleTextColor(Color.WHITE);
+            Log.d("toolbar", "dans la toolbar");
+        }
 
 
         // Set up the login form.
@@ -107,6 +122,12 @@ public class LoginActivity extends ActionBarActivity {
         mPasswordView = (EditText) findViewById(R.id.password);
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+
+        Typeface font = Typeface.createFromAsset( getAssets(), "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
+        mEmailSignInButton.append("    CONNEXION");
+
+        mEmailSignInButton.setTypeface(font);
+
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,6 +151,8 @@ public class LoginActivity extends ActionBarActivity {
                 goToCreeProfil();
             }
         });
+        registerButton.append("    INSCRIPTION");
+        registerButton.setTypeface(font);
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -338,9 +361,9 @@ public class LoginActivity extends ActionBarActivity {
 
             } else {  showProgress(false);
 
-                TextView texte = (TextView)findViewById(R.id.text_indic);
+                //TextView texte = (TextView)findViewById(R.id.text_indic);
 
-                texte.setText("Pseudo ou mot de passe incorrect");
+                //texte.setText("Pseudo ou mot de passe incorrect");
 
                 //mPasswordView.setError(getString(R.string.error_incorrect_password));
                 //mPasswordView.requestFocus();
