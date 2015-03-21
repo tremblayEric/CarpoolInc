@@ -33,7 +33,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- String pour l'offre de covoiturage -->
     <string name="activity_title_offer">Annoncer un départ</string>
-    <string name="activity_title_search">Rechercher ne offre</string>
+    <string name="activity_title_search">Rechercher une offre</string>
     <string name="textview_starting_offer">Ville de départ</string>
     <string name="textview_starting_search">Ville de départ</string>
     <string name="textview_destination_offer">Ville de d\'arrivée</string>
@@ -46,5 +46,5 @@
     <string name="textview_betweenEnd_offer">Et</string>
     <string name="textview_betweenEnd_search">Et</string>
     <string name="button_submit_offer">Ajouter l\'offre</string>
-    <string name="button_submit_search">Ajouter l\'offre</string>
+    <string name="button_submit_search">Rechercher une offre</string>
 </resources>

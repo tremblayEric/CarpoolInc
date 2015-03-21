@@ -97,9 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/etSearchDestination"
             android:layout_marginTop="53dp"
-            android:gravity="center"
             android:orientation="horizontal"
-            android:layout_alignParentStart="true"
             android:layout_toRightOf="@id/etDateSearch" >
 
             <LinearLayout
@@ -114,17 +112,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:text="@string/textview_betweenStart_search"/>
+                    android:text="@string/textview_betweenStart_search"
+                    android:layout_toRightOf="@id/etDateSearch"/>
 
                 <TimePicker
                     android:id="@+id/etBetweenStartSearch"
                     android:layout_width="145dp"
                     android:layout_height="wrap_content"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:layout_toRightOf="@id/etDateSearch"/>
 
             </LinearLayout>
-
-
 
         </LinearLayout>
 
