@@ -1,20 +1,25 @@
 package com.carpool.activity;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -32,7 +37,10 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,18 +48,20 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 
 
 public class RechercheActivity extends Fragment {
 
     View rootview;
     ExpandableListView listView;
+    final Calendar calendar = Calendar.getInstance();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.recherche_layout,container,false);
-         listView = (ExpandableListView) rootview.findViewById(R.id.lvResultSearch);
+        listView = (ExpandableListView) rootview.findViewById(R.id.lvResultSearch);
 
         AutoCompleteTextView autoCompViewFrom = (AutoCompleteTextView) rootview.findViewById(R.id.etDepart);
         autoCompViewFrom.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_autocomplete));
@@ -60,7 +70,32 @@ public class RechercheActivity extends Fragment {
 
         ((TimePicker)rootview.findViewById(R.id.etBetweenStartSearch)).setIs24HourView(true);
 
+        final EditText dateDepart = (EditText)rootview.findViewById(R.id.etDateSearch);
 
+        dateDepart.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Calendar mcurrentDate = Calendar.getInstance();
+                int mYear = mcurrentDate.get(Calendar.YEAR);
+                int mMonth = mcurrentDate.get(Calendar.MONTH);
+                int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog mDatePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+
+                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
+                        calendar.set(selectedyear, selectedmonth, selectedday);
+                        dateDepart.setText(new StringBuilder().append(selectedmonth+1)
+                                .append("-").append(selectedday).append("-").append(selectedyear)
+                                .append(" "));
+                    }
+                }, mYear, mMonth, mDay);
+
+                mDatePicker.setTitle("Date de départ");
+                mDatePicker.show();
+                return false;
+            }
+
+        });
 
         Button submitOffer = (Button)(rootview.findViewById(R.id.btnSubmitSearch));
         submitOffer.setOnClickListener(new View.OnClickListener() {
@@ -78,26 +113,22 @@ public class RechercheActivity extends Fragment {
         });
         return rootview;
     }
-
     /*
     Tiré de http://javapapers.com/android/android-geocoding-to-get-latitude-longitude-for-an-address/
      */
     private class GeocoderHandler extends Handler {
         @Override
         public void handleMessage(Message message) {
-            //String locationAddress;
             LinkedHashSet<double[]> locationAddress;
             switch (message.what) {
                 case 1:
                     Bundle bundle = message.getData();
-                    //locationAddress = bundle.getString("address");
                     locationAddress = (LinkedHashSet<double[]>)bundle.getSerializable("address");
                     getOffresFromDataBase(locationAddress);
                     break;
                 default:
                     locationAddress = null;
             }
-            //saveOffer(locationAddress);
         }
     }
 
@@ -155,8 +186,6 @@ public class RechercheActivity extends Fragment {
 
     private void getOffresFromDataBase(final LinkedHashSet<double[]> locationAddress){
 
-
-
         ParseQuery<Offre> query = ParseQuery.getQuery("Offre");
         query.findInBackground(
                 new FindCallback<Offre>() {
@@ -166,45 +195,38 @@ public class RechercheActivity extends Fragment {
 
                             List<Offre> offresAcceptables = getOffreCorrespondantes(offres,locationAddress);
 
-
-
-                            MyResultSearchListAdapter adapter = new MyResultSearchListAdapter(getActivity(), offresAcceptables);
-                            hideStuff();
-                            listView.setAdapter(adapter);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("offres", (Serializable)offres);
+                            Fragment objFragment = new ResultatRechercheActivity();
+                            objFragment.setArguments(bundle);
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            fragmentManager.beginTransaction()
+                                    .replace(R.id.container, objFragment)
+                                    .commit();
                         } else {
-                            /*exception*/
+                            //*exception*//*
                         }
                     }
                 });
     }
 
     private List<Offre> getOffreCorrespondantes(List<Offre> offres,LinkedHashSet<double[]> locationAddress){
-        /*
-        Calendar cal = Calendar.getInstance();
-        DatePicker dateDepart = (DatePicker)rootview.findViewById(R.id.etDate);
-        cal.set(dateDepart.getYear(), dateDepart.getMonth(), dateDepart.getDayOfMonth());
-
-        offre.setDepart(cal.getTime());
-
-        TimePicker timePicker = (TimePicker)rootview.findViewById(R.id.etBetweenStart);
-        cal.set(Calendar.HOUR, timePicker.getCurrentHour());
-        cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
-        */
 
         List<Offre> lesOffres = offres;
         List<Offre> offresAcceptables = new ArrayList<Offre>();
 
-        DatePicker datePicker = (DatePicker) getActivity().findViewById(R.id.etDateSearch);
+        EditText textDate = (EditText) getActivity().findViewById(R.id.etDateSearch);
+        /*DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+        Date dateDepart = null;
+        try {
+            dateDepart = format.parse(textDate.toString());
+        }
+        catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }*/
         TimePicker tempsDepart = (TimePicker) getActivity().findViewById(R.id.etBetweenStartSearch);
-        //List<HashMap<String,String>> list = (List<HashMap<String,String>>)getArguments().get("ListFromMap");
 
         Location locationSouhaitable = new Location("locationA");
-
-       // locationSouhaitable.setLatitude(Double.parseDouble(((HashMap<String, String>)list.get(0)).get("lat")));
-        //locationSouhaitable.setLongitude(Double.parseDouble(((HashMap<String, String>)list.get(0)).get("lng")));
-
-
-       // locationAddress
 
         Iterator<double[]> iter = locationAddress.iterator();
         double[] depart = iter.next();
@@ -221,9 +243,9 @@ public class RechercheActivity extends Fragment {
             long heureDepartAuPlusTard = uneOffre.getHeureFin().getHours();
 
 
-            long diffTemps = dateDuDepart.getTime() - getDateFromDatePicker(datePicker).getTime();
+            //long diffTemps = dateDuDepart.getTime() - getDateFromDatePicker(datePicker).getTime();
+            long diffTemps = dateDuDepart.getTime() - calendar.getTime().getTime() ;
             int jourDeDifference = (int) diffTemps / (1000 * 60 * 60 * 24);
-
 
             int heureSouhaitable = tempsDepart.getCurrentHour();
             boolean heureSouhaitableConcordeAvecOffre = ((heureDepartAuPlusTot <= heureSouhaitable ) && (heureDepartAuPlusTard >= heureSouhaitable));
@@ -266,6 +288,7 @@ public class RechercheActivity extends Fragment {
         return offresAcceptables;
     }
 
+
     public static Date getDateFromDatePicker(DatePicker datePicker){
         int day = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
@@ -277,27 +300,5 @@ public class RechercheActivity extends Fragment {
         return calendar.getTime();
     }
 
-    private void hideStuff(){
-        TextView view = (TextView) rootview.findViewById(R.id.tvTitleSearch);
-        view.setVisibility(View.INVISIBLE);
-        view = (TextView) rootview.findViewById(R.id.tvDepart);
-        view.setVisibility(View.INVISIBLE);
-        view = (TextView) rootview.findViewById(R.id.etDepart);
-        view.setVisibility(View.INVISIBLE);
-        view = (TextView) rootview.findViewById(R.id.tvSearchDestination);
-        view.setVisibility(View.INVISIBLE);
-        view = (TextView) rootview.findViewById(R.id.etSearchDestination);
-        view.setVisibility(View.INVISIBLE);
-        view = (TextView) rootview.findViewById(R.id.tvDateSearch);
-        view.setVisibility(View.INVISIBLE);
-        DatePicker dateView = (DatePicker) rootview.findViewById(R.id.etDateSearch);
-        dateView.setVisibility(dateView.INVISIBLE);
-        view = (TextView) rootview.findViewById(R.id.tvBetweenStartTextSearch);
-        view.setVisibility(View.INVISIBLE);
-        TimePicker timeView = (TimePicker)rootview.findViewById(R.id.etBetweenStartSearch);
-        timeView.setVisibility(View.INVISIBLE);
-        Button buttonView = (Button)rootview.findViewById(R.id.btnSubmitSearch);
-        buttonView.setVisibility(View.INVISIBLE);
-    }
 
 }

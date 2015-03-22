@@ -64,20 +64,6 @@
             android:layout_toEndOf="@+id/tvSearchDestination"
             android:completionThreshold="3"/>
 
-     <!--   <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_below="@id/etSearchDestination"
-            class="com.google.android.gms.maps.SupportMapFragment"
-            />-->
-
-        <ExpandableListView
-            android:id="@+id/lvResultSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </ExpandableListView>
-
         <TextView
             android:id="@+id/tvDateSearch"
             android:layout_width="wrap_content"
@@ -85,26 +71,31 @@
             android:paddingRight="10dip"
             android:textStyle="bold"
             android:text="@string/textview_date_search"
-            android:layout_below="@id/etSearchDestination"
-            android:layout_marginTop="56dp" />
+            android:layout_alignBottom="@+id/etDateSearch"
+            android:layout_alignParentStart="true"/>
 
-        <DatePicker
+        <EditText
             android:id="@+id/etDateSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date"
-            android:layout_marginTop="43dp"
-            android:layout_below="@id/etSearchDestination"
-            android:calendarViewShown="false"/>
+            android:hint="@string/textview_date_search"
+            android:gravity="center"
+            android:layout_below="@+id/tvSearchDestination"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="48dp"
+            android:layout_toEndOf="@+id/tvDateSearch"
+            android:textColorHint="@color/material_deep_teal_500"
+            android:textSize="@dimen/abc_text_size_small_material"
+            android:layout_alignStart="@+id/etSearchDestination" />
+
 
         <LinearLayout
             android:id="@+id/lyInterval"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etSearchDestination"
+            android:layout_below="@+id/etDateSearch"
             android:layout_marginTop="53dp"
-            android:orientation="horizontal"
-            android:layout_toRightOf="@id/etDateSearch" >
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -118,12 +109,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:text="@string/textview_betweenStart_search"
+                    android:text="Heure de départ"
                     android:layout_toRightOf="@id/etDateSearch"/>
 
                 <TimePicker
                     android:id="@+id/etBetweenStartSearch"
-                    android:layout_width="145dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="date"
                     android:layout_toRightOf="@id/etDateSearch"/>

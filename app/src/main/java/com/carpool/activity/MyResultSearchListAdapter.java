@@ -1,6 +1,8 @@
 package com.carpool.activity;
 
 import android.app.Activity;
+import android.location.Address;
+import android.location.Geocoder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +10,15 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.carpool.model.Offre;
+import com.carpool.model.Position;
+import com.carpool.model.User;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.jar.JarEntry;
 
 /**
@@ -83,10 +89,12 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
             DateFormat df = new SimpleDateFormat("hh:'00' a");
             Date date = listOffers.get(groupPosition).getHeureDebut();
             holder.txtStartHour.setText(df.format(date));
-            holder.txtStartPoint.setText("Montréal");
+            Position positionDepart = listOffers.get(groupPosition).getTrajet().getPositionDepart();
+            holder.txtStartPoint.setText(getCityNameFromPosition(positionDepart));
             date = listOffers.get(groupPosition).getHeureDebut();
             holder.txtEndHour.setText(df.format(date));
-            holder.txtEndPoint.setText("Laval");
+            Position positionArrivee = listOffers.get(groupPosition).getTrajet().getPositionArrive();
+            holder.txtEndPoint.setText(getCityNameFromPosition(positionArrivee));
         }
         catch(Exception ex){
 
@@ -108,9 +116,10 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
             } else
                 holder = (ListOffersDetailsHolder) convertView.getTag();
 
-            holder.txtRendezvous.setText("Berri-Uqam");
-            holder.txtChutePoint.setText("Mc-Donald");
-            holder.txtDriver.setText("Chou Chichi");
+            holder.txtRendezvous.setText("Non spécifié");
+            holder.txtChutePoint.setText("Non spécifié");
+            User user = (User)listOffers.get(groupPosition).getUser();
+            holder.txtDriver.setText(user.getFirstname() + " " + user.getLasttname());
         }
         catch (Exception ex) {
 
@@ -130,6 +139,22 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
         TextView txtStartPoint;
         TextView txtEndHour;
         TextView txtEndPoint;
+    }
+
+    private String getCityNameFromPosition(Position position)
+    {
+        Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = geocoder.getFromLocation(position.getLatitude(), position.getLongitude(), 1);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        String cityName = addresses.get(0).getAddressLine(0);
+        //String stateName = addresses.get(0).getAddressLine(1);
+        //String countryName = addresses.get(0).getAddressLine(2);
+        return  cityName;
     }
 
     static class ListOffersDetailsHolder
