@@ -106,6 +106,7 @@
                                 android:id="@+id/txtPseudo"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
+                                android:maxLength="10"
 
                                 />
                         </LinearLayout>
@@ -134,6 +135,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.75"
+                                android:maxLength="15"
                                 />
                         </LinearLayout>
 
@@ -161,6 +163,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.75"
+                                android:maxLength="15"
                                 />
                         </LinearLayout>
 
@@ -191,7 +194,8 @@
                                 android:ems="10"
                                 android:hint="Choisir une date"
                                 android:textColorHint="@color/material_deep_teal_500"
-                                android:textSize="@dimen/abc_text_size_small_material" />
+                                android:textSize="@dimen/abc_text_size_small_material"
+                                android:maxLength="20"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -257,6 +261,7 @@
                                 android:layout_weight="0.75"
                                 android:ems="10"
                                 android:password="true"
+                                android:maxLength="15"
                                 />
                         </LinearLayout>
 
@@ -283,6 +288,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.75"
+                                android:maxLength="15"
 
                                 android:password="true"
                                 />
@@ -312,6 +318,7 @@
                                 android:layout_width="250dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.75"
+                                android:maxLength="30"
                                 />
                         </LinearLayout>
 
