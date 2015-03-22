@@ -98,7 +98,9 @@ public class AccueilActivity extends ActionBarActivity{
             setSupportActionBar(toolbar);
             //toolbar.setNavigationIcon(R.drawable.ic_ab_drawer);
             toolbar.setLogo(R.drawable.carpool_logo);
+
             toolbar.setTitle("      CARPOOL INC.       ");
+
             toolbar.setTitleTextColor(Color.WHITE);
             Log.d("toolbar", "dans la toolbar");
         }

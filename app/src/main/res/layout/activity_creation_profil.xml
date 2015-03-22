@@ -188,6 +188,7 @@
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:text="Date de naissance"
+                                android:textColor="#ff000000"
                                 android:id="@+id/labelCalendarTextView"
                                 android:layout_centerVertical="true"
                                 android:layout_below="@+id/prenom"
