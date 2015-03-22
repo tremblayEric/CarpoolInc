@@ -54,7 +54,14 @@
                 android:text = "CONNEXION"
                 android:gravity="center"
                 android:textSize="30dp"/>
-
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="5dip"
+                android:id="@+id/lineSeparator"
+                android:src="@drawable/line"
+                android:layout_marginTop="10dp"
+                android:background="@color/material_deep_teal_500"
+                />
 
             <LinearLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:orientation="vertical"
