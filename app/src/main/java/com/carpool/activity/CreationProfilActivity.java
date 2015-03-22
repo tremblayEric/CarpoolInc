@@ -85,11 +85,15 @@ public class CreationProfilActivity extends ActionBarActivity {
 
         super.onCreate(savedInstanceState);
 
+       // getActionBar().gethide();
         setContentView(R.layout.activity_creation_profil);
+
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
+
             //toolbar.setNavigationIcon(R.drawable.carpool_logo);
             toolbar.setLogo(R.drawable.carpool_logo);
             toolbar.setTitle("      CARPOOL INC.       ");

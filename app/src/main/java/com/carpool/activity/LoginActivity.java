@@ -103,7 +103,8 @@ public class LoginActivity extends ActionBarActivity {
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
 
-        Typeface font = Typeface.createFromAsset( getAssets(), "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
+        Typeface font = Typeface.createFromAsset( getAssets(),
+                "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
         mEmailSignInButton.append("    CONNEXION");
 
         mEmailSignInButton.setTypeface(font);
