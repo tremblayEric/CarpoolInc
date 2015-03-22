@@ -67,7 +67,7 @@ public class ProfilActivity extends Fragment {
   //      btn_modifInfos = (Button) findViewById(R.id.modifier_infoProfil);
 
 
-        btn_deconnexion = (Button)rootview.findViewById(R.id.deconnexion);
+        //btn_deconnexion = (Button)rootview.findViewById(R.id.deconnexion);
         //btn_modifInfos = (Button) rootview.findViewById(R.id.modifier_infoProfil);
 
 
@@ -163,14 +163,15 @@ public class ProfilActivity extends Fragment {
         }
 
         activite = this.getActivity();
-        btn_deconnexion.setOnClickListener(new View.OnClickListener() {
+
+        /*btn_deconnexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 mDeconnexionTask = new UserSignOutTask(currentUser.getUsername(), currentUser.getString("password"), activite);
                 mDeconnexionTask.cancel(true);
             }
-        });
+        });*/
 
 
         if (deconOK) {

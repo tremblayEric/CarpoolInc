@@ -72,7 +72,7 @@
 
         <activity
             android:name=".CreationProfilActivity"
-            android:label="@string/title_activity_creation_profil" >
+            android:label="CARPOOL INC." >
         </activity>
 
         <!--<meta-data
