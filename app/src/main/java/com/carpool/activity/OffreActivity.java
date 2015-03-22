@@ -378,13 +378,8 @@ public class OffreActivity extends Fragment {
         offre.setTrajet(trajet);
         offre.setUser(ParseUser.getCurrentUser());
 
-        //offre.saveInBackground();
+        offre.saveInBackground();
 
-        /*Fragment objFragment = new ConsultationOffreActivity();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, objFragment)
-                .commit();*/
         Toast.makeText(getActivity(), "Annonce ajoutée dans MES ANNONCES",
                 Toast.LENGTH_LONG).show();
 
