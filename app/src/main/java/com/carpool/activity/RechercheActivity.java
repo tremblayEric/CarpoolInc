@@ -3,6 +3,7 @@ package com.carpool.activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -56,12 +58,16 @@ public class RechercheActivity extends Fragment {
     View rootview;
     ExpandableListView listView;
     final Calendar calendar = Calendar.getInstance();
+    DatePickerDialog mDatePicker;
+    EditText dateDepart;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.recherche_layout,container,false);
         listView = (ExpandableListView) rootview.findViewById(R.id.lvResultSearch);
+        TextView texte = (TextView)rootview.findViewById(R.id.btnSubmitSearch);
+
 
         AutoCompleteTextView autoCompViewFrom = (AutoCompleteTextView) rootview.findViewById(R.id.etDepart);
         autoCompViewFrom.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_autocomplete));
@@ -70,25 +76,26 @@ public class RechercheActivity extends Fragment {
 
         ((TimePicker)rootview.findViewById(R.id.etBetweenStartSearch)).setIs24HourView(true);
 
-        final EditText dateDepart = (EditText)rootview.findViewById(R.id.etDateSearch);
+       dateDepart = (EditText)rootview.findViewById(R.id.etDateSearch);
+        Calendar mcurrentDate = Calendar.getInstance();
+        int mYear = mcurrentDate.get(Calendar.YEAR);
+        int mMonth = mcurrentDate.get(Calendar.MONTH);
+        int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
+        mDatePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
+                calendar.set(selectedyear, selectedmonth, selectedday);
+
+                dateDepart.setText(new StringBuilder().append(selectedmonth+1)
+                        .append("-").append(selectedday).append("-").append(selectedyear)
+                        .append(" "));
+            }
+        }, mYear, mMonth, mDay);
         dateDepart.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Calendar mcurrentDate = Calendar.getInstance();
-                int mYear = mcurrentDate.get(Calendar.YEAR);
-                int mMonth = mcurrentDate.get(Calendar.MONTH);
-                int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog mDatePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-
-                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                        calendar.set(selectedyear, selectedmonth, selectedday);
-                        dateDepart.setText(new StringBuilder().append(selectedmonth+1)
-                                .append("-").append(selectedday).append("-").append(selectedyear)
-                                .append(" "));
-                    }
-                }, mYear, mMonth, mDay);
 
                 mDatePicker.setTitle("Date de départ");
                 mDatePicker.show();
@@ -98,6 +105,12 @@ public class RechercheActivity extends Fragment {
         });
 
         Button submitOffer = (Button)(rootview.findViewById(R.id.btnSubmitSearch));
+
+        Typeface font = Typeface.createFromAsset( getActivity().getAssets(),
+                "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
+        submitOffer.setTypeface(font);
+        submitOffer.append("           RECHERCHER");
+
         submitOffer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
