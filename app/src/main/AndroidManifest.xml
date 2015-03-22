@@ -80,10 +80,6 @@
             android:value="AIzaSyAlmJpByv6Zq4eu_28CATvR9BcB6OMsdkU" />-->
 
         <activity
-            android:name=".Adresse"
-            android:label="@string/title_activity_adresse" >
-        </activity>
-        <activity
             android:name=".OffreGooglePlay"
             android:label="@string/title_activity_offreGooglePlay" >
         </activity>
