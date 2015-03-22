@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -146,6 +147,7 @@ public class AccueilActivity extends ActionBarActivity{
             View view = super.getView(position, convertView, parent);
             TextView text = (TextView) view.findViewById(android.R.id.text1);
             text.setTypeface(null, Typeface.BOLD);
+            Color.argb(127, 07, 00, 51);
 
             return view;
          }
