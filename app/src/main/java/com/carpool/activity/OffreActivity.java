@@ -202,6 +202,7 @@ public class OffreActivity extends Fragment {
                 ac_etBetweenStart.setText(new StringBuilder().append(padding_str(hour_entre))
                         .append(":").append(padding_str(minute_entre)));
 
+
             }
         };
 
@@ -459,56 +460,7 @@ Tiré de https://developers.google.com/places/training/autocomplete-android
         }
     }
 
-/*
-    //@Override
-    protected Dialog onCreateDialog(int id)
-    {
-        switch (id)
-        {
-            case DATE_PICKER_ID:
-                // open datepicker dialog.
-                // set date picker for current date
-                // add pickerListener listner to date picker
-                return new DatePickerDialog(getActivity(), pickerListener, year_depart, month_depart,day_depart);
 
-            case TIME_PICKER_ID_ENTRE:
-                return new TimePickerDialog(getActivity(), timePickerListenerEntre, hour_entre, minute_entre,false);
-
-            case TIME_PICKER_ID_ET:
-                return new TimePickerDialog(getActivity(), timePickerListenerEt, hour_et, minute_et, false);
-
-            case NUM_PICKER_ID:
-                //return new NumberPicker();
-                Log.d("number_picker", "dans le number picker");
-                break;
-        }
-        return null;
-    }
-
-
-    private TimePickerDialog.OnTimeSetListener timePickerListenerEntre =  new TimePickerDialog.OnTimeSetListener() {
-        public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
-        hour_entre = selectedHour;
-        minute_entre = selectedMinute;
-
-        // set current time into textview
-        ac_etBetweenStart.setText(new StringBuilder().append(padding_str(hour_entre))
-                .append(":").append(padding_str(minute_entre)));
-
-        }
-    };
-
-    private TimePickerDialog.OnTimeSetListener timePickerListenerEt =  new TimePickerDialog.OnTimeSetListener() {
-        public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
-            hour_et = selectedHour;
-            minute_et = selectedMinute;
-
-            // set current time into textview
-            ac_etBetweenEnd.setText(new StringBuilder().append(padding_str(hour_et))
-                    .append(":").append(padding_str(minute_et)));
-
-        }
-    };*/
 
 
     private static String padding_str(int c)
@@ -518,24 +470,5 @@ Tiré de https://developers.google.com/places/training/autocomplete-android
         else
         return "0" + String.valueOf(c);
     }
-
-   /* private DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener()
-    {
-        // when dialog box is closed, below method will be called.
-        @Override
-        public void onDateSet(DatePicker view, int selectedYear,
-                              int selectedMonth, int selectedDay) {
-
-            year_depart  = selectedYear;
-            month_depart = selectedMonth;
-            day_depart   = selectedDay;
-
-            // SOutputhow selected date
-            etDate_.setText(new StringBuilder().append(month_depart + 1)
-                    .append("-").append(day_depart).append("-").append(year_depart)
-                    .append(" "));
-
-        }
-    }; */
 
 }
