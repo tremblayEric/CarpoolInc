@@ -133,13 +133,24 @@ public class AccueilActivity extends ActionBarActivity{
         drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerListener(drawerToggle);
         String[] values = new String[]{
-                " PROFIL", "OFFRE", "RECHERCHE", "CONSULTATIONS OFFRE", "DECONNEXION"
+                " PROFIL", " ANNONCE", " RECHERCHE", " MES OFFRES", " DECONNEXION"
         };
 
 
 
     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-            android.R.layout.simple_list_item_1, android.R.id.text1, values);
+            android.R.layout.simple_list_item_1, android.R.id.text1, values)
+    {
+        @Override
+         public View getView(int position, View convertView, ViewGroup parent) {
+            View view = super.getView(position, convertView, parent);
+            TextView text = (TextView) view.findViewById(android.R.id.text1);
+            text.setTypeface(null, Typeface.BOLD);
+
+            return view;
+         }
+
+    };
 
 
 
@@ -163,22 +174,22 @@ public class AccueilActivity extends ActionBarActivity{
 
                     break;
                 case 1:
-                    mDrawerList.setBackgroundColor(getResources().getColor(R.color.red));
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.red));
+                    mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
                    // slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.red));
                     mDrawerLayout.closeDrawer(Gravity.START);
                     objFragment = new OffreActivity();
                     break;
                 case 2:
-                    mDrawerList.setBackgroundColor(getResources().getColor(R.color.blue));
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.blue));
+                    mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
                     //slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.blue));
                     mDrawerLayout.closeDrawer(Gravity.START);
                     objFragment = new RechercheActivity();
                     break;
                 case 3:
-                    mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
+                    mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
                     //slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
                     mDrawerLayout.closeDrawer(Gravity.START);
                     objFragment = new ConsultationOffreActivity();
@@ -208,6 +219,7 @@ public class AccueilActivity extends ActionBarActivity{
         if (!init)
         {
             mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
             //slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
             mDrawerLayout.closeDrawer(Gravity.START);
