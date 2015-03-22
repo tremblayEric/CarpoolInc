@@ -5,9 +5,7 @@ import com.parse.ParseObject;
 
 import java.io.Serializable;
 
-/**
- * Created by Gaëlle on 3/5/2015.
- */
+
 @ParseClassName("Position")
 public class Position extends ParseObject implements Serializable {
 
