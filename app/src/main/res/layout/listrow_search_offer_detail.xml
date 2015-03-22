@@ -24,7 +24,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
-                android:text="Berri-Uqam"
                 android:textSize="15sp"/>
         </LinearLayout>
 
@@ -43,7 +42,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
-                android:text="Mc-Do"
                 android:textSize="15sp"/>
         </LinearLayout>
 
@@ -62,7 +60,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
-                android:text="Annic Boy"
                 android:textSize="15sp"/>
         </LinearLayout>
 
