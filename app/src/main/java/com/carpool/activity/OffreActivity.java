@@ -383,11 +383,6 @@ Tiré de https://developers.google.com/places/training/autocomplete-android
         }
     }
 
-
-
-
-
-
     private static String padding_str(int c)
     {
         if (c >= 10)
@@ -395,8 +390,6 @@ Tiré de https://developers.google.com/places/training/autocomplete-android
         else
         return "0" + String.valueOf(c);
     }
-
-
 
     private void clearAllFields()
     {

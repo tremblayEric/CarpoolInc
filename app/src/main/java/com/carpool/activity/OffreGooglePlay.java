@@ -236,7 +236,7 @@ public class OffreGooglePlay extends FragmentActivity {
         @Override
         protected void onPostExecute(List<HashMap<String,String>> list){
 
-           
+
         }
     }
 
