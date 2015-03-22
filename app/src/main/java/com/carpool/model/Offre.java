@@ -5,12 +5,8 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
-/**
- * Created by Gaëlle on 3/5/2015.
- */
 @ParseClassName("Offre")
 public class Offre extends ParseObject implements Serializable {
 
