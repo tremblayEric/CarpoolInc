@@ -12,9 +12,6 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-/**
- * Created by Gaëlle on 3/6/2015.
- */
 public class CarpoolApplication extends Application {
     @Override
     public void onCreate() {
