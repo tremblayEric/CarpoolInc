@@ -338,14 +338,11 @@ public class LoginActivity extends ActionBarActivity {
                 texte.setText("");
                 Log.d("utilis", utilis.getObjectId());
 
-
-
                 //showProgress(false);
-                Intent newActivity  = new Intent(LoginActivity.this, Adresse.class);
-
-
+                
                 Log.d("trouve", "utilisateur touve");
 
+                Intent newActivity  = new Intent(LoginActivity.this, AccueilActivity.class); //Accueil
                 startActivity(newActivity);
 
                 finish();
