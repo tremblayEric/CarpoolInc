@@ -138,4 +138,7 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
         TextView txtChutePoint;
         TextView txtDriver;
     }
+
+
+
 }

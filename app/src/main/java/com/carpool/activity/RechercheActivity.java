@@ -19,6 +19,7 @@ import android.widget.ExpandableListView;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.carpool.utils.GeocodingLocation;
@@ -168,6 +169,7 @@ public class RechercheActivity extends Fragment {
 
 
                             MyResultSearchListAdapter adapter = new MyResultSearchListAdapter(getActivity(), offresAcceptables);
+                            hideStuff();
                             listView.setAdapter(adapter);
                         } else {
                             /*exception*/
@@ -273,6 +275,29 @@ public class RechercheActivity extends Fragment {
         calendar.set(year, month, day);
 
         return calendar.getTime();
+    }
+
+    private void hideStuff(){
+        TextView view = (TextView) rootview.findViewById(R.id.tvTitleSearch);
+        view.setVisibility(View.INVISIBLE);
+        view = (TextView) rootview.findViewById(R.id.tvDepart);
+        view.setVisibility(View.INVISIBLE);
+        view = (TextView) rootview.findViewById(R.id.etDepart);
+        view.setVisibility(View.INVISIBLE);
+        view = (TextView) rootview.findViewById(R.id.tvSearchDestination);
+        view.setVisibility(View.INVISIBLE);
+        view = (TextView) rootview.findViewById(R.id.etSearchDestination);
+        view.setVisibility(View.INVISIBLE);
+        view = (TextView) rootview.findViewById(R.id.tvDateSearch);
+        view.setVisibility(View.INVISIBLE);
+        DatePicker dateView = (DatePicker) rootview.findViewById(R.id.etDateSearch);
+        dateView.setVisibility(dateView.INVISIBLE);
+        view = (TextView) rootview.findViewById(R.id.tvBetweenStartTextSearch);
+        view.setVisibility(View.INVISIBLE);
+        TimePicker timeView = (TimePicker)rootview.findViewById(R.id.etBetweenStartSearch);
+        timeView.setVisibility(View.INVISIBLE);
+        Button buttonView = (Button)rootview.findViewById(R.id.btnSubmitSearch);
+        buttonView.setVisibility(View.INVISIBLE);
     }
 
 }
