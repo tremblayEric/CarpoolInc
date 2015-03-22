@@ -407,7 +407,7 @@ public class CreationProfilActivity extends ActionBarActivity {
                     compteCree.setText("Compte Créé avec succès!");
                     compteCree.setTextColor(Color.parseColor("#ff80cbc4"));
 
-                    Intent newActivity = new Intent(CreationProfilActivity.this, Adresse.class);
+                    Intent newActivity = new Intent(CreationProfilActivity.this, AccueilActivity.class);
                     startActivity(newActivity);
                     finish();
 

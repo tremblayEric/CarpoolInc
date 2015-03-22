@@ -73,7 +73,7 @@ public class AccueilActivity extends ActionBarActivity{
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
             // Send logged in users to Profil
-            Fragment objFragment = new ProfilActivity();
+            Fragment objFragment = new RechercheActivity();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, objFragment)
@@ -225,6 +225,7 @@ public class AccueilActivity extends ActionBarActivity{
 
                     break;
                 case 4: // gerer la deconnexion
+                    ParseUser.logOut();
                     Intent intent = new Intent(AccueilActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
@@ -251,7 +252,7 @@ public class AccueilActivity extends ActionBarActivity{
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
             //slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
             mDrawerLayout.closeDrawer(Gravity.START);
-            objFragment = new ProfilActivity();
+            objFragment = new RechercheActivity();
 
             // update the main content by replacing fragments
             FragmentManager fragmentManager = getSupportFragmentManager();
