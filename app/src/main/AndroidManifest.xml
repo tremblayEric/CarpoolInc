@@ -80,7 +80,7 @@
             android:value="AIzaSyAlmJpByv6Zq4eu_28CATvR9BcB6OMsdkU" />-->
 
         <activity
-            android:name=".Adresse"
+            android:name="com.carpool.utils.Adresse"
             android:label="@string/title_activity_adresse" >
         </activity>
         <activity

@@ -1,7 +1,6 @@
 package com.carpool.activity;
 
 import android.graphics.Color;
-import android.location.Location;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
@@ -15,6 +14,8 @@ import android.widget.ListView;
 import com.carpool.design.SlidingTabLayout;
 import com.carpool.design.ViewPagerAdapter;
 import com.carpool.model.Offre;
+import com.carpool.utils.MyResultSearchListAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 

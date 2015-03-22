@@ -1,4 +1,4 @@
-package com.carpool;
+package com.carpool.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

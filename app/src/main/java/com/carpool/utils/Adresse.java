@@ -1,4 +1,4 @@
-package com.carpool.activity;
+package com.carpool.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +24,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.carpool.GeocodeJSONParser;
+
+import com.carpool.activity.R;
+import com.carpool.activity.ResultatRechercheActivity;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 

@@ -1,4 +1,4 @@
-package com.carpool.activity;
+package com.carpool.utils;
 
 import android.app.Activity;
 import android.location.Address;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
+import com.carpool.activity.R;
 import com.carpool.model.Offre;
 import com.carpool.model.Position;
 import com.parse.ParseUser;

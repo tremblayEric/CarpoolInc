@@ -4,12 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,9 +15,7 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -30,14 +26,9 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.carpool.GeocodeJSONParser;
-import com.carpool.model.Offre;
-import com.carpool.model.Trajet;
+import com.carpool.utils.GeocodeJSONParser;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
 
 /**
  * cette classe reprend le fonctionnement de la classe adresse, mais dans le contexte de l'offre au
