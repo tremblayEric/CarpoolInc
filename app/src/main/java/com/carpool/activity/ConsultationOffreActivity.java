@@ -111,6 +111,7 @@ package com.carpool.activity;
                 @Override
                 public void done(List<Offre> offres, ParseException e) {
                     if (e == null) {
+
                         tabDepart = new String[offres.size()];
                         tabDestination = new String[offres.size()];
                         listeOffres.addAll(offres);
