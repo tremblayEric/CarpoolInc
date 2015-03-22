@@ -1,8 +1,6 @@
 package com.carpool.activity;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -12,8 +10,6 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,52 +18,24 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.NumberPicker;
 import android.widget.TimePicker;
-
 import com.carpool.utils.GeocodingLocation;
 import com.carpool.utils.PlaceAPI;
 import com.carpool.model.Offre;
 import com.carpool.model.Position;
 import com.carpool.model.Trajet;
 import com.parse.ParseUser;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.List;
 import android.util.Log;
 
-import java.util.Calendar;
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.TimePicker;
-
-/**
- * Created by Bart on 2015-03-07.
- */
 public class OffreActivity extends Fragment {
 
     View rootview;
-    static final int DATE_PICKER_ID = 1111;
-    static final int TIME_PICKER_ID_ENTRE = 1112;
-    static final int TIME_PICKER_ID_ET = 1113;
-    static final int NUM_PICKER_ID = 1114;
-
-    // variables pour le datePicker
-    private int year;
-    private int month;
-    private int day;
-
 
     private int year_depart;
     private int month_depart;
@@ -115,19 +83,6 @@ public class OffreActivity extends Fragment {
 
         // NumericPicker nbre de places
         etNbreProp = (AutoCompleteTextView) rootview.findViewById(R.id.etNbreProposition);
-
-
-        /*
-        DatePickerDialog mDatePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                calendar.set(selectedyear, selectedmonth, selectedday);
-                dateDepart.setText(new StringBuilder().append(selectedmonth + 1)
-                        .append("-").append(selectedday).append("-").append(selectedyear)
-                        .append(" "));
-            }
-        }, mYear, mMonth, mDay);
-        mDatePicker.setTitle("Date de départ");
-        mDatePicker.show();*/
 
         // DatePicker date de depart
         /****
@@ -189,7 +144,6 @@ public class OffreActivity extends Fragment {
         hour_entre  = c_time_entre.get(Calendar.HOUR_OF_DAY);
         minute_entre = c_time_entre.get(Calendar.MINUTE);
         ac_etBetweenStart = (AutoCompleteTextView)rootview.findViewById(R.id.etBetweenStart);
-        //ac_etBetweenStart.setText(hour_entre+":"+minute_entre);
         ac_etBetweenStart.setText(new StringBuilder().append(padding_str(hour_entre))
                 .append(":").append(padding_str(minute_entre)));
 
@@ -201,7 +155,6 @@ public class OffreActivity extends Fragment {
                 // set current time into textview
                 ac_etBetweenStart.setText(new StringBuilder().append(padding_str(hour_entre))
                         .append(":").append(padding_str(minute_entre)));
-
             }
         };
 
@@ -237,7 +190,6 @@ public class OffreActivity extends Fragment {
         ac_etBetweenEnd.setText(new StringBuilder().append(padding_str(hour_et))
                 .append(":").append(padding_str(minute_et)));
 
-
         timePickerListenerEt =  new TimePickerDialog.OnTimeSetListener() {
             public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
                 hour_et = selectedHour;
@@ -246,7 +198,6 @@ public class OffreActivity extends Fragment {
                 // set current time into textview
                 ac_etBetweenEnd.setText(new StringBuilder().append(padding_str(hour_et))
                         .append(":").append(padding_str(minute_et)));
-
             }
         };
 
@@ -261,17 +212,11 @@ public class OffreActivity extends Fragment {
                 Log.d("log","dans le logId");
                 Log.d("heure arrivee", "heure "+ hour_et);
                 Log.d("minute arrivee", "minute "+ minute_et);
-
                 ac_etBetweenEnd.requestFocus();
 
                 return true;
             }
         });
-
-
-       // ((NumberPicker)rootview.findViewById(R.id.etNbreProposition)).setMinValue(1);
-       // ((NumberPicker)rootview.findViewById(R.id.etNbreProposition)).setMaxValue(10);
-
 
         Button submitOffer = (Button)(rootview.findViewById(R.id.btnSubmitOffer));
 
@@ -294,7 +239,6 @@ public class OffreActivity extends Fragment {
                 if (eStarting.length() > 0 && eDestination.length() >0 && nbProp.length()>0) {
                     address.add(eStarting);
                     address.add(eDestination);
-
 
                     GeocodingLocation locationAddress = new GeocodingLocation();
                     locationAddress.getAddressFromLocation(address,
@@ -328,10 +272,7 @@ public class OffreActivity extends Fragment {
 
             }
         });
-
-
         return rootview;
-
     }
 
 
@@ -349,33 +290,13 @@ public class OffreActivity extends Fragment {
         trajet.setPositionArrive(arrivee);
 
         Offre offre = new Offre() ;
-
-        /*
-        Calendar cal = Calendar.getInstance();
-        DatePicker dateDepart = (DatePicker)rootview.findViewById(R.id.etDate);
-        cal.set(dateDepart.getYear(), dateDepart.getMonth(), dateDepart.getDayOfMonth());*/
-
         offre.setDepart(c_date.getTime());
-
-        //TimePicker timePicker = (TimePicker)rootview.findViewById(R.id.etBetweenStart);
-        //cal.set(Calendar.HOUR, timePicker.getCurrentHour());
-        //cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
-
         offre.setHeureDebut(c_time_entre.getTime());
-
-       // timePicker = (TimePicker)rootview.findViewById(R.id.etBetweenEnd);
-        //cal.set(Calendar.HOUR, timePicker.getCurrentHour());
-        //cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
-
         offre.setHeureFin(c_time_et.getTime());
-
-        //NumberPicker numberPicker = (NumberPicker)rootview.findViewById(R.id.etNbreProposition);
-        offre.setNbreProposition(Integer.valueOf(etNbreProp.getText().toString()));//numberPicker.getValue());
-        offre.setReservationCount(Integer.valueOf(etNbreProp.getText().toString()));//numberPicker.getValue());
-
+        offre.setNbreProposition(Integer.valueOf(etNbreProp.getText().toString()));
+        offre.setReservationCount(Integer.valueOf(etNbreProp.getText().toString()));
         offre.setTrajet(trajet);
         offre.setUser(ParseUser.getCurrentUser());
-
         offre.saveInBackground();
 
         Fragment objFragment = new ConsultationOffreActivity();
@@ -392,12 +313,11 @@ Tiré de http://javapapers.com/android/android-geocoding-to-get-latitude-longitu
     private class GeocoderHandler extends Handler {
         @Override
         public void handleMessage(Message message) {
-            //String locationAddress;
+
             LinkedHashSet<double[]> locationAddress;
             switch (message.what) {
                 case 1:
                     Bundle bundle = message.getData();
-                    //locationAddress = bundle.getString("address");
                     locationAddress = (LinkedHashSet<double[]>)bundle.getSerializable("address");
                     break;
                 default:
@@ -459,58 +379,6 @@ Tiré de https://developers.google.com/places/training/autocomplete-android
         }
     }
 
-/*
-    //@Override
-    protected Dialog onCreateDialog(int id)
-    {
-        switch (id)
-        {
-            case DATE_PICKER_ID:
-                // open datepicker dialog.
-                // set date picker for current date
-                // add pickerListener listner to date picker
-                return new DatePickerDialog(getActivity(), pickerListener, year_depart, month_depart,day_depart);
-
-            case TIME_PICKER_ID_ENTRE:
-                return new TimePickerDialog(getActivity(), timePickerListenerEntre, hour_entre, minute_entre,false);
-
-            case TIME_PICKER_ID_ET:
-                return new TimePickerDialog(getActivity(), timePickerListenerEt, hour_et, minute_et, false);
-
-            case NUM_PICKER_ID:
-                //return new NumberPicker();
-                Log.d("number_picker", "dans le number picker");
-                break;
-        }
-        return null;
-    }
-
-
-    private TimePickerDialog.OnTimeSetListener timePickerListenerEntre =  new TimePickerDialog.OnTimeSetListener() {
-        public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
-        hour_entre = selectedHour;
-        minute_entre = selectedMinute;
-
-        // set current time into textview
-        ac_etBetweenStart.setText(new StringBuilder().append(padding_str(hour_entre))
-                .append(":").append(padding_str(minute_entre)));
-
-        }
-    };
-
-    private TimePickerDialog.OnTimeSetListener timePickerListenerEt =  new TimePickerDialog.OnTimeSetListener() {
-        public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
-            hour_et = selectedHour;
-            minute_et = selectedMinute;
-
-            // set current time into textview
-            ac_etBetweenEnd.setText(new StringBuilder().append(padding_str(hour_et))
-                    .append(":").append(padding_str(minute_et)));
-
-        }
-    };*/
-
-
     private static String padding_str(int c)
     {
         if (c >= 10)
@@ -518,24 +386,4 @@ Tiré de https://developers.google.com/places/training/autocomplete-android
         else
         return "0" + String.valueOf(c);
     }
-
-   /* private DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener()
-    {
-        // when dialog box is closed, below method will be called.
-        @Override
-        public void onDateSet(DatePicker view, int selectedYear,
-                              int selectedMonth, int selectedDay) {
-
-            year_depart  = selectedYear;
-            month_depart = selectedMonth;
-            day_depart   = selectedDay;
-
-            // SOutputhow selected date
-            etDate_.setText(new StringBuilder().append(month_depart + 1)
-                    .append("-").append(day_depart).append("-").append(year_depart)
-                    .append(" "));
-
-        }
-    }; */
-
 }
