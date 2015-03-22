@@ -67,6 +67,7 @@
                             android:orientation="horizontal"
                             android:gravity="center">
 
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -78,9 +79,17 @@
                                 android:textColor="#ff000000"
                                 android:layout_below="@+id/textView"
                                 android:layout_alignStart="@+id/textView" />
+
                         </LinearLayout>
 
-
+                        <ImageView
+                            android:layout_width="fill_parent"
+                            android:layout_height="5dip"
+                            android:id="@+id/lineSeparator"
+                            android:src="@drawable/line"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/material_deep_teal_500"
+                            />
 
 
                         <LinearLayout
