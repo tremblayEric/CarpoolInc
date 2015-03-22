@@ -121,6 +121,7 @@ public class ProfilActivity extends Fragment {
 
             switch(date_naiss.getMonth()+1)
             {
+
                 case 1: TextViewdate_naissance.append(" Janvier ");
                     break;
                 case 2: TextViewdate_naissance.append(" Fevrier ");
