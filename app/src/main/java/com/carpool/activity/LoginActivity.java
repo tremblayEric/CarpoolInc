@@ -339,6 +339,7 @@ public class LoginActivity extends ActionBarActivity {
                 Log.d("utilis", utilis.getObjectId());
 
                 //showProgress(false);
+              
                 
                 Log.d("trouve", "utilisateur touve");
 

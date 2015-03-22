@@ -12,10 +12,12 @@ import android.widget.TextView;
 import com.carpool.model.Offre;
 import com.carpool.model.Position;
 import com.carpool.model.User;
+import com.parse.ParseUser;
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -86,12 +88,12 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
             else
                 holder = (ListOffersGroupHolder)convertView.getTag();
 
-            DateFormat df = new SimpleDateFormat("hh:'00' a");
+            DateFormat df = new SimpleDateFormat("hh:mm a");
             Date date = listOffers.get(groupPosition).getHeureDebut();
             holder.txtStartHour.setText(df.format(date));
             Position positionDepart = listOffers.get(groupPosition).getTrajet().getPositionDepart();
             holder.txtStartPoint.setText(getCityNameFromPosition(positionDepart));
-            date = listOffers.get(groupPosition).getHeureDebut();
+            date = listOffers.get(groupPosition).getHeureFin();
             holder.txtEndHour.setText(df.format(date));
             Position positionArrivee = listOffers.get(groupPosition).getTrajet().getPositionArrive();
             holder.txtEndPoint.setText(getCityNameFromPosition(positionArrivee));
@@ -118,8 +120,8 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
 
             holder.txtRendezvous.setText("Non spécifié");
             holder.txtChutePoint.setText("Non spécifié");
-            User user = (User)listOffers.get(groupPosition).getUser();
-            holder.txtDriver.setText(user.getFirstname() + " " + user.getLasttname());
+            ParseUser user = listOffers.get(groupPosition).getUser();
+            holder.txtDriver.setText(user.get("firstname") + " " + user.get("lastname"));
         }
         catch (Exception ex) {
 
@@ -151,7 +153,7 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
         catch (IOException e) {
             e.printStackTrace();
         }
-        String cityName = addresses.get(0).getAddressLine(0);
+        String cityName = addresses.get(0).getLocality();
         //String stateName = addresses.get(0).getAddressLine(1);
         //String countryName = addresses.get(0).getAddressLine(2);
         return  cityName;

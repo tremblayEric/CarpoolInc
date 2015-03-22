@@ -28,6 +28,7 @@ import android.widget.Filterable;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.carpool.utils.GeocodingLocation;
 import com.carpool.utils.PlaceAPI;
@@ -242,15 +243,21 @@ public class RechercheActivity extends Fragment {
                         if (e == null) {
 
                             List<Offre> offresAcceptables = getOffreCorrespondantes(offres,locationAddress);
-
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable("offres", (Serializable)offres);
-                            Fragment objFragment = new ResultatRechercheActivity();
-                            objFragment.setArguments(bundle);
-                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.container, objFragment)
-                                    .commit();
+                            if(offresAcceptables.size() == 0)
+                            {
+                                Toast.makeText(getActivity(), "Aucun résultat ne correspond à votre recherche",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("offres", (Serializable) offresAcceptables);
+                                Fragment objFragment = new ResultatRechercheActivity();
+                                objFragment.setArguments(bundle);
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                fragmentManager.beginTransaction()
+                                        .replace(R.id.container, objFragment)
+                                        .commit();
+                            }
                         } else {
                             //*exception*//*
                         }
