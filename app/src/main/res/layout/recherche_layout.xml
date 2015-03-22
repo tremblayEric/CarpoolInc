@@ -64,13 +64,19 @@
             android:layout_toEndOf="@+id/tvSearchDestination"
             android:completionThreshold="3"/>
 
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+     <!--   <fragment xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="500dp"
             android:layout_below="@id/etSearchDestination"
             class="com.google.android.gms.maps.SupportMapFragment"
-            />
+            />-->
+
+        <ExpandableListView
+            android:id="@+id/lvResultSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ExpandableListView>
 
         <TextView
             android:id="@+id/tvDateSearch"
