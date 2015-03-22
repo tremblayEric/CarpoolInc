@@ -1,18 +1,15 @@
 package com.carpool.activity;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,34 +22,22 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.NumberPicker;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import com.carpool.utils.GeocodingLocation;
 import com.carpool.utils.PlaceAPI;
 import com.carpool.model.Offre;
-import com.carpool.model.Position;
 import com.carpool.model.Trajet;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
-
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
-
 
 public class RechercheActivity extends Fragment {
 
@@ -69,8 +54,6 @@ public class RechercheActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.recherche_layout,container,false);
         listView = (ExpandableListView) rootview.findViewById(R.id.lvResultSearch);
-        TextView texte = (TextView)rootview.findViewById(R.id.btnSubmitSearch);
-
 
         autoCompViewFrom = (AutoCompleteTextView) rootview.findViewById(R.id.etDepart);
         autoCompViewFrom.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_autocomplete));
@@ -157,7 +140,6 @@ public class RechercheActivity extends Fragment {
                     }
 
                 }
-
             }
         });
         return rootview;
@@ -176,7 +158,6 @@ public class RechercheActivity extends Fragment {
                     getOffresFromDataBase(locationAddress);
                     break;
                 default:
-                    locationAddress = null;
             }
         }
     }
@@ -270,17 +251,7 @@ public class RechercheActivity extends Fragment {
         List<Offre> lesOffres = offres;
         List<Offre> offresAcceptables = new ArrayList<Offre>();
 
-        EditText textDate = (EditText) getActivity().findViewById(R.id.etDateSearch);
-        /*DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-        Date dateDepart = null;
-        try {
-            dateDepart = format.parse(textDate.toString());
-        }
-        catch (java.text.ParseException e) {
-            e.printStackTrace();
-        }*/
         TimePicker tempsDepart = (TimePicker) getActivity().findViewById(R.id.etBetweenStartSearch);
-
         Location locationSouhaitable = new Location("locationA");
 
         Iterator<double[]> iter = locationAddress.iterator();
@@ -297,8 +268,6 @@ public class RechercheActivity extends Fragment {
             long heureDepartAuPlusTot = uneOffre.getHeureDebut().getHours();
             long heureDepartAuPlusTard = uneOffre.getHeureFin().getHours();
 
-
-            //long diffTemps = dateDuDepart.getTime() - getDateFromDatePicker(datePicker).getTime();
             long diffTemps = dateDuDepart.getTime() - calendar.getTime().getTime() ;
             int jourDeDifference = (int) diffTemps / (1000 * 60 * 60 * 24);
 
@@ -342,18 +311,4 @@ public class RechercheActivity extends Fragment {
         }
         return offresAcceptables;
     }
-
-
-    public static Date getDateFromDatePicker(DatePicker datePicker){
-        int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth();
-        int year =  datePicker.getYear();
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-
-        return calendar.getTime();
-    }
-
-
 }
