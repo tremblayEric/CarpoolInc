@@ -341,7 +341,7 @@ public class LoginActivity extends ActionBarActivity {
 
 
                 //showProgress(false);
-                Intent newActivity  = new Intent(LoginActivity.this, Adresse.class); //Adresse
+                Intent newActivity  = new Intent(LoginActivity.this, Adresse.class);
 
 
                 Log.d("trouve", "utilisateur touve");

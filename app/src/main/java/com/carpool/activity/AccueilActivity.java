@@ -124,6 +124,7 @@ public class AccueilActivity extends ActionBarActivity{
 
             toolbar.setTitle("      CARPOOL INC.       ");
 
+
             toolbar.setTitleTextColor(Color.WHITE);
             Log.d("toolbar", "dans la toolbar");
         }
