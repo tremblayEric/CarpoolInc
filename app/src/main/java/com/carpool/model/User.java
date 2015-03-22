@@ -2,13 +2,8 @@ package com.carpool.model;
 
 import com.parse.ParseClassName;
 import com.parse.ParseUser;
-
 import java.io.Serializable;
 import java.util.Date;
-
-/**
- * Created by Gaëlle on 3/6/2015.
- */
 
 @ParseClassName("User")
 public class User extends ParseUser implements Serializable {
