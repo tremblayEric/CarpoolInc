@@ -31,10 +31,12 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -42,11 +44,13 @@ import java.util.List;
 public class RechercheActivity extends Fragment {
 
     View rootview;
+    ExpandableListView listView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.recherche_layout,container,false);
+         listView = (ExpandableListView) rootview.findViewById(R.id.lvResultSearch);
 
         AutoCompleteTextView autoCompViewFrom = (AutoCompleteTextView) rootview.findViewById(R.id.etDepart);
         autoCompViewFrom.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_autocomplete));
@@ -87,6 +91,7 @@ public class RechercheActivity extends Fragment {
                     Bundle bundle = message.getData();
                     //locationAddress = bundle.getString("address");
                     locationAddress = (LinkedHashSet<double[]>)bundle.getSerializable("address");
+                    getOffresFromDataBase(locationAddress);
                     break;
                 default:
                     locationAddress = null;
@@ -147,9 +152,9 @@ public class RechercheActivity extends Fragment {
         }
     }
 
-    private void getOffresFromDataBase(){
+    private void getOffresFromDataBase(final LinkedHashSet<double[]> locationAddress){
 
-        final ExpandableListView listView = (ExpandableListView) rootview.findViewById(R.id.lvResultSearch);
+
 
         ParseQuery<Offre> query = ParseQuery.getQuery("Offre");
         query.findInBackground(
@@ -158,7 +163,10 @@ public class RechercheActivity extends Fragment {
                     public void done(List<Offre> offres, ParseException e) {
                         if (e == null) {
 
-                            List<Offre> offresAcceptables = getOffreCorrespondantes(offres);
+                            List<Offre> offresAcceptables = getOffreCorrespondantes(offres,locationAddress);
+
+
+
                             MyResultSearchListAdapter adapter = new MyResultSearchListAdapter(getActivity(), offresAcceptables);
                             listView.setAdapter(adapter);
                         } else {
@@ -168,7 +176,7 @@ public class RechercheActivity extends Fragment {
                 });
     }
 
-    private List<Offre> getOffreCorrespondantes(List<Offre> offres){
+    private List<Offre> getOffreCorrespondantes(List<Offre> offres,LinkedHashSet<double[]> locationAddress){
         /*
         Calendar cal = Calendar.getInstance();
         DatePicker dateDepart = (DatePicker)rootview.findViewById(R.id.etDate);
@@ -184,15 +192,24 @@ public class RechercheActivity extends Fragment {
         List<Offre> lesOffres = offres;
         List<Offre> offresAcceptables = new ArrayList<Offre>();
 
-        DatePicker datePicker = (DatePicker) getActivity().findViewById(R.id.dateRecherche);
-        TimePicker tempsDepart = (TimePicker) getActivity().findViewById(R.id.tempsDepartRecherche);
-        List<HashMap<String,String>> list = (List<HashMap<String,String>>)getArguments().get("ListFromMap");
+        DatePicker datePicker = (DatePicker) getActivity().findViewById(R.id.etDateSearch);
+        TimePicker tempsDepart = (TimePicker) getActivity().findViewById(R.id.etBetweenStartSearch);
+        //List<HashMap<String,String>> list = (List<HashMap<String,String>>)getArguments().get("ListFromMap");
 
         Location locationSouhaitable = new Location("locationA");
 
-        locationSouhaitable.setLatitude(Double.parseDouble(((HashMap<String, String>)list.get(0)).get("lat")));
-        locationSouhaitable.setLongitude(Double.parseDouble(((HashMap<String, String>)list.get(0)).get("lng")));
+       // locationSouhaitable.setLatitude(Double.parseDouble(((HashMap<String, String>)list.get(0)).get("lat")));
+        //locationSouhaitable.setLongitude(Double.parseDouble(((HashMap<String, String>)list.get(0)).get("lng")));
 
+
+       // locationAddress
+
+        Iterator<double[]> iter = locationAddress.iterator();
+        double[] depart = iter.next();
+        double[] arrivee = iter.next();
+
+        locationSouhaitable.setLatitude(depart[0]);
+        locationSouhaitable.setLongitude(depart[1]);
 
         for (int i = 0 ; i < lesOffres.size();++i){
             Offre uneOffre = lesOffres.get(i);
@@ -232,8 +249,8 @@ public class RechercheActivity extends Fragment {
                 double distance = locationSouhaitable.distanceTo(locationOfferte) / 1000;
                 if (distance <= 20) {
 
-                    locationSouhaitable.setLatitude(Double.parseDouble(((HashMap<String, String>) list.get(1)).get("lat")));
-                    locationSouhaitable.setLongitude(Double.parseDouble(((HashMap<String, String>) list.get(1)).get("lng")));
+                    locationSouhaitable.setLatitude(arrivee[0]);
+                    locationSouhaitable.setLongitude(arrivee[1]);
 
                     locationOfferte.setLatitude(trajetResultat.getPositionArrive().getLatitude());
                     locationOfferte.setLongitude(trajetResultat.getPositionArrive().getLongitude());
