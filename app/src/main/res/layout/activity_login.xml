@@ -67,6 +67,7 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColorHighlight="#ff0e6742"
+                    android:maxLength="10"
                     />
 
                 <AutoCompleteTextView android:id="@+id/password"
@@ -76,7 +77,8 @@
                     android:textColorHighlight="#ff0e6742"
                     android:maxLines="1" android:singleLine="true"
                     android:layout_marginTop="10dp"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:maxLength="15"/>
 
                 <TextView
                     android:layout_marginTop="20dp"
