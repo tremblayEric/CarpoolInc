@@ -9,7 +9,6 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +31,7 @@ import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.List;
 import android.util.Log;
+import android.widget.Toast;
 
 public class OffreActivity extends Fragment {
 
@@ -155,6 +155,7 @@ public class OffreActivity extends Fragment {
                 // set current time into textview
                 ac_etBetweenStart.setText(new StringBuilder().append(padding_str(hour_entre))
                         .append(":").append(padding_str(minute_entre)));
+
             }
         };
 
@@ -292,6 +293,9 @@ public class OffreActivity extends Fragment {
         Offre offre = new Offre() ;
         offre.setDepart(c_date.getTime());
         offre.setHeureDebut(c_time_entre.getTime());
+        c_time_entre.set(c_date.get(Calendar.YEAR),c_date.get(Calendar.MONTH),c_date.get(Calendar.DAY_OF_MONTH), hour_entre, minute_entre);
+        offre.setHeureDebut(c_time_entre.getTime());
+        c_time_et.set(c_date.get(Calendar.YEAR),c_date.get(Calendar.MONTH),c_date.get(Calendar.DAY_OF_MONTH), hour_et, minute_et);
         offre.setHeureFin(c_time_et.getTime());
         offre.setNbreProposition(Integer.valueOf(etNbreProp.getText().toString()));
         offre.setReservationCount(Integer.valueOf(etNbreProp.getText().toString()));
@@ -299,11 +303,11 @@ public class OffreActivity extends Fragment {
         offre.setUser(ParseUser.getCurrentUser());
         offre.saveInBackground();
 
-        Fragment objFragment = new ConsultationOffreActivity();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, objFragment)
-                .commit();
+        Toast.makeText(getActivity(), "Annonce ajoutée dans MES ANNONCES",
+                Toast.LENGTH_LONG).show();
+
+        clearAllFields();
+
     }
 
 
@@ -379,11 +383,34 @@ Tiré de https://developers.google.com/places/training/autocomplete-android
         }
     }
 
+
+
+
+
+
     private static String padding_str(int c)
     {
         if (c >= 10)
           return String.valueOf(c);
         else
         return "0" + String.valueOf(c);
+    }
+
+
+
+    private void clearAllFields()
+    {
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView)rootview.findViewById(R.id.etStarting);
+        autoCompleteTextView.setText("");
+        autoCompleteTextView = (AutoCompleteTextView)rootview.findViewById(R.id.etDestination);
+        autoCompleteTextView.setText("");
+        autoCompleteTextView = (AutoCompleteTextView)rootview.findViewById(R.id.etNbreProposition);
+        autoCompleteTextView.setText("");
+        autoCompleteTextView = (AutoCompleteTextView)rootview.findViewById(R.id.etDate);
+        autoCompleteTextView.setText("");
+        autoCompleteTextView = (AutoCompleteTextView)rootview.findViewById(R.id.etBetweenStart);
+        autoCompleteTextView.setText("");
+        autoCompleteTextView = (AutoCompleteTextView)rootview.findViewById(R.id.etBetweenEnd);
+        autoCompleteTextView.setText("");
     }
 }
