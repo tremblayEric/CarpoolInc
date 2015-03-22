@@ -8,24 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
-
 import com.carpool.model.Offre;
 import com.carpool.model.Position;
-import com.carpool.model.User;
 import com.parse.ParseUser;
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.jar.JarEntry;
 
-/**
- * Created by Gaëlle on 3/16/2015.
- */
 public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
 
     private Activity activity;
@@ -99,7 +91,6 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
             holder.txtEndPoint.setText(getCityNameFromPosition(positionArrivee));
         }
         catch(Exception ex){
-
         }
 
         return convertView;
@@ -124,7 +115,6 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
             holder.txtDriver.setText(user.get("firstname") + " " + user.get("lastname"));
         }
         catch (Exception ex) {
-
         }
 
         return convertView;
@@ -154,8 +144,6 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
             e.printStackTrace();
         }
         String cityName = addresses.get(0).getLocality();
-        //String stateName = addresses.get(0).getAddressLine(1);
-        //String countryName = addresses.get(0).getAddressLine(2);
         return  cityName;
     }
 
@@ -165,7 +153,4 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
         TextView txtChutePoint;
         TextView txtDriver;
     }
-
-
-
 }
