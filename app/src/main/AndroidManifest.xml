@@ -75,9 +75,6 @@
             android:label="CARPOOL INC." >
         </activity>
 
-        <!--<meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAlmJpByv6Zq4eu_28CATvR9BcB6OMsdkU" />-->
 
         <activity
             android:name="com.carpool.utils.Adresse"
@@ -87,6 +84,7 @@
             android:name=".OffreGooglePlay"
             android:label="@string/title_activity_offreGooglePlay" >
         </activity>
+
 
     </application>
 
