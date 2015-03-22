@@ -25,6 +25,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
 
@@ -51,6 +52,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 /**
  * Created by Bart on 2015-03-07.
@@ -360,13 +362,13 @@ public class OffreActivity extends Fragment {
         //TimePicker timePicker = (TimePicker)rootview.findViewById(R.id.etBetweenStart);
         //cal.set(Calendar.HOUR, timePicker.getCurrentHour());
         //cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
-
+        c_time_entre.set(c_date.get(Calendar.YEAR),c_date.get(Calendar.MONTH),c_date.get(Calendar.DAY_OF_MONTH), hour_entre, minute_entre);
         offre.setHeureDebut(c_time_entre.getTime());
 
        // timePicker = (TimePicker)rootview.findViewById(R.id.etBetweenEnd);
         //cal.set(Calendar.HOUR, timePicker.getCurrentHour());
         //cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
-
+        c_time_et.set(c_date.get(Calendar.YEAR),c_date.get(Calendar.MONTH),c_date.get(Calendar.DAY_OF_MONTH), hour_et, minute_et);
         offre.setHeureFin(c_time_et.getTime());
 
         //NumberPicker numberPicker = (NumberPicker)rootview.findViewById(R.id.etNbreProposition);
@@ -376,13 +378,18 @@ public class OffreActivity extends Fragment {
         offre.setTrajet(trajet);
         offre.setUser(ParseUser.getCurrentUser());
 
-        offre.saveInBackground();
+        //offre.saveInBackground();
 
-        Fragment objFragment = new ConsultationOffreActivity();
+        /*Fragment objFragment = new ConsultationOffreActivity();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, objFragment)
-                .commit();
+                .commit();*/
+        Toast.makeText(getActivity(), "Annonce ajoutée dans MES ANNONCES",
+                Toast.LENGTH_LONG).show();
+
+        clearAllFields();
+
     }
 
 
@@ -517,6 +524,22 @@ Tiré de https://developers.google.com/places/training/autocomplete-android
           return String.valueOf(c);
         else
         return "0" + String.valueOf(c);
+    }
+
+    private void clearAllFields()
+    {
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView)rootview.findViewById(R.id.etStarting);
+        autoCompleteTextView.setText("");
+        autoCompleteTextView = (AutoCompleteTextView)rootview.findViewById(R.id.etDestination);
+        autoCompleteTextView.setText("");
+        autoCompleteTextView = (AutoCompleteTextView)rootview.findViewById(R.id.etNbreProposition);
+        autoCompleteTextView.setText("");
+        autoCompleteTextView = (AutoCompleteTextView)rootview.findViewById(R.id.etDate);
+        autoCompleteTextView.setText("");
+        autoCompleteTextView = (AutoCompleteTextView)rootview.findViewById(R.id.etBetweenStart);
+        autoCompleteTextView.setText("");
+        autoCompleteTextView = (AutoCompleteTextView)rootview.findViewById(R.id.etBetweenEnd);
+        autoCompleteTextView.setText("");
     }
 
    /* private DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener()
