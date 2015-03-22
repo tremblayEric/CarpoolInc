@@ -5,6 +5,7 @@ package com.carpool.activity;
     import android.graphics.drawable.Drawable;
     import android.os.AsyncTask;
     import android.os.Bundle;
+    import android.support.annotation.Nullable;
     import android.support.v4.app.Fragment;
     import android.support.v4.view.ViewPager;
     import android.util.Log;
@@ -21,6 +22,7 @@ package com.carpool.activity;
     import com.parse.ParseException;
     import com.parse.ParseQuery;
     import com.parse.ParseUser;
+
     import org.apache.http.HttpEntity;
     import org.apache.http.HttpResponse;
     import org.apache.http.client.methods.HttpGet;
@@ -29,6 +31,7 @@ package com.carpool.activity;
     import org.json.JSONArray;
     import org.json.JSONException;
     import org.json.JSONObject;
+
     import java.io.BufferedReader;
     import java.io.InputStream;
     import java.io.InputStreamReader;
@@ -46,6 +49,7 @@ package com.carpool.activity;
 
         String [] tabDepart;
         String [] tabDestination;
+
         ViewPager pager;
         private String titles[] = new String[]{"               VUE LISTE               ", "               VUE CARTE               "};
         SlidingTabLayout slidingTabLayout;
@@ -83,7 +87,6 @@ package com.carpool.activity;
             lv.setChildDivider(devider);
             lv.setDividerHeight(1);
 
-
             ParseQuery<Offre> query = ParseQuery.getQuery("Offre");
             query.whereEqualTo("userOffre", ParseUser.getCurrentUser());
             query.findInBackground(new FindCallback<Offre>() {
@@ -118,7 +121,6 @@ package com.carpool.activity;
                 inflater = LayoutInflater.from(getActivity());
             }
 
-
             // This Function used to inflate parent rows view
             @Override
             public View getGroupView(int groupPosition, boolean isExpanded,
@@ -146,6 +148,7 @@ package com.carpool.activity;
                 double lattArr = trajetResultat.getPositionArrive().getLatitude();
                 double longArr = trajetResultat.getPositionArrive().getLongitude();
 
+
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 ((TextView) convertViewLocale.findViewById(R.id.dateOffre)).setText(sdf.format(offre.getDepart()));
                 ((TextView) convertViewLocale.findViewById(R.id.nbPropositions)).setText(String.valueOf(offre.getNbreProposition()));
@@ -160,7 +163,9 @@ package com.carpool.activity;
 
                     protected void onPostExecute(String result) {
                         ((TextView) convertViewLocale.findViewById(R.id.adDepart)).setText(result);
+
                     }
+
                 }
 
                 class TaskDestinations extends AsyncTask<String, String, String> {
@@ -242,7 +247,6 @@ package com.carpool.activity;
             @Override
             public void notifyDataSetChanged()
             {
-                // Refresh List rows
                 super.notifyDataSetChanged();
             }
 
