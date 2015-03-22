@@ -1,6 +1,5 @@
 package com.carpool.activity;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -19,34 +18,18 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-
-import com.carpool.CarpoolApplication;
-import com.carpool.model.Cote;
-import com.carpool.model.Offre;
-import com.carpool.model.Position;
-import com.carpool.model.Reservation;
-import com.carpool.model.Trajet;
 import com.carpool.model.User;
-import com.parse.FindCallback;
-import com.parse.Parse;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
 import com.parse.SignUpCallback;
-
-import org.w3c.dom.Text;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import android.util.Log;
 import android.support.v7.app.ActionBarActivity;
+
 // Class Création d'un profil utilisateur
 public class CreationProfilActivity extends ActionBarActivity {
 
@@ -69,38 +52,26 @@ public class CreationProfilActivity extends ActionBarActivity {
     static String strNom;
     static String strPrenom ;
 
-
-
     private int year;
     private int month;
     private int day;
     static final int DATE_PICKER_ID = 1111;
     Toolbar toolbar;
 
-    public static boolean validationPseudoDone = false;
-    static boolean pseudoExisteInDB = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
-       // getActionBar().gethide();
         setContentView(R.layout.activity_creation_profil);
-
-
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-
-            //toolbar.setNavigationIcon(R.drawable.carpool_logo);
             toolbar.setLogo(R.drawable.carpool_logo);
             toolbar.setTitle("      CARPOOL INC.       ");
             toolbar.setTitleTextColor(Color.WHITE);
             Log.d("toolbar", "dans la toolbar");
         }
-
 
         pseudo = (EditText) findViewById(R.id.txtPseudo);
         mdp = (EditText) findViewById(R.id.txtMdp);
@@ -110,7 +81,6 @@ public class CreationProfilActivity extends ActionBarActivity {
         nom = (EditText) findViewById(R.id.txtNom);
         prenom = (EditText) findViewById(R.id.txtPrenom);
         compteCree = (TextView) findViewById(R.id.compteCree);
-
 
         // Get current date by calender
         final Calendar c = Calendar.getInstance();
@@ -175,9 +145,7 @@ public class CreationProfilActivity extends ActionBarActivity {
                 String strPass1 = password1.getText().toString();
                 String strPass2 = password2.getText().toString();
                 if (!strPass1.equals(strPass2) && strPass2.length()>0) {
-                    //error.setText(R.string.settings_pwd_not_equal);
                     password2.setError("Confirmation invalide");
-
                 }
                 else{
                     password2.setError(null);
@@ -194,7 +162,6 @@ public class CreationProfilActivity extends ActionBarActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && password1.getText().length()<5 && password1.getText().length() >0) {
                     // code to execute when EditText loses focus
-
                        password1.setError("mot de passe trop court: minimum 5 caractères");
                     }
                     else if (password1.getText().length()>=5){
@@ -202,22 +169,6 @@ public class CreationProfilActivity extends ActionBarActivity {
                     }
                 }
         });
-
-      /*  pseudo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus && pseudo.getText().length()<5 && pseudo.getText().length() >0) {
-                    // code to execute when EditText loses focus
-
-                    // errormail.setText("Email invalide");
-                    pseudo.setError("Pseudo trop court: minimum 5 chiffres");
-                }
-                else if (pseudo.getText().length()>=5){
-                    pseudo.setError(null);
-                }
-            }
-        });*/
-
 
         // Controle sur le format de l'adresse email
         final EditText txtCourriel = (EditText) findViewById(R.id.txtCourriel);
@@ -260,9 +211,7 @@ public class CreationProfilActivity extends ActionBarActivity {
                 dateNais.setError(null);
             }
         });
-
   }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -288,7 +237,6 @@ public class CreationProfilActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     // Déclancher lors de clique sur le bouton Créer
     public void ajouterUtilisateur(View view) {
 
@@ -299,11 +247,9 @@ public class CreationProfilActivity extends ActionBarActivity {
         strMdp = mdp.getText().toString();
         strConfMdp = confmdp.getText().toString();
         strMail = mail.getText().toString();
-
         strDateNais = dateNais.getText().toString();
         strNom = nom.getText().toString();
         strPrenom = prenom.getText().toString();
-
 
        if (TextUtils.isEmpty(strPseudo))
        {
@@ -371,7 +317,6 @@ public class CreationProfilActivity extends ActionBarActivity {
                 Date d = new Date(aaaa-1900,mm-1,dd);
                 strDateNais = sdf.format(d);
                 creerUtilisateur(strPseudo, strMdp,strMail, strPrenom, strNom,strDateNais,strSex);
-
             }
             catch(Exception ex){
                 ex.printStackTrace();
@@ -383,7 +328,7 @@ public class CreationProfilActivity extends ActionBarActivity {
     private void creerUtilisateur(String userName, String password, String email,
                                   String firstName, String lastName,
                                   String birthDay,String gender) throws ParseException {
-        View focusView = null;
+
         System.out.println(" appel a creer Utilisateur");
         User us = new User();
         us.setUsername(userName);
@@ -394,7 +339,6 @@ public class CreationProfilActivity extends ActionBarActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         us.setBirthday(sdf.parse(birthDay));
         us.setGender(User.UserGender.valueOf(gender));
-
         us.saveInBackground();
         System.out.println("Fin saveinBackground");
 
@@ -423,7 +367,6 @@ public class CreationProfilActivity extends ActionBarActivity {
         });
 
         System.out.println(" Fin appel a creer Utilisateur");
-
   }
 
     @Override
@@ -455,7 +398,6 @@ public class CreationProfilActivity extends ActionBarActivity {
             dateNais.setText(new StringBuilder().append(month+1)
                     .append("-").append(day).append("-").append(year)
                     .append(" "));
-
         }
     };
 
@@ -491,7 +433,6 @@ public class CreationProfilActivity extends ActionBarActivity {
 
        }
 
-
      // Calcul de l'age
     public static int getYears(String strDate)
 
@@ -514,8 +455,6 @@ public class CreationProfilActivity extends ActionBarActivity {
         }
         System.out.println("yeardiff==  "+yeardiff);
         return yeardiff;
-
-
     }
 
 }

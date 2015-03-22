@@ -3,25 +3,14 @@ package com.carpool.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.res.AssetManager;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
@@ -29,13 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.util.Log;
-import com.parse.ParseObject;
 import com.parse.*;
 import com.parse.ParseUser;
-
-import java.util.List;
 import android.graphics.Typeface;
-import android.widget.Toast;
 
 /**
  * A login screen that offers login via email/password and via Google+ sign in.
@@ -64,13 +49,8 @@ public class LoginActivity extends ActionBarActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mEmailLoginFormView;
-    //private SignInButton mPlusSignInButton;
-    //private View mSignOutButtons;
     private View mLoginFormView;
-    boolean succu;
-    List<ParseObject> listUser;
     ParseUser utilis;
-    String abcd;
     boolean flag = false;
     private Toolbar toolbar;
     boolean fin = false;
@@ -87,28 +67,21 @@ public class LoginActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            //toolbar.setNavigationIcon(R.drawable.carpool_logo);
             toolbar.setLogo(R.drawable.carpool_logo);
             toolbar.setTitle("      CARPOOL INC.       ");
             toolbar.setTitleTextColor(Color.WHITE);
             Log.d("toolbar", "dans la toolbar");
         }
 
-
         // Set up the login form.
         mUsername = (AutoCompleteTextView) findViewById(R.id.username);
-        //populateAutoComplete();
-
         mPasswordView = (EditText) findViewById(R.id.password);
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-
         Typeface font = Typeface.createFromAsset( getAssets(),
                 "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
         mEmailSignInButton.append("    CONNEXION");
-
         mEmailSignInButton.setTypeface(font);
-
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,7 +113,6 @@ public class LoginActivity extends ActionBarActivity {
         mEmailLoginFormView = findViewById(R.id.email_login_form);
 
         fin = true;
-
     }
 
 
@@ -163,7 +135,6 @@ public class LoginActivity extends ActionBarActivity {
         boolean cancel = false;
         View focusView = null;
 
-
         // Check for a valid password, if the user entered one.
 
         if (!TextUtils.isEmpty(password) && !TextUtils.isEmpty(email)) {
@@ -182,7 +153,6 @@ public class LoginActivity extends ActionBarActivity {
 
             if (!isPasswordValid(password)) {
                 mPasswordView.setError(getString(R.string.error_invalid_password));
-                //focusView = null;
                 focusView= mUsername;
                 cancel = true;
             }
@@ -195,17 +165,10 @@ public class LoginActivity extends ActionBarActivity {
             cancel = true;
 
         } else {
-            // les deux sont vides
-
             mUsername.setError(getString(R.string.error_field_required));
-            //focusView = null;
-            focusView = mUsername;
-            cancel = true;
-
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
-
         }
 
         if (cancel) {
@@ -278,10 +241,7 @@ public class LoginActivity extends ActionBarActivity {
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
-
-        //utilis = user;
     }
-
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
@@ -297,7 +257,6 @@ public class LoginActivity extends ActionBarActivity {
             mEmail = email;
             mPassword = password;
         }
-
 
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -326,7 +285,6 @@ public class LoginActivity extends ActionBarActivity {
             return false;
         }
 
-
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
@@ -337,11 +295,7 @@ public class LoginActivity extends ActionBarActivity {
 
                 texte.setText("");
                 Log.d("utilis", utilis.getObjectId());
-
-                //showProgress(false);
-                
                 Log.d("trouve", "utilisateur touve");
-
                 Intent newActivity  = new Intent(LoginActivity.this, AccueilActivity.class); //Accueil
                 startActivity(newActivity);
 
@@ -356,9 +310,6 @@ public class LoginActivity extends ActionBarActivity {
 
                       texte.setText("** Pseudo ou mot de passe incorrect **");
                       texte.setTextColor(Color.RED);
-
-                //mPasswordView.setError(getString(R.string.error_incorrect_password));
-                //mPasswordView.requestFocus();
             }
         }
 
@@ -369,6 +320,3 @@ public class LoginActivity extends ActionBarActivity {
         }
     }
 }
-
-
-
