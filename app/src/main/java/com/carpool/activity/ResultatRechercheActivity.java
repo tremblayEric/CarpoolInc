@@ -1,7 +1,6 @@
 package com.carpool.activity;
 
 import android.graphics.Color;
-import android.location.Location;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
