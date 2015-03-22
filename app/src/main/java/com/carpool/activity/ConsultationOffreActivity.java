@@ -2,17 +2,21 @@ package com.carpool.activity;
 
     import android.content.Context;
     import android.content.res.Resources;
+    import android.graphics.Color;
     import android.graphics.drawable.Drawable;
     import android.os.AsyncTask;
     import android.os.Bundle;
     import android.support.annotation.Nullable;
     import android.support.v4.app.Fragment;
+    import android.support.v4.view.ViewPager;
+    import android.support.v7.app.ActionBarActivity;
     import android.util.Log;
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
     import android.widget.BaseExpandableListAdapter;
     import android.widget.ExpandableListView;
+    import android.widget.ListView;
     import android.widget.TextView;
 
     import com.carpool.model.Offre;
@@ -38,7 +42,7 @@ package com.carpool.activity;
     import java.text.SimpleDateFormat;
     import java.util.ArrayList;
     import java.util.List;
-
+    import com.carpool.design.*;
 
     public class ConsultationOffreActivity extends Fragment {
 
@@ -52,10 +56,40 @@ package com.carpool.activity;
         String [] tabDepart;
         String [] tabDestination;
 
+
+        private ListView mDrawerList;
+        ViewPager pager;
+        private String titles[] = new String[]{"VUE LISTE", "VUE CARTE"};
+        SlidingTabLayout slidingTabLayout;
+
+
+        View rootview1;
+
+
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             rootview = inflater.inflate(R.layout.activity_consultation_offre,container,false);
+            /*
+
+            rootview1 = inflater.inflate(R.layout.activity_main,container,false);
+
+            ActionBarActivity activite = new AccueilActivity();
+
+            // ajout des pages qui permettront d'afficher les deux vues
+
+            pager = (ViewPager) AccueilActivity.rootview.findViewById(R.id.viewpager);
+            pager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager(), titles));
+            slidingTabLayout = (SlidingTabLayout) rootview.findViewById(R.id.sliding_tabs);
+
+            slidingTabLayout.setViewPager(pager);
+            slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+                @Override
+                public int getIndicatorColor(int position) {
+                    return Color.WHITE;
+                }
+            });*/
+
             return rootview;
         }
 
