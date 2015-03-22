@@ -90,12 +90,6 @@ public class ProfilActivity extends Fragment {
             TextViewPrenom = (TextView) rootview.findViewById(R.id.txt_prenom_userProfil);
             TextViewPseudo = (TextView) rootview.findViewById(R.id.txt_pseudo_userProfil);
 
-            /*TextViewcourriel = (TextView) findViewById(R.id.txt_courriel_userProfil);
-            TextViewdate_naissance = (TextView) findViewById(R.id.txt_date_naiss_userProfil);
-            TextViewsexe = (TextView) findViewById(R.id.txt_sexe_userProfil);
-            TextviewNom = (TextView) findViewById(R.id.txt_nom_userProfil);
-            TextViewPrenom = (TextView) findViewById(R.id.txt_prenom_userProfil);
-            TextViewPseudo = (TextView) findViewById(R.id.txt_pseudo_userProfil);*/
 
             Date date_naiss = currentUser.getDate("birthday");
 
