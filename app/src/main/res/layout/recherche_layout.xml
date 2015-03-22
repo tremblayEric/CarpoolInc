@@ -1,58 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#c8e49d">
-<!--
-    <EditText
-        android:id="@+id/txtDepart"
-        android:layout_marginTop="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Départ" />
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <DatePicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/datePicker"
-        android:calendarViewShown="false"
-        android:layout_alignParentRight="true"/>
+    <RelativeLayout
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="#c8e49d"
+        android:padding="8dp"
+        android:id="@+id/lySearch">
 
-    <TimePicker
-        android:id="@+id/timePicker1"
-        android:layout_marginTop="200dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"/>
+        <TextView
+            android:id="@+id/tvTitleSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="@string/activity_title_search"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"/>
 
-    <TimePicker
-        android:id="@+id/timePicker2"
-        android:layout_marginTop="400dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"/>
+        <TextView
+            android:id="@+id/tvDepart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dip"
+            android:textStyle="bold"
+            android:text="@string/textview_starting_search"
+            android:layout_alignBottom="@+id/etDepart"
+            android:layout_alignParentStart="true" />
 
-    <EditText
-        android:id="@+id/txtDestination"
-        android:layout_marginTop="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtDepart"
-        android:hint="Destination" />
+        <AutoCompleteTextView
+            android:id="@+id/etDepart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@+id/tvTitleSearch"
+            android:layout_marginTop="38dp"
+            android:layout_alignEnd="@+id/etSearchDestination"
+            android:layout_toEndOf="@+id/tvDepart"
+            android:layout_alignStart="@+id/etSearchDestination"
+            android:completionThreshold="3"/>
 
-    <Button
-        android:id="@+id/btnRecherche"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rechercher"
-        android:layout_below="@+id/txtDestination"/>
--->
+        <TextView
+            android:id="@+id/tvSearchDestination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dip"
+            android:textStyle="bold"
+            android:text="@string/textview_destination_search"
+            android:layout_alignBottom="@+id/etSearchDestination"
+            android:layout_alignParentStart="true" />
 
-<!--
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.MapFragment"/>
--->
+        <AutoCompleteTextView
+            android:id="@+id/etSearchDestination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@+id/tvDepart"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="43dp"
+            android:layout_toEndOf="@+id/tvSearchDestination"
+            android:completionThreshold="3"/>
 
-</RelativeLayout>
+     <!--   <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_below="@id/etSearchDestination"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            />-->
+
+        <ExpandableListView
+            android:id="@+id/lvResultSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ExpandableListView>
+
+        <TextView
+            android:id="@+id/tvDateSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dip"
+            android:textStyle="bold"
+            android:text="@string/textview_date_search"
+            android:layout_below="@id/etSearchDestination"
+            android:layout_marginTop="56dp" />
+
+        <DatePicker
+            android:id="@+id/etDateSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:layout_marginTop="43dp"
+            android:layout_below="@id/etSearchDestination"
+            android:calendarViewShown="false"/>
+
+        <LinearLayout
+            android:id="@+id/lyInterval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etSearchDestination"
+            android:layout_marginTop="53dp"
+            android:orientation="horizontal"
+            android:layout_toRightOf="@id/etDateSearch" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/etDateSearch"
+                >
+
+                <TextView
+                    android:id="@+id/tvBetweenStartTextSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/textview_betweenStart_search"
+                    android:layout_toRightOf="@id/etDateSearch"/>
+
+                <TimePicker
+                    android:id="@+id/etBetweenStartSearch"
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:layout_toRightOf="@id/etDateSearch"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSubmitSearch"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lyInterval"
+            android:layout_marginTop="45dip"
+            android:layout_marginBottom="45dp"
+            android:layout_centerHorizontal="true"
+            android:background="#d6ebb5"
+            android:minHeight="35dp"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:text="@string/button_submit_search"
+            android:textStyle="bold"
+            android:textSize="14sp" />
+    </RelativeLayout>
+</ScrollView>
