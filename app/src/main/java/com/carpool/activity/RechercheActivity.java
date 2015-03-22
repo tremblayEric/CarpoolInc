@@ -60,6 +60,8 @@ public class RechercheActivity extends Fragment {
     final Calendar calendar = Calendar.getInstance();
     DatePickerDialog mDatePicker;
     EditText dateDepart;
+    AutoCompleteTextView autoCompViewFrom;
+    AutoCompleteTextView autoCompViewTo;
 
     @Nullable
     @Override
@@ -69,9 +71,9 @@ public class RechercheActivity extends Fragment {
         TextView texte = (TextView)rootview.findViewById(R.id.btnSubmitSearch);
 
 
-        AutoCompleteTextView autoCompViewFrom = (AutoCompleteTextView) rootview.findViewById(R.id.etDepart);
+        autoCompViewFrom = (AutoCompleteTextView) rootview.findViewById(R.id.etDepart);
         autoCompViewFrom.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_autocomplete));
-        AutoCompleteTextView autoCompViewTo = (AutoCompleteTextView) rootview.findViewById(R.id.etSearchDestination);
+        autoCompViewTo = (AutoCompleteTextView) rootview.findViewById(R.id.etSearchDestination);
         autoCompViewTo.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_autocomplete));
 
         ((TimePicker)rootview.findViewById(R.id.etBetweenStartSearch)).setIs24HourView(true);
@@ -115,12 +117,45 @@ public class RechercheActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 List<String> address = new ArrayList<>();
-                address.add(((AutoCompleteTextView)rootview.findViewById(R.id.etDepart)).getText().toString());
-                address.add(((AutoCompleteTextView)rootview.findViewById(R.id.etSearchDestination)).getText().toString());
+          String eStarting = autoCompViewFrom.getText().toString();
+          String eDestination = autoCompViewTo.getText().toString();
+          String dateDep = dateDepart.getText().toString();
 
-                GeocodingLocation locationAddress = new GeocodingLocation();
-                locationAddress.getAddressFromLocation(address,
-                        getActivity().getApplicationContext(), new GeocoderHandler());
+                if (eStarting.length() > 0 && eDestination.length() >0) {
+                    address.add(eStarting);
+                    address.add(eDestination);
+
+
+                    GeocodingLocation locationAddress = new GeocodingLocation();
+                    locationAddress.getAddressFromLocation(address,
+                            getActivity().getApplicationContext(), new GeocoderHandler());
+                }
+                else {
+                    if (eStarting.length() == 0) {
+                        autoCompViewTo.setError("champ obligatoire");
+                        autoCompViewTo.requestFocus();
+                    } else {
+                        autoCompViewTo.setError(null);
+                    }
+
+                    if (eDestination.length() == 0) {
+                        autoCompViewFrom.setError("Champ obligatoire");
+                        autoCompViewFrom.requestFocus();
+                    }else
+                    {
+                        autoCompViewFrom.setError(null);
+                    }
+
+                    if (dateDep.length() == 0)
+                    {
+                        dateDepart.setError("Champ obligatoire");
+                        dateDepart.requestFocus();
+                    }else
+                    {
+                        dateDepart.setError(null);
+                    }
+
+                }
 
             }
         });

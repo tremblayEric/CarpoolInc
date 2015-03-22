@@ -67,7 +67,7 @@
                 android:gravity="center"
                 android:layout_below="@+id/tvTitleSearch"
                 android:textColorHint="@color/material_deep_teal_500"
-                android:hint="Montreal"
+                android:hint="ex ville depart: Montreal"
                 android:layout_alignEnd="@+id/etSearchDestination"
                 android:layout_toEndOf="@+id/tvDepart"
                 android:layout_alignStart="@+id/etSearchDestination"
@@ -99,7 +99,7 @@
                 android:gravity="center"
                 android:layout_below="@+id/tvDepart"
                 android:layout_alignParentEnd="true"
-                android:hint="Laval"
+                android:hint="ex ville arrivee :Laval"
                 android:textColorHint="@color/material_deep_teal_500"
                 android:layout_toEndOf="@+id/tvSearchDestination"
                 />

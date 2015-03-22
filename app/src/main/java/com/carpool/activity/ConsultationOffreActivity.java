@@ -121,6 +121,7 @@ package com.carpool.activity;
                         lv.setAdapter(new MyExpandableListAdapter());
                     }
                     else {
+
                         e.printStackTrace();
                     }
                 }
