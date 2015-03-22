@@ -28,6 +28,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.carpool.design.SlidingTabLayout;
+import com.carpool.design.ViewPagerAdapter;
 import com.carpool.utils.FloatingActionButton;
 
 
@@ -56,6 +58,11 @@ public class AccueilActivity extends ActionBarActivity{
     Fragment objFragment = null;
     Activity objActivite = null;
     boolean init = false;
+    static public boolean AddOnToolBar = false;
+
+    ViewPager pager;
+    private String titles[] = new String[]{"VUE LISTE", "VUE CARTE"};
+    SlidingTabLayout slidingTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +96,23 @@ public class AccueilActivity extends ActionBarActivity{
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        */
+
+
+        if (AddOnToolBar)
+        {
+
+            pager = (ViewPager) findViewById(R.id.viewpager);
+            pager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), titles));
+            slidingTabLayout = (SlidingTabLayout)findViewById(R.id.sliding_tabs);
+
+            slidingTabLayout.setViewPager(pager);
+            slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+                @Override
+                public int getIndicatorColor(int position) {
+                    return Color.WHITE;
+                }
+            });
+        }*/
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.navdrawer);
@@ -134,7 +157,7 @@ public class AccueilActivity extends ActionBarActivity{
         drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerListener(drawerToggle);
         String[] values = new String[]{
-                " PROFIL", " ANNONCE", " RECHERCHE", " MES OFFRES", " DECONNEXION"
+                " PROFIL", " POSTER ANNONCE", " RECHERCHE", " MES ANNONCES", " DECONNEXION"
         };
 
 

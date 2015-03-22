@@ -59,7 +59,7 @@ package com.carpool.activity;
 
         private ListView mDrawerList;
         ViewPager pager;
-        private String titles[] = new String[]{"VUE LISTE", "VUE CARTE"};
+        private String titles[] = new String[]{"               VUE LISTE               ", "               VUE CARTE               "};
         SlidingTabLayout slidingTabLayout;
 
 
@@ -70,25 +70,28 @@ package com.carpool.activity;
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             rootview = inflater.inflate(R.layout.activity_consultation_offre,container,false);
-            /*
 
-            rootview1 = inflater.inflate(R.layout.activity_main,container,false);
+            //AccueilActivity.AddOnToolBar = true;
 
-            ActionBarActivity activite = new AccueilActivity();
+
+            //rootview1 = getActivity().getLayoutInflater().inflate(R.layout.activity_main, )
+
+            //ActionBarActivity activite = new AccueilActivity();
 
             // ajout des pages qui permettront d'afficher les deux vues
 
-            pager = (ViewPager) AccueilActivity.rootview.findViewById(R.id.viewpager);
+            pager = (ViewPager) rootview.findViewById(R.id.viewpager);
             pager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager(), titles));
             slidingTabLayout = (SlidingTabLayout) rootview.findViewById(R.id.sliding_tabs);
 
             slidingTabLayout.setViewPager(pager);
+
             slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
                 @Override
                 public int getIndicatorColor(int position) {
                     return Color.WHITE;
                 }
-            });*/
+            });
 
             return rootview;
         }
