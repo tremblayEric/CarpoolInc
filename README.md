@@ -18,4 +18,4 @@
       L’heure de départ peut être plus grande que celle de l’arrivé lors de la création d’une offre.  
       Les dates peuvent être dans le passé  
       Une offre avec des champs incomplets ou invalide ne doit pas pouvoir être soumie  
-      une recherche sur une offre qui n’existe pas fait planter l’Application
+      Une recherche sur une offre qui n’existe pas fait planter l’Application
