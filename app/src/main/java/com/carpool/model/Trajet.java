@@ -4,6 +4,10 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import java.io.Serializable;
 
+/***
+ * Classe représentant le concept de Trajet (une trajet est défini par un couple de positions
+ * (position de départ et d'arrivée)
+ */
 @ParseClassName("Trajet")
 public class Trajet extends ParseObject implements Serializable {
 

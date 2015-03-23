@@ -14,6 +14,11 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+/***
+ * Tiré de https://developers.google.com/places/training/autocomplete-android
+ * Classe qui s'occupe de fournir des suggestions de places au canada (ville ou autres places) en
+ * fonction des paramètres d'entrée de l'utilisateur.
+*/
 /**
  * Created by Gaëlle on 3/20/2015.
  */
@@ -23,9 +28,6 @@ public class PlaceAPI {
     private static final String OUT_JSON = "/json";
     private static final String API_KEY = "AIzaSyCffC-xYqk8C6o5R6eXCZ3qRQ_RFIhzLGM";
 
-    /*
-Tiré de https://developers.google.com/places/training/autocomplete-android
-*/
     public ArrayList<String> autocomplete(String input) {
         ArrayList<String> resultList = null;
 

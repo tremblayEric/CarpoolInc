@@ -5,7 +5,10 @@ import com.parse.ParseObject;
 
 import java.io.Serializable;
 
-
+/***
+ * Classe représentant le concept de position (une position est un couple (latitude,longitude)
+ * représentant les coordonnées d'une adresse.
+ */
 @ParseClassName("Position")
 public class Position extends ParseObject implements Serializable {
 
