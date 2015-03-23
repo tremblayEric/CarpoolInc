@@ -17,6 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.carpool.activity.*;
 
+/**
+ * supper classe qui sera etendu par la classe FloatingActionButton pour gerer l'affichage du bouton floattant
+ * dans la page de profil
+ */
 public abstract class Boutton extends RelativeLayout {
 
     final static String MATERIAL_DESIGNXML = "http://schemas.android.com/apk/res-auto";
@@ -47,10 +51,7 @@ public abstract class Boutton extends RelativeLayout {
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.getDisplayMetrics());
         return (int) px;
     }
-    // Set atributtes of XML to View
 
-
-    // ### RIPPLE EFFECT ###
 
     float x = -1, y = -1;
     float radius = -1;
@@ -115,11 +116,7 @@ public abstract class Boutton extends RelativeLayout {
         return output;
     }
 
-    /**
-     * Make a dark color to ripple effect
-     *
-     * @return
-     */
+
     protected int makePressColor() {
         int r = (this.backgroundColor >> 16) & 0xFF;
         int g = (this.backgroundColor >> 8) & 0xFF;
@@ -135,7 +132,6 @@ public abstract class Boutton extends RelativeLayout {
         onClickListener = l;
     }
 
-    // Set color of background
     public void setBackgroundColor(int color) {
         this.backgroundColor = color;
         LayerDrawable layer = (LayerDrawable) getBackground();

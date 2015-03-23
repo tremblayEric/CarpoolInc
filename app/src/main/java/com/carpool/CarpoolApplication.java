@@ -12,15 +12,15 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-/**
- * Created by Gaëlle on 3/6/2015.
+/***
+ * Classe qui s'occupe d'initialiser certains paramètres uniquement au lancement de l'application.
+ * C'est ici que Parse s'initialise.
  */
 public class CarpoolApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
 
-   System.out.println("CarpoolApplication.oncreate");
         ParseObject.registerSubclass(Cote.class);
         ParseObject.registerSubclass(Offre.class);
         ParseObject.registerSubclass(Position.class);
@@ -32,7 +32,6 @@ public class CarpoolApplication extends Application {
         Parse.enableLocalDatastore(this);
 
         Parse.initialize(this, "b0qpztTLfYQeRZBAeQGHX6pywO3pcCUorGfEbnAZ", "EDWDuQ4TYxmW7bZf7Yz51M2OJSXULsW9syUWaC58");
-        System.out.println("CarpoolApplication.oncreate fin connx");
     }
 
 

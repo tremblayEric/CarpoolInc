@@ -1,15 +1,10 @@
 package com.carpool.activity;
 
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -17,8 +12,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,26 +20,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.carpool.utils.FloatingActionButton;
-
-
 import com.parse.ParseUser;
 
-
-
+/***
+ * Cette classe représente l'activité de démarrage. Elle redirige vers la page de login si
+ * l'utilisateur se connecte pour la première fois ou s'il s'est déconnecté la dernière fois.
+ * Autrement, l'activité de recherche se lance.
+ * Aussi, l'initialisation du tiroir se fait à ce niveau également.
+ */
 public class AccueilActivity extends ActionBarActivity{
-       // implements   { //NavigationDrawerFragment.NavigationDrawerCallbacks {
-
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
-    private NavigationDrawerFragment mNavigationDrawerFragment;
-
-    /**
-     * Used to store the last screen title. For use in {link #restoreActionBar()}.
-     */
-    private CharSequence mTitle;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle drawerToggle;
@@ -54,7 +36,6 @@ public class AccueilActivity extends ActionBarActivity{
     private ListView mDrawerList;
     private Toolbar toolbar;
     Fragment objFragment = null;
-    Activity objActivite = null;
     boolean init = false;
 
     @Override
@@ -66,7 +47,7 @@ public class AccueilActivity extends ActionBarActivity{
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
             // Send logged in users to Profil
-            Fragment objFragment = new ProfilActivity();
+            Fragment objFragment = new RechercheActivity();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, objFragment)
@@ -78,18 +59,6 @@ public class AccueilActivity extends ActionBarActivity{
             startActivity(intent);
             finish();
         }
-        /*
-
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
-
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
-
-        */
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.navdrawer);
@@ -105,39 +74,11 @@ public class AccueilActivity extends ActionBarActivity{
             toolbar.setTitleTextColor(Color.WHITE);
             Log.d("toolbar", "dans la toolbar");
         }
-        //pager = (ViewPager) findViewById(R.id.viewpager);
-        //slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
-        //pager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), titles));
-
-        //slidingTabLayout.setViewPager(pager);
-        //slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-          //  @Override
-            //public int getIndicatorColor(int position) {
-              //  return Color.WHITE;
-            //}
-       // });
-
-
-
-
-
-        /* checher comment mettre une font sur le profil
-        Typeface font = Typeface.createFromAsset( getAssets(), "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
-
-        TextView txtProfil = new TextView(this);
-        txtProfil.setText(R.string.strg_profil);
-        txtProfil.setPadding(-150,0,0,0);
-        txtProfil.setTextSize(20);
-        txtProfil.append("     PROFIL");
-        txtProfil.setTypeface(font);
-
-        String a = String.valueOf( R.string.strg_profil);
-        a.concat("  PROFIL") ;*/
 
         drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerListener(drawerToggle);
         String[] values = new String[]{
-                " PROFIL", " ANNONCE", " RECHERCHE", " MES OFFRES", " DECONNEXION"
+                " PROFIL", " POSTER ANNONCE", " RECHERCHE", " MES ANNONCES", " DECONNEXION"
         };
 
 
@@ -157,8 +98,6 @@ public class AccueilActivity extends ActionBarActivity{
 
     };
 
-
-
     mDrawerList.setAdapter(adapter);
 
     mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -169,47 +108,38 @@ public class AccueilActivity extends ActionBarActivity{
                 case 0:
                     mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
                     toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                    //slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
                     mDrawerLayout.closeDrawer(Gravity.START);
                     objFragment = new ProfilActivity();
-
-                    //Intent intent = new Intent(AccueilActivity.this, ProfilActivity.class);
-
-                   // View rootView = inflater.inflate(R.layout.profil_layout, container, false);
 
                     break;
                 case 1:
                     mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
                     toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                   // slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.red));
                     mDrawerLayout.closeDrawer(Gravity.START);
                     objFragment = new OffreActivity();
                     break;
                 case 2:
                     mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
                     toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                    //slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.blue));
                     mDrawerLayout.closeDrawer(Gravity.START);
                     objFragment = new RechercheActivity();
                     break;
                 case 3:
                     mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
                     toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                    //slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_blue_grey_800));
                     mDrawerLayout.closeDrawer(Gravity.START);
                     objFragment = new ConsultationOffreActivity();
 
 
                     break;
                 case 4: // gerer la deconnexion
+                    ParseUser.logOut();
                     Intent intent = new Intent(AccueilActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                     break;
 
             }
-
-            //ActivityManager activityManager;
 
             // update the main content by replacing fragments
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -219,16 +149,13 @@ public class AccueilActivity extends ActionBarActivity{
         }
     });
 
-
-
         if (!init)
         {
             mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
 
             toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-            //slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
             mDrawerLayout.closeDrawer(Gravity.START);
-            objFragment = new ProfilActivity();
+            objFragment = new RechercheActivity();
 
             // update the main content by replacing fragments
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -247,18 +174,7 @@ public class AccueilActivity extends ActionBarActivity{
         if (drawerToggle.onOptionsItemSelected(item)) {
 
        //gerer la couleur de l'element qui a ete selectionee
-
             Log.d("selection item", "un item est selectionne");
-
-            /*
-
-                MenuInflater inflater = getMenuInflater();
-                inflater.inflate(R.menu.menu, menu);
-                m = menu;
-                return true;
-             */
-
-
             return true;
         }
 
@@ -271,7 +187,6 @@ public class AccueilActivity extends ActionBarActivity{
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -283,132 +198,4 @@ public class AccueilActivity extends ActionBarActivity{
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
     }
-
-    /*
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-
-        Fragment objFragment = null;
-
-        switch (position){
-
-            case 0:
-                objFragment = new ProfilActivity();
-                break;
-            case 1:
-                objFragment = new OffreActivity();
-                break;
-            case 2:
-               // objFragment = new ResultatRechercheActivity();
-                objFragment = new RechercheActivity();
-            default:
-                break;
-            case 3:
-                objFragment = new ConsultationOffreActivity();
-                break;
-
-        }
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, objFragment)
-                .commit();
-    }
-
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.titre_profil);
-                break;
-            case 2:
-                mTitle = getString(R.string.titre_offre);
-                break;
-            case 3:
-                mTitle = getString(R.string.titre_recherche);
-                break;
-            case 4:
-                mTitle = getString(R.string.titre_consultation_offre);
-                break;
-        }
-    }
-
-    public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
-            restoreActionBar();
-            return true;
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    /*public static class PlaceholderFragment extends Fragment {
-        *
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        /*private static final String ARG_SECTION_NUMBER = "section_number";
-
-        *
-         * Returns a new instance of this fragment for the given section
-         * number.
-         /*
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((AccueilActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
-    }*/
-
-
-
-
 }

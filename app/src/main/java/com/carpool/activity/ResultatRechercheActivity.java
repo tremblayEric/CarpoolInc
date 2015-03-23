@@ -1,47 +1,62 @@
 package com.carpool.activity;
 
-import android.location.Location;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.ExpandableListView;
-import android.widget.TimePicker;
-
+import android.widget.ListView;
+import com.carpool.design.SlidingTabLayout;
+import com.carpool.design.ViewPagerAdapter;
 import com.carpool.model.Offre;
-import com.carpool.model.Position;
-import com.carpool.model.Trajet;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
+import com.carpool.utils.MyResultSearchListAdapter;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
-
+/***
+ * Ce fragment est utilisé pour afficher la liste construite èa partir des résultat obtnue suite à une recherche.
+ */
 public class ResultatRechercheActivity extends Fragment {
 
     View rootview = null;
+
     final ArrayList<Offre> listOffers = new ArrayList<Offre>();
+    private ListView mDrawerList;
+    ViewPager pager;
+    private String titles[] = new String[]{"               VUE LISTE               ", "               VUE CARTE               "};
+    SlidingTabLayout slidingTabLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
 
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.activity_resultat_recherche,container,false);
+
+        pager = (ViewPager) rootview.findViewById(R.id.viewpager);
+        pager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager(), titles));
+        slidingTabLayout = (SlidingTabLayout) rootview.findViewById(R.id.sliding_tabs);
+
+        slidingTabLayout.setViewPager(pager);
+
+        slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return Color.WHITE;
+            }
+        });
+
         return rootview;
     }
 
@@ -50,29 +65,11 @@ public class ResultatRechercheActivity extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final ExpandableListView listView = (ExpandableListView) rootview.findViewById(R.id.lvResultSearch);
 
-
-        DatePicker dateDepartSouhaitable = (DatePicker) getActivity().findViewById(R.id.dateRecherche);
-        TimePicker tempsDepartSouhaitable = (TimePicker) getActivity().findViewById(R.id.tempsDepartRecherche);
-
-
-
-        ParseQuery<Offre> query = ParseQuery.getQuery("Offre");
-        //query.whereEqualTo("depart", dateDepartSouhaitable);
-        query.findInBackground(
-                new FindCallback<Offre>()
-                {
-                    @Override
-                    public void done(List<Offre> offres, ParseException e) {
-                        if (e == null) {
-
-                           List<Offre> offresAcceptables= getOffreCorrespondantes(offres);
-                           MyResultSearchListAdapter adapter = new MyResultSearchListAdapter(getActivity(), offresAcceptables);
-                           listView.setAdapter(adapter);
-                        } else {
-                            /*exception*/
-                        }
-                    }
-                });
+        Bundle bundle = getArguments();
+        List<Offre> offresAcceptables = (List<Offre>) bundle.getSerializable("offres");
+        MyResultSearchListAdapter adapter = new MyResultSearchListAdapter(getActivity(), offresAcceptables);
+        listView.setAdapter(adapter);
+        listView.setBackgroundColor(Color.WHITE);
     }
 
     @Override
@@ -89,88 +86,4 @@ public class ResultatRechercheActivity extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
-
-    private List<Offre> getOffreCorrespondantes(List<Offre> offres){
-
-        List<Offre> lesOffres = offres;
-        List<Offre> offresAcceptables = new ArrayList<Offre>();
-
-        DatePicker datePicker = (DatePicker) getActivity().findViewById(R.id.dateRecherche);
-        TimePicker tempsDepart = (TimePicker) getActivity().findViewById(R.id.tempsDepartRecherche);
-        List<HashMap<String,String>> list = (List<HashMap<String,String>>)getArguments().get("ListFromMap");
-
-        Location locationSouhaitable = new Location("locationA");
-
-        locationSouhaitable.setLatitude(Double.parseDouble(((HashMap<String, String>)list.get(0)).get("lat")));
-        locationSouhaitable.setLongitude(Double.parseDouble(((HashMap<String, String>)list.get(0)).get("lng")));
-
-
-        for (int i = 0 ; i < lesOffres.size();++i){
-            Offre uneOffre = lesOffres.get(i);
-
-            Date dateDuDepart = uneOffre.getDepart();
-            long heureDepartAuPlusTot = uneOffre.getHeureDebut().getHours();
-            long heureDepartAuPlusTard = uneOffre.getHeureFin().getHours();
-
-
-            long diffTemps = dateDuDepart.getTime() - getDateFromDatePicker(datePicker).getTime();
-            int jourDeDifference = (int) diffTemps / (1000 * 60 * 60 * 24);
-
-
-            int heureSouhaitable = tempsDepart.getCurrentHour();
-            boolean heureSouhaitableConcordeAvecOffre = ((heureDepartAuPlusTot <= heureSouhaitable ) && (heureDepartAuPlusTard >= heureSouhaitable));
-
-           if(jourDeDifference == 0 && heureSouhaitableConcordeAvecOffre){
-
-               try {
-                   uneOffre.getTrajet().fetchIfNeeded();
-               } catch (ParseException e) {
-                   e.printStackTrace();
-               }
-               Trajet trajetResultat = uneOffre.getTrajet();
-               try {
-                   trajetResultat.getPositionDepart().fetchIfNeeded();
-                   trajetResultat.getPositionArrive().fetchIfNeeded();
-               } catch (ParseException e1) {
-                   e1.printStackTrace();
-               }
-
-               Location locationOfferte = new Location("locationA");
-
-               locationOfferte.setLatitude(trajetResultat.getPositionDepart().getLatitude());
-               locationOfferte.setLongitude(trajetResultat.getPositionDepart().getLongitude());
-
-               double distance = locationSouhaitable.distanceTo(locationOfferte) / 1000;
-               if (distance <= 20) {
-
-                   locationSouhaitable.setLatitude(Double.parseDouble(((HashMap<String, String>) list.get(1)).get("lat")));
-                   locationSouhaitable.setLongitude(Double.parseDouble(((HashMap<String, String>) list.get(1)).get("lng")));
-
-                   locationOfferte.setLatitude(trajetResultat.getPositionArrive().getLatitude());
-                   locationOfferte.setLongitude(trajetResultat.getPositionArrive().getLongitude());
-                   distance = locationSouhaitable.distanceTo(locationOfferte) / 1000;
-                   if (distance <= 20) {
-                       offresAcceptables.add(lesOffres.get(i));
-                   }
-               }
-           }
-        }
-/*
-        location2.setLatitude(17.375775);
-        location2.setLongitude(78.469218);
-        double distance=locationSouhaitable.distanceTo(location2);*/
-return offresAcceptables;
-    }
-
-    public static Date getDateFromDatePicker(DatePicker datePicker){
-        int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth();
-        int year =  datePicker.getYear();
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-
-        return calendar.getTime();
-    }
-
 }

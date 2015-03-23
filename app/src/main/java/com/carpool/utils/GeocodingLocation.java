@@ -1,7 +1,9 @@
 package com.carpool.utils;
 
-/*
-Adapté et tiré de http://javapapers.com/android/android-geocoding-to-get-latitude-longitude-for-an-address/
+/***
+ * Adapté et tiré de http://javapapers.com/android/android-geocoding-to-get-latitude-longitude-for-an-address/
+ * Classe qui s'occupe de trouver les positions des addresses fournies. Pour une adresse donnée,
+ * un couple de positions représentées par la latitude et la longitude est retourné.
  */
 
 import android.content.Context;

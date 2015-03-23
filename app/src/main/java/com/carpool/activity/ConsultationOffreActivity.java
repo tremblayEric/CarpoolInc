@@ -1,6 +1,5 @@
 package com.carpool.activity;
 
-    import android.content.Context;
     import android.content.res.Resources;
     import android.graphics.Color;
     import android.graphics.drawable.Drawable;
@@ -9,7 +8,6 @@ package com.carpool.activity;
     import android.support.annotation.Nullable;
     import android.support.v4.app.Fragment;
     import android.support.v4.view.ViewPager;
-    import android.support.v7.app.ActionBarActivity;
     import android.util.Log;
     import android.view.LayoutInflater;
     import android.view.View;
@@ -18,12 +16,10 @@ package com.carpool.activity;
     import android.widget.ExpandableListView;
     import android.widget.ListView;
     import android.widget.TextView;
-
     import com.carpool.model.Offre;
     import com.carpool.model.Trajet;
     import com.parse.FindCallback;
     import com.parse.ParseException;
-    import com.parse.ParseObject;
     import com.parse.ParseQuery;
     import com.parse.ParseUser;
 
@@ -47,48 +43,37 @@ package com.carpool.activity;
     public class ConsultationOffreActivity extends Fragment {
 
         View rootview;
+
         ExpandableListView lv;
         private final ArrayList<Offre> listeOffres=new ArrayList<Offre>();
         private int ParentClickStatus=-1;
 
-        TextView adresseDepartTextView;
-        TextView adresseDestinationTextView;
         String [] tabDepart;
         String [] tabDestination;
 
-
-        private ListView mDrawerList;
         ViewPager pager;
-        private String titles[] = new String[]{"VUE LISTE", "VUE CARTE"};
+        private String titles[] = new String[]{"               VUE LISTE               ", "               VUE CARTE               "};
         SlidingTabLayout slidingTabLayout;
 
 
-        View rootview1;
-
-
-        @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
             rootview = inflater.inflate(R.layout.activity_consultation_offre,container,false);
-            /*
-
-            rootview1 = inflater.inflate(R.layout.activity_main,container,false);
-
-            ActionBarActivity activite = new AccueilActivity();
 
             // ajout des pages qui permettront d'afficher les deux vues
-
-            pager = (ViewPager) AccueilActivity.rootview.findViewById(R.id.viewpager);
+            pager = (ViewPager) rootview.findViewById(R.id.viewpager);
             pager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager(), titles));
             slidingTabLayout = (SlidingTabLayout) rootview.findViewById(R.id.sliding_tabs);
 
             slidingTabLayout.setViewPager(pager);
+
             slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
                 @Override
                 public int getIndicatorColor(int position) {
                     return Color.WHITE;
                 }
-            });*/
+            });
 
             return rootview;
         }
@@ -104,7 +89,6 @@ package com.carpool.activity;
             lv.setChildDivider(devider);
             lv.setDividerHeight(1);
 
-
             ParseQuery<Offre> query = ParseQuery.getQuery("Offre");
             query.whereEqualTo("userOffre", ParseUser.getCurrentUser());
             query.findInBackground(new FindCallback<Offre>() {
@@ -118,6 +102,7 @@ package com.carpool.activity;
                         lv.setAdapter(new MyExpandableListAdapter());
                     }
                     else {
+
                         e.printStackTrace();
                     }
                 }
@@ -138,9 +123,7 @@ package com.carpool.activity;
                 inflater = LayoutInflater.from(getActivity());
             }
 
-
             // This Function used to inflate parent rows view
-
             @Override
             public View getGroupView(int groupPosition, boolean isExpanded,
                                       View convertView, ViewGroup parentView)
@@ -172,10 +155,6 @@ package com.carpool.activity;
                 ((TextView) convertViewLocale.findViewById(R.id.dateOffre)).setText(sdf.format(offre.getDepart()));
                 ((TextView) convertViewLocale.findViewById(R.id.nbPropositions)).setText(String.valueOf(offre.getNbreProposition()));
 
-                String resultat="";
-
-
-
 
                 class TaskDeparts extends AsyncTask<String, String, String> {
 
@@ -190,7 +169,6 @@ package com.carpool.activity;
                     }
 
                 }
-
 
                 class TaskDestinations extends AsyncTask<String, String, String> {
 
@@ -224,8 +202,7 @@ package com.carpool.activity;
             @Override
             public Object getChild(int groupPosition, int childPosition)
             {
-                //Log.i("Childs", groupPosition+"=  getChild =="+childPosition);
-                return null ; //listeOffres.get(groupPosition).getChildren().get(childPosition);
+                return null ;
             }
 
             //Call when child row clicked
@@ -272,7 +249,6 @@ package com.carpool.activity;
             @Override
             public void notifyDataSetChanged()
             {
-                // Refresh List rows
                 super.notifyDataSetChanged();
             }
 
@@ -310,8 +286,6 @@ package com.carpool.activity;
         InputStream inputStream = null;
         String result = null;
         try {
-
-            String roadName = "";
             String url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=__LAT__,__LNG__&sensor=false";
 
             url = url.replaceAll("__LAT__", params[0]);
@@ -358,9 +332,6 @@ package com.carpool.activity;
                 // Pulling items from the array
                 sbRetour.append(oneObject.getString("formatted_address"));
                 System.out.println(sbRetour.toString());
-
-
-
 
             } catch (JSONException e) {
                 e.printStackTrace();

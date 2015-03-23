@@ -19,6 +19,11 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 import com.carpool.activity.*;
 
+/**
+ * classe qui permet d'afficher une photo avec une vue en forme de cercle dans la page profil de
+ * l'utilisateur
+ */
+
 public class CircleImageView extends ImageView {
 
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;

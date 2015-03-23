@@ -5,8 +5,9 @@ import com.parse.ParseObject;
 
 import java.io.Serializable;
 
-/**
- * Created by Gaëlle on 3/5/2015.
+/***
+ * Classe représentant le concept de cote (une cote est une note attribuée par un utilisateur à
+ * un autre utilisateur.
  */
 @ParseClassName("Cote")
 public class Cote extends ParseObject implements Serializable {

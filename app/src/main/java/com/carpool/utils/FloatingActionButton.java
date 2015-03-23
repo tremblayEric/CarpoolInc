@@ -17,12 +17,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.carpool.activity.*;
 
+/**
+ * claase qui etend Boutton et qui permet de dessiner un boutton de type flottant comme delui
+ * present au bas de la page de profil en forme de cercle avec un plus au milieu
+ */
 
 public class FloatingActionButton extends Boutton {
 
     int sizeIcon = 24;
     int sizeRadius = 28;
-    ImageView icon; // Icon of float button
+    ImageView icon;
     Drawable drawableIcon;
 
     public FloatingActionButton(Context context, AttributeSet attributes) {
