@@ -19,6 +19,9 @@ import com.carpool.utils.MyResultSearchListAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/***
+ * Ce fragment est utilisé pour afficher la liste construite èa partir des résultat obtnue suite à une recherche.
+ */
 public class ResultatRechercheActivity extends Fragment {
 
     View rootview = null;
