@@ -1,7 +1,8 @@
 # README #
 
 
-# Chose à faire pour la prochaine itération #
+                                                                                           **# Chose à faire pour la prochaine itération #**
+
 * La vue Carte (dans l’interface Mes annonces et dans celle de la Recherche) 
 *Ajouter plus de réactivité :
 *Ajouter des spinning wheel lors des temps d’attente pendant l’exécution de certaines fonctionnalités(ex: recherche d’offre de covoiturage)
