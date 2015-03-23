@@ -1,5 +1,9 @@
 # README #
 
+#Note#
+1. L'auto completion des champs fonctionne en mode debug avec Android Studio mais pas avec le APK
+2. Pour le cellulaire, le mode paysage n'a pas été pris en compte. A utiliser en mode portrait
+
 #Chose à faire pour la prochaine itération#
 
 1. La vue Carte (dans l’interface Mes annonces et dans celle de la Recherche)  
