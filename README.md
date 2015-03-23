@@ -13,7 +13,7 @@
 3. Peaufiner le design  
 4. Développement le reste des fonctionnalités
 
-#Bogue connu#
+#Bogues connus#
 **Certaines vérifations au niveau des champs d’entrée n’ont pas été effectuées :**  
        Les champs de départ et d’arrivée dans l’interface de recherche ainsi que ceux de l’interface de l’annonce.   
        Dans l’interface de Recherche et d’Annonce, on ne vérifie pas si la date choisie est antérieure ou pas à la date d’aujourd’hui  
