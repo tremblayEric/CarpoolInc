@@ -1,7 +1,8 @@
 # README #
 
 #Note#
-1. L'auto completion des champs fonctionne en mode debug avec Android Studio mais pas avec le APK
+1. La version gratuite de l'auto completion des champs de google est limitée à 1000 requête par jour.Il peut arriver que l'offre et la recherche de coivoiturage ne fonctionne pas correctement  dans le cas ou cette limite serait dépassée. ref: https://developers.google.com/places/webservice/usage
+
 2. Pour le cellulaire, le mode paysage n'a pas été pris en compte. A utiliser en mode portrait
 
 #Chose à faire pour la prochaine itération#
