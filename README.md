@@ -11,7 +11,7 @@
 2. Ajouter plus de réactivité  
     *Ajouter des spinning wheel lors des temps d’attente pendant l’exécution de certaines fonctionnalités(ex: recherche d’offre de covoiturage)  
 3. Peaufiner le design  
-4. D/veloppement le reste des fonctionnalités
+4. Développement le reste des fonctionnalités
 
 #Bogue connu#
 **Certaines vérifations au niveau des champs d’entrée n’ont pas été effectuées :**  
