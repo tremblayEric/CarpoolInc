@@ -1,5 +1,8 @@
 # README #
 
+# cle APK#
+La cle de l'APK est la suivante: ERAMGAJE
+
 #Note#
 1. La version gratuite de l'auto completion des champs de google est limitée à 1000 requête par jour.Il peut arriver que l'offre et la recherche de coivoiturage ne fonctionne pas correctement  dans le cas ou cette limite serait dépassée. ref: https://developers.google.com/places/webservice/usage
 
