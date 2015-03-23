@@ -4,7 +4,7 @@
 
 1. La vue Carte (dans l’interface Mes annonces et dans celle de la Recherche)  
 2. Ajouter plus de réactivité  
-                 *Ajouter des spinning wheel lors des temps d’attente pendant l’exécution de certaines fonctionnalités(ex: recherche d’offre de covoiturage)  
+    *Ajouter des spinning wheel lors des temps d’attente pendant l’exécution de certaines fonctionnalités(ex: recherche d’offre de covoiturage)  
 3. Peaufiner le design  
 
 #Bogue connu#
