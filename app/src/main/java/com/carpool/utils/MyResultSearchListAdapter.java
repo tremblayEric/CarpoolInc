@@ -20,6 +20,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/***
+ * Classe qui s'occupe d'afficher les résultats d'une recherche effectuée par un utilisateur
+ * dans une liste qui peut être consultée.
+ */
 public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
 
     private Activity activity;

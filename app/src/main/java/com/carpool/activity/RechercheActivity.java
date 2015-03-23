@@ -39,6 +39,11 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+
+/***
+ * Cette classe s'occupe de la recherche d'offre de covoirturage en fonction des critèeres entrées
+ * par l'utilisateur
+ */
 public class RechercheActivity extends Fragment {
 
     View rootview;
@@ -51,6 +56,9 @@ public class RechercheActivity extends Fragment {
 
     @Nullable
     @Override
+    /***
+     * instanciation des input et set de leur valeur par défaut
+     */
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.recherche_layout,container,false);
         listView = (ExpandableListView) rootview.findViewById(R.id.lvResultSearch);
@@ -62,7 +70,7 @@ public class RechercheActivity extends Fragment {
 
         ((TimePicker)rootview.findViewById(R.id.etBetweenStartSearch)).setIs24HourView(true);
 
-       dateDepart = (EditText)rootview.findViewById(R.id.etDateSearch);
+        dateDepart = (EditText)rootview.findViewById(R.id.etDateSearch);
         Calendar mcurrentDate = Calendar.getInstance();
         int mYear = mcurrentDate.get(Calendar.YEAR);
         int mMonth = mcurrentDate.get(Calendar.MONTH);
@@ -82,7 +90,6 @@ public class RechercheActivity extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-
                 mDatePicker.setTitle("Date de départ");
                 mDatePicker.show();
                 return false;
@@ -96,7 +103,10 @@ public class RechercheActivity extends Fragment {
                 "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
         submitOffer.setTypeface(font);
         submitOffer.append("           RECHERCHER");
-
+        /***
+         * Listener qui déclenche la géolocalisation des adresses entré en poaramèetre et la
+         * la récupération des valeurs entrées par l'utilisateur
+         */
         submitOffer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +118,6 @@ public class RechercheActivity extends Fragment {
                 if (eStarting.length() > 0 && eDestination.length() >0) {
                     address.add(eStarting);
                     address.add(eDestination);
-
 
                     GeocodingLocation locationAddress = new GeocodingLocation();
                     locationAddress.getAddressFromLocation(address,
@@ -155,6 +164,10 @@ public class RechercheActivity extends Fragment {
                 case 1:
                     Bundle bundle = message.getData();
                     locationAddress = (LinkedHashSet<double[]>)bundle.getSerializable("address");
+                    /***
+                     * cette méthode s'occupe de récupérer les offres qui correspondent aux critèeres
+                     * de recherche.
+                     */
                     getOffresFromDataBase(locationAddress);
                     break;
                 default:
@@ -247,6 +260,12 @@ public class RechercheActivity extends Fragment {
                 });
     }
 
+    /***
+     *
+     * @param  offres contenues dans la BD
+     * @param locationAddress recherchées
+     * @return la liste des offres qui correspondent aux critèeres de recherche
+     */
     private List<Offre> getOffreCorrespondantes(List<Offre> offres,LinkedHashSet<double[]> locationAddress){
 
         List<Offre> lesOffres = offres;
@@ -275,7 +294,7 @@ public class RechercheActivity extends Fragment {
             int heureSouhaitable = tempsDepart.getCurrentHour();
             boolean heureSouhaitableConcordeAvecOffre = ((heureDepartAuPlusTot <= heureSouhaitable ) && (heureDepartAuPlusTard >= heureSouhaitable));
 
-            if(jourDeDifference == 0 && heureSouhaitableConcordeAvecOffre){
+            if(jourDeDifference == 0 && heureSouhaitableConcordeAvecOffre){// la meme journée à une heure de départ au environ de celle désirée
 
                 try {
                     uneOffre.getTrajet().fetchIfNeeded();
@@ -296,7 +315,7 @@ public class RechercheActivity extends Fragment {
                 locationOfferte.setLongitude(trajetResultat.getPositionDepart().getLongitude());
 
                 double distance = locationSouhaitable.distanceTo(locationOfferte) / 1000;
-                if (distance <= 20) {
+                if (distance <= 20) { // le départ proposé est à moins de 20km du départ souhaité
 
                     locationSouhaitable.setLatitude(arrivee[0]);
                     locationSouhaitable.setLongitude(arrivee[1]);
@@ -304,7 +323,7 @@ public class RechercheActivity extends Fragment {
                     locationOfferte.setLatitude(trajetResultat.getPositionArrive().getLatitude());
                     locationOfferte.setLongitude(trajetResultat.getPositionArrive().getLongitude());
                     distance = locationSouhaitable.distanceTo(locationOfferte) / 1000;
-                    if (distance <= 20) {
+                    if (distance <= 20) {//l'arrivée proposé est à moins de 20km du départ souhaité
                         offresAcceptables.add(lesOffres.get(i));
                     }
                 }

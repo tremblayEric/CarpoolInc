@@ -33,6 +33,10 @@ import java.util.List;
 import android.util.Log;
 import android.widget.Toast;
 
+/***
+ * Classe qui initialise un formulaire pour que l'utilisateur puisse ajouter une offre de covoiturage.
+ * L'annonce est ajoutée à la base de donnée
+ */
 public class OffreActivity extends Fragment {
 
     View rootview;
@@ -311,8 +315,9 @@ public class OffreActivity extends Fragment {
     }
 
 
-/*
-Tiré de http://javapapers.com/android/android-geocoding-to-get-latitude-longitude-for-an-address/
+/***
+ * Tiré de http://javapapers.com/android/android-geocoding-to-get-latitude-longitude-for-an-address/
+ Cette classe récupère la liste des positions d'adresses retournées par google map
  */
     private class GeocoderHandler extends Handler {
         @Override
@@ -331,8 +336,10 @@ Tiré de http://javapapers.com/android/android-geocoding-to-get-latitude-longitu
         }
     }
 
-/*
-Tiré de https://developers.google.com/places/training/autocomplete-android
+/***
+ * Tiré de https://developers.google.com/places/training/autocomplete-android
+ * Cette classe récupère la liste des places retournées par google places pour l'autocomplétion
+ * des champs d'adresse.
  */
     private class PlacesAutoCompleteAdapter extends ArrayAdapter<String> implements Filterable {
         private ArrayList<String> resultList;

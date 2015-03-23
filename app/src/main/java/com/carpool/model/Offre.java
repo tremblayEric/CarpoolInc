@@ -7,6 +7,10 @@ import com.parse.ParseUser;
 import java.io.Serializable;
 import java.util.Date;
 
+/***
+ * Classe représentant le concept d'Offre (une offre est une annonce de covoiturage faite par un
+ * utilisateur et est reliée à un trajet.
+ */
 @ParseClassName("Offre")
 public class Offre extends ParseObject implements Serializable {
 

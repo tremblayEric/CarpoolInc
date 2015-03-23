@@ -22,6 +22,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.parse.ParseUser;
 
+/***
+ * Cette classe représente l'activité de démarrage. Elle redirige vers la page de login si
+ * l'utilisateur se connecte pour la première fois ou s'il s'est déconnecté la dernière fois.
+ * Autrement, l'activité de recherche se lance.
+ * Aussi, l'initialisation du tiroir se fait à ce niveau également.
+ */
 public class AccueilActivity extends ActionBarActivity{
 
     private DrawerLayout mDrawerLayout;

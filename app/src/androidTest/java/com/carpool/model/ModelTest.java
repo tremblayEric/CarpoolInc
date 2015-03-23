@@ -18,7 +18,9 @@ import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/***
+ * Classe de test pour les modèles de données se trouvant dans le package model.
+ */
 /**
  * Created by Gaëlle on 3/6/2015.
  */
@@ -42,19 +44,7 @@ public class ModelTest extends ActivityInstrumentationTestCase2<LoginActivity> {
         cc.setNote(4);
         cc.saveInBackground();
     }
-/*
-    // Test parse Offre
-    public void testOffre() {
-        Offre oo = new Offre();
-        oo.setDepart(new Date());
-        oo.setHeureDebut(new Date());
-        oo.setHeureFin(new Date());
-        oo.setNbreProposition(3);
-        oo.setReservationCount(3);
 
-        oo.saveInBackground();
-    }
-*/
     // Test parse Position
     public void testPosition() {
         Position pp = new Position();
@@ -68,26 +58,6 @@ public class ModelTest extends ActivityInstrumentationTestCase2<LoginActivity> {
         Reservation rr = new Reservation();
         rr.setStatut(Reservation.ReservationStatut.ATTENTE);
     }
-/*
-    // Test parse Trajet
-    public void testTrajet() {
-        Trajet tt = new Trajet();
-
-        Position pos = new Position();
-        pos.setLongitude(20);
-        pos.setLatitude(20);
-        tt.setPositionDepart(pos);
-        Position pos2 = new Position();
-        pos2.setLongitude(30);
-        pos2.setLatitude(30);
-        tt.setPositionArrive(pos2);
-        tt.saveInBackground();
-    }
-*/
-
-
-
-
 
     // Test parse Trajet
     public void testTrajetAvecParentOffre() {
