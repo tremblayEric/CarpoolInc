@@ -14,6 +14,8 @@ import android.widget.ListView;
 import com.carpool.design.SlidingTabLayout;
 import com.carpool.design.ViewPagerAdapter;
 import com.carpool.model.Offre;
+import com.carpool.utils.MyResultSearchListAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
