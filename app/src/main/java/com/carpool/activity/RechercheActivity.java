@@ -227,7 +227,7 @@ public class RechercheActivity extends Fragment {
             return filter;
         }
     }
-        
+
     private void getOffresFromDataBase(final LinkedHashSet<double[]> locationAddress){
 
         ParseQuery<Offre> query = ParseQuery.getQuery("Offre");
