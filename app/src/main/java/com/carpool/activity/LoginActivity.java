@@ -21,30 +21,14 @@ import android.util.Log;
 import com.parse.*;
 import com.parse.ParseUser;
 import android.graphics.Typeface;
+import android.widget.Toast;
 
-/**
- * A login screen that offers login via email/password and via Google+ sign in.
- * <p/>
- * ************ IMPORTANT SETUP NOTES: ************
- * In order for Google+ sign in to work with your app, you must first go to:
- * https://developers.google.com/+/mobile/android/getting-started#step_1_enable_the_google_api
- * and follow the steps in "Step 1" to create an OAuth 2.0 client for your package.
- */
+
 public class LoginActivity extends ActionBarActivity {
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
 
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };*/
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
     private UserLoginTask mAuthTask = null;
 
-    // UI references.
     private AutoCompleteTextView mUsername;
     private EditText mPasswordView;
     private View mProgressView;
@@ -63,7 +47,9 @@ public class LoginActivity extends ActionBarActivity {
 
         texte = (TextView)findViewById(R.id.error_connection);
 
-
+        /***
+         * gestion de la barre la toolbar
+         */
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -73,11 +59,14 @@ public class LoginActivity extends ActionBarActivity {
             Log.d("toolbar", "dans la toolbar");
         }
 
-        // Set up the login form.
+
         mUsername = (AutoCompleteTextView) findViewById(R.id.username);
         mPasswordView = (EditText) findViewById(R.id.password);
-
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+
+        /**
+         * mise en forme du bouton de connexion avec des icones fontAwesome
+         */
         Typeface font = Typeface.createFromAsset( getAssets(),
                 "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
         mEmailSignInButton.append("    CONNEXION");
@@ -89,18 +78,15 @@ public class LoginActivity extends ActionBarActivity {
             }
         });
 
-        //2015-03-08
-        //bouton ajouté pour la navigation vers la page de creation de profil
+        /**
+         *
+         * on clique sur le bouton de creation du profil pour pouvoir creer le profil
+         */
+
         Button registerButton = (Button) findViewById(R.id.register);
         registerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                /**
-                 * Modifie par Jeanne
-                 */
-                //on clique sur le bouton de creation du profil pour pouvoir creer le profil
-
 
                 goToCreeProfil();
             }
@@ -117,25 +103,28 @@ public class LoginActivity extends ActionBarActivity {
 
 
     /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
+     * fonction qui permet de se connecter
      */
     public void attemptLogin() {
 
-        // Reset errors.
+        /**
+         * reinitialiser les erreus
+         */
         mUsername.setError(null);
-
         mPasswordView.setError(null);
 
-        // Store values at the time of the login attempt.
+        /**
+         * sauvegarder les valeurs au moment de la tentative de connexion
+         */
         String email = mUsername.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
+        /**
+         * verifier si mot de passe valide
+         */
 
         if (!TextUtils.isEmpty(password) && !TextUtils.isEmpty(email)) {
 
@@ -172,17 +161,19 @@ public class LoginActivity extends ActionBarActivity {
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+            /**
+             * donner le focus au premier controle sur lequel on trouve une erreur
+             */
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
+
+            /**
+             * montrer le progress spinner et executer la tache de tentative de login en background
+             */
             flag = false;
             fin = false;
             showProgress(true);
 
-            // Ici l'authentification est a mettre
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute();
         }
@@ -194,13 +185,11 @@ public class LoginActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    /*
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.matches("^[a-z0-9._-]+@[a-z0-9._-]{2,}\\.[a-z]{2,4}$");
-        //return email.contains("@");
-    }*/
-
+    /**
+     * verifier la longueur du mot de passe
+     * @param password
+     * @return
+     */
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
 
@@ -208,13 +197,12 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     /**
-     * Shows the progress UI and hides the login form.
+     * montre le progress UI du spinner et cache la tache de login en background
+     * @param show
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     public void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
@@ -236,17 +224,15 @@ public class LoginActivity extends ActionBarActivity {
                 }
             });
         } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
+
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-*/
+     * connexion asynchrone et tache utilisee pour authentifier l'utilisateur en arriere plan
+     */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
@@ -273,7 +259,11 @@ public class LoginActivity extends ActionBarActivity {
                 }
             });
 
-
+            /**
+             * Ici on attend que la variable utilis soit mis a jour pour verifier si la connexion
+             * a reussie ou pas. Bien plus efficace que le Thread.sleep car tient compte de la lenteur propre
+             * a chaque reseau
+             */
             while (!flag)
             {
 
@@ -296,14 +286,10 @@ public class LoginActivity extends ActionBarActivity {
                 texte.setText("");
                 Log.d("utilis", utilis.getObjectId());
                 Log.d("trouve", "utilisateur touve");
-                Intent newActivity  = new Intent(LoginActivity.this, AccueilActivity.class); //Accueil
+                Intent newActivity  = new Intent(LoginActivity.this, AccueilActivity.class);
                 startActivity(newActivity);
 
                 finish();
-
-                //Ecrire un message pour signifier a l'utlisateur qu'il c'est connecte
-
-
 
             } else {
                       showProgress(false);

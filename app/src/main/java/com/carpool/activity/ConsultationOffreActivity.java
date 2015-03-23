@@ -43,6 +43,7 @@ package com.carpool.activity;
     public class ConsultationOffreActivity extends Fragment {
 
         View rootview;
+
         ExpandableListView lv;
         private final ArrayList<Offre> listeOffres=new ArrayList<Offre>();
         private int ParentClickStatus=-1;
@@ -54,9 +55,10 @@ package com.carpool.activity;
         private String titles[] = new String[]{"               VUE LISTE               ", "               VUE CARTE               "};
         SlidingTabLayout slidingTabLayout;
 
-        @Nullable
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
             rootview = inflater.inflate(R.layout.activity_consultation_offre,container,false);
 
             // ajout des pages qui permettront d'afficher les deux vues

@@ -16,6 +16,10 @@ import android.widget.TextView;
 import java.util.Date;
 import java.util.Calendar;
 
+/**
+ * classe qui permet de recuperer les informations de l'utilisateur qui se connecte dans la DB et
+ * qui les affiche sur le profil de l'utilisateur
+ */
 public class ProfilActivity extends Fragment {
 
     View rootview;
@@ -142,6 +146,12 @@ public class ProfilActivity extends Fragment {
 
         }
     }
+
+    /**
+     * fonction qui permet d'obtenir le jour du mois
+     * @param aDate
+     * @return
+     */
 
     public static int getDayOfMonth(Date aDate) {
         Calendar cal = Calendar.getInstance();

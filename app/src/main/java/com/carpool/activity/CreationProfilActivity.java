@@ -64,6 +64,11 @@ public class CreationProfilActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creation_profil);
 
+        /***
+         * Gestion de la bare de toolbar ajoutee dans l'application:
+         * ajout du logo, titre de la toolbar, couleur du titre
+         */
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -73,6 +78,9 @@ public class CreationProfilActivity extends ActionBarActivity {
             Log.d("toolbar", "dans la toolbar");
         }
 
+        /**
+         * Recuperer les valeurs des composants dans des variables
+         */
         pseudo = (EditText) findViewById(R.id.txtPseudo);
         mdp = (EditText) findViewById(R.id.txtMdp);
         confmdp = (EditText) findViewById(R.id.txtConfMdp);
@@ -82,14 +90,17 @@ public class CreationProfilActivity extends ActionBarActivity {
         prenom = (EditText) findViewById(R.id.txtPrenom);
         compteCree = (TextView) findViewById(R.id.compteCree);
 
-        // Get current date by calender
+        /**
+         * Obtenir l'heure courante du calendrier
+         */
         final Calendar c = Calendar.getInstance();
         year  = c.get(Calendar.YEAR);
         month = c.get(Calendar.MONTH);
         day   = c.get(Calendar.DAY_OF_MONTH);
 
-
-        // gestion affichage calendrier
+        /**
+         * gestion affichage calendrier
+         */
         final EditText txtCalendar = (EditText) findViewById(R.id.txtCalendar);
         txtCalendar.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -99,7 +110,9 @@ public class CreationProfilActivity extends ActionBarActivity {
             }
         });
 
-
+        /**
+         *  mettre une icone font-awesome sur le boutton de creation du profil
+         */
         final Button buttonCreation = (Button) findViewById(R.id.buttonCreer);
 
         Typeface font = Typeface.createFromAsset( getAssets(), "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
@@ -107,7 +120,9 @@ public class CreationProfilActivity extends ActionBarActivity {
 
         buttonCreation.setTypeface(font);
 
-
+        /**
+         *  effectue l'ajout des utilisateur au click sur un bouton
+         */
         buttonCreation.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
@@ -115,14 +130,18 @@ public class CreationProfilActivity extends ActionBarActivity {
             }
         });
 
-        // vérification de la confirmation de mot de passe
+
+        /**
+         *  Controle sur la confirmation de Mdp
+         */
         final EditText password1 = (EditText) findViewById(R.id.txtMdp);
         final EditText password2 = (EditText) findViewById(R.id.txtConfMdp);
 
         strMdp = password1.getText().toString();
 
-
-      // Controle sur la confirmation de Mdp
+        /**
+         * vérification du mot de passe et de la confirmation de mot de passe
+         */
         password2.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
                 String strPass1 = password1.getText().toString();
@@ -156,7 +175,9 @@ public class CreationProfilActivity extends ActionBarActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
-     // Controle sur la taille du Mdp
+        /**
+         * Controle sur la taille du Mdp
+         */
         password1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             public void onFocusChange(View v, boolean hasFocus) {
@@ -170,7 +191,9 @@ public class CreationProfilActivity extends ActionBarActivity {
                 }
         });
 
-        // Controle sur le format de l'adresse email
+        /**
+         * Controle sur le format de l'adresse email
+          */
         final EditText txtCourriel = (EditText) findViewById(R.id.txtCourriel);
         txtCourriel.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
@@ -188,7 +211,9 @@ public class CreationProfilActivity extends ActionBarActivity {
             }
         });
 
-        // Controle sur l'age de l'utilisateur min 18 ans
+        /**
+         * Controle sur l'age de l'utilisateur min 18 ans
+          */
         dateNais.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s)
             {
@@ -215,7 +240,10 @@ public class CreationProfilActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
+        /**
+         * inflater le menu; cela ajoute des itens a l'ActionBar si il est present
+         */
         getMenuInflater().inflate(R.menu.menu_creation_profil, menu);
         return true;
     }
@@ -223,12 +251,12 @@ public class CreationProfilActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        /**
+         * gere le click sur la bare d'action.
+         *
+         */
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)
         {
             return true;
@@ -237,7 +265,10 @@ public class CreationProfilActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Déclancher lors de clique sur le bouton Créer
+    /** Déclancher lors de clique sur le bouton Créer
+     * effectue le controle des champs avant la creation du profil utilisateur
+     * @param view
+     */
     public void ajouterUtilisateur(View view) {
 
         boolean saisieValide = true;
@@ -324,7 +355,18 @@ public class CreationProfilActivity extends ActionBarActivity {
         }
     }
 
-    // Ajout d'un nouveau utilisateur dans la BD
+
+    /**
+     * Ajout d'un nouvel utilisateur dans la base de donnees
+     * @param userName
+     * @param password
+     * @param email
+     * @param firstName
+     * @param lastName
+     * @param birthDay
+     * @param gender
+     * @throws ParseException
+     */
     private void creerUtilisateur(String userName, String password, String email,
                                   String firstName, String lastName,
                                   String birthDay,String gender) throws ParseException {
@@ -375,9 +417,10 @@ public class CreationProfilActivity extends ActionBarActivity {
         switch (id)
         {
             case DATE_PICKER_ID:
-                // open datepicker dialog.
-                // set date picker for current date
-                // add pickerListener listner to date picker
+
+                /**
+                 * ouvre le datePicker dialog , fixe l'heure courante et ajoute un picker listener au datepicker
+                 */
                 return new DatePickerDialog(this, pickerListener, year, month,day);
         }
         return null;
@@ -385,7 +428,7 @@ public class CreationProfilActivity extends ActionBarActivity {
 
     private DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener()
     {
-        // when dialog box is closed, below method will be called.
+
         @Override
         public void onDateSet(DatePicker view, int selectedYear,
                               int selectedMonth, int selectedDay) {
@@ -394,7 +437,7 @@ public class CreationProfilActivity extends ActionBarActivity {
             month = selectedMonth;
             day   = selectedDay;
 
-            // SOutputhow selected date
+
             dateNais.setText(new StringBuilder().append(month+1)
                     .append("-").append(day).append("-").append(year)
                     .append(" "));
@@ -402,7 +445,11 @@ public class CreationProfilActivity extends ActionBarActivity {
     };
 
 
-    // valdation du format de l'adresse mail
+    /*** valdation du format de l'adresse mail
+     *
+     * @param emailAddress
+     * @return
+     */
     public boolean isValidEmailAddress(String emailAddress) {
         String emailRegEx;
         Pattern pattern;
@@ -433,7 +480,10 @@ public class CreationProfilActivity extends ActionBarActivity {
 
        }
 
-     // Calcul de l'age
+    /**
+     *  Calcul de l'age pour verifier si l'age est valide
+      */
+
     public static int getYears(String strDate)
 
     {
