@@ -1,7 +1,6 @@
 # README #
 
-
-                                                                       #Chose à faire pour la prochaine itération#
+#Chose à faire pour la prochaine itération#
 
 * La vue Carte (dans l’interface Mes annonces et dans celle de la Recherche) 
 *Ajouter plus de réactivité :
