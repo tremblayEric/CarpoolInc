@@ -38,30 +38,18 @@ public class AccueilActivity extends ActionBarActivity{
     Fragment objFragment = null;
     boolean init = false;
 
+    ParseUser currentUser ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Get current user data from Parse.com
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        if (currentUser != null) {
-            // Send logged in users to Profil
-            Fragment objFragment = new RechercheActivity();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, objFragment)
-                    .commit();
-        }
-        else {
-            // Send user to Login
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        currentUser = ParseUser.getCurrentUser();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.navdrawer);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -77,77 +65,69 @@ public class AccueilActivity extends ActionBarActivity{
 
         drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerListener(drawerToggle);
-        String[] values = new String[]{
-                " PROFIL", " POSTER ANNONCE", " RECHERCHE", " MES ANNONCES", " DECONNEXION"
-        };
 
+        createTiroir();
 
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                switch (position) {
+                    case 0:
+                        if (currentUser != null) {
+                            mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                            toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                            mDrawerLayout.closeDrawer(Gravity.START);
+                            objFragment = new ProfilActivity();
+                        }
+                        else {
+                            mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                            toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                            mDrawerLayout.closeDrawer(Gravity.START);
+                            objFragment = new LoginActivity();
+                        }
+                        break;
+                    case 1:
+                        mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                        toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                        mDrawerLayout.closeDrawer(Gravity.START);
+                        objFragment = new OffreActivity();
+                        break;
+                    case 2:
+                        mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                        toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                        mDrawerLayout.closeDrawer(Gravity.START);
+                        objFragment = new RechercheActivity();
+                        break;
+                    case 3:
+                        if (currentUser != null) {
+                            mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                            toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                            mDrawerLayout.closeDrawer(Gravity.START);
+                            objFragment = new ConsultationOffreActivity();
+                        }
+                        break;
+                    case 4: // gerer la deconnexion
+                        if (currentUser != null) {
+                            ParseUser.logOut();
+                            currentUser = ParseUser.getCurrentUser();
+                            createTiroir();
+                            mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                            toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+                            mDrawerLayout.closeDrawer(Gravity.START);
+                            objFragment = new LoginActivity();
+                        }
+                        break;
+                }
 
-    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-            android.R.layout.simple_list_item_1, android.R.id.text1, values)
-    {
-        @Override
-         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = super.getView(position, convertView, parent);
-            TextView text = (TextView) view.findViewById(android.R.id.text1);
-            text.setTypeface(null, Typeface.BOLD);
-            Color.argb(127, 07, 00, 51);
-
-            return view;
-         }
-
-    };
-
-    mDrawerList.setAdapter(adapter);
-
-    mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view,
-        int position, long id) {
-            switch (position) {
-                case 0:
-                    mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                    mDrawerLayout.closeDrawer(Gravity.START);
-                    objFragment = new ProfilActivity();
-
-                    break;
-                case 1:
-                    mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                    mDrawerLayout.closeDrawer(Gravity.START);
-                    objFragment = new OffreActivity();
-                    break;
-                case 2:
-                    mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                    mDrawerLayout.closeDrawer(Gravity.START);
-                    objFragment = new RechercheActivity();
-                    break;
-                case 3:
-                    mDrawerList.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-                    mDrawerLayout.closeDrawer(Gravity.START);
-                    objFragment = new ConsultationOffreActivity();
-
-
-                    break;
-                case 4: // gerer la deconnexion
-                    ParseUser.logOut();
-                    Intent intent = new Intent(AccueilActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                    break;
-
+                // update the main content by replacing fragments
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, objFragment)
+                        .commit();
             }
+        });
 
-            // update the main content by replacing fragments
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, objFragment)
-                    .commit();
-        }
-    });
 
         if (!init)
         {
@@ -167,6 +147,52 @@ public class AccueilActivity extends ActionBarActivity{
         }
 
 }
+    private void createTiroir(){
+        String[] values = new String[]{
+                " PROFIL", " POSTER ANNONCE", " RECHERCHE", " MES ANNONCES", " DECONNEXION"
+        };
+
+        String[] valuesNotConnected = new String[]{
+                " CONNEXION", " POSTER ANNONCE", " RECHERCHE"
+        };
+
+
+        ArrayAdapter<String> adapter = null;
+
+        // Get current user data from Parse.com
+
+        if (currentUser != null) {
+            adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1, values)
+            {
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+                    TextView text = (TextView) view.findViewById(android.R.id.text1);
+                    text.setTypeface(null, Typeface.BOLD);
+                    return view;
+                }
+
+            };
+        }
+        else {
+            adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1, valuesNotConnected)
+            {
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+                    TextView text = (TextView) view.findViewById(android.R.id.text1);
+                    text.setTypeface(null, Typeface.BOLD);
+                    return view;
+                }
+
+            };
+        }
+
+        mDrawerList.setAdapter(adapter);
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

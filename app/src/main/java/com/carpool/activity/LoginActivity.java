@@ -8,11 +8,15 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,8 +28,9 @@ import android.graphics.Typeface;
 import android.widget.Toast;
 
 
-public class LoginActivity extends ActionBarActivity {
+public class LoginActivity extends Fragment {
 
+    View rootview;
 
     private UserLoginTask mAuthTask = null;
 
@@ -41,33 +46,19 @@ public class LoginActivity extends ActionBarActivity {
     TextView texte;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootview = inflater.inflate(R.layout.activity_login,container,false);
 
-        texte = (TextView)findViewById(R.id.error_connection);
+        texte = (TextView)rootview.findViewById(R.id.error_connection);
 
-        /***
-         * gestion de la barre la toolbar
-         */
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            toolbar.setLogo(R.drawable.carpool_logo);
-            toolbar.setTitle("      CARPOOL INC.       ");
-            toolbar.setTitleTextColor(Color.WHITE);
-            Log.d("toolbar", "dans la toolbar");
-        }
-
-
-        mUsername = (AutoCompleteTextView) findViewById(R.id.username);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mUsername = (AutoCompleteTextView) rootview.findViewById(R.id.username);
+        mPasswordView = (EditText) rootview.findViewById(R.id.password);
+        Button mEmailSignInButton = (Button) rootview.findViewById(R.id.email_sign_in_button);
 
         /**
          * mise en forme du bouton de connexion avec des icones fontAwesome
          */
-        Typeface font = Typeface.createFromAsset( getAssets(),
+        Typeface font = Typeface.createFromAsset( getActivity().getAssets(),
                 "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
         mEmailSignInButton.append("    CONNEXION");
         mEmailSignInButton.setTypeface(font);
@@ -83,7 +74,7 @@ public class LoginActivity extends ActionBarActivity {
          * on clique sur le bouton de creation du profil pour pouvoir creer le profil
          */
 
-        Button registerButton = (Button) findViewById(R.id.register);
+        Button registerButton = (Button) rootview.findViewById(R.id.register);
         registerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,11 +85,13 @@ public class LoginActivity extends ActionBarActivity {
         registerButton.append("    INSCRIPTION");
         registerButton.setTypeface(font);
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-        mEmailLoginFormView = findViewById(R.id.email_login_form);
+        mLoginFormView = rootview.findViewById(R.id.login_form);
+        mProgressView = rootview.findViewById(R.id.login_progress);
+        mEmailLoginFormView = rootview.findViewById(R.id.email_login_form);
 
         fin = true;
+
+        return rootview;
     }
 
 
@@ -180,9 +173,11 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     private void goToCreeProfil(){
-
-        Intent intent = new Intent(this, CreationProfilActivity.class);
-        startActivity(intent);
+        Fragment objFragment = new CreationProfilActivity();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, objFragment)
+                .commit();
     }
 
     /**
@@ -286,10 +281,9 @@ public class LoginActivity extends ActionBarActivity {
                 texte.setText("");
                 Log.d("utilis", utilis.getObjectId());
                 Log.d("trouve", "utilisateur touve");
-                Intent newActivity  = new Intent(LoginActivity.this, AccueilActivity.class);
+                Intent newActivity  = new Intent(getActivity(), AccueilActivity.class);
                 startActivity(newActivity);
-
-                finish();
+                getActivity().finish();
 
             } else {
                       showProgress(false);

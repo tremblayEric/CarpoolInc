@@ -1,7 +1,9 @@
 package com.carpool.model;
 
+import android.test.ActivityInstrumentationTestCase;
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.carpool.activity.AccueilActivity;
 import com.carpool.activity.LoginActivity;
 import com.carpool.model.Offre;
 import com.carpool.model.Cote;
@@ -24,9 +26,10 @@ import java.util.logging.Logger;
 /**
  * Created by Gaëlle on 3/6/2015.
  */
-public class ModelTest extends ActivityInstrumentationTestCase2<LoginActivity> {
+public class ModelTest extends ActivityInstrumentationTestCase2<AccueilActivity> {
+
     public ModelTest() {
-        super(LoginActivity.class);
+        super(AccueilActivity.class);
 
     }
 

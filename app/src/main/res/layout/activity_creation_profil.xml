@@ -14,11 +14,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" android:id="@+id/container">
 
-        <android.support.v7.widget.Toolbar
+        <!--<android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/material_deep_teal_500" />
+            android:background="@color/material_deep_teal_500" />-->
 
 
         <LinearLayout
@@ -233,13 +233,11 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="F"
-                                    android:onClick="onRadioButtonClicked"
                                     android:checked="true"/>
                                 <RadioButton android:id="@+id/radioM"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="M"
-                                    android:onClick="onRadioButtonClicked"/>
+                                    android:text="M"/>
                             </RadioGroup>
 
 
