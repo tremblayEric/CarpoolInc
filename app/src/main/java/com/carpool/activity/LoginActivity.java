@@ -2,7 +2,6 @@ package com.carpool.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -10,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -25,7 +23,6 @@ import android.util.Log;
 import com.parse.*;
 import com.parse.ParseUser;
 import android.graphics.Typeface;
-import android.widget.Toast;
 
 
 public class LoginActivity extends Fragment {
@@ -62,6 +59,14 @@ public class LoginActivity extends Fragment {
                 "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
         mEmailSignInButton.append("    CONNEXION");
         mEmailSignInButton.setTypeface(font);
+
+
+        TextView icone_pseudo = (TextView)rootview.findViewById(R.id.icone_pseudo);
+        icone_pseudo.setTypeface(font);
+
+        TextView icone_psswd = (TextView)rootview.findViewById(R.id.icone_psswd);
+        icone_psswd.setTypeface(font);
+
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -195,7 +200,6 @@ public class LoginActivity extends Fragment {
      * montre le progress UI du spinner et cache la tache de login en background
      * @param show
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     public void showProgress(final boolean show) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {

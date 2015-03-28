@@ -1,7 +1,6 @@
 package com.carpool.activity;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -31,10 +30,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.zip.Inflater;
-
 import android.util.Log;
-import android.support.v7.app.ActionBarActivity;
+
 
 // Class Création d'un profil utilisateur
 public class CreationProfilActivity extends Fragment {

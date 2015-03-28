@@ -21,6 +21,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.database.Cursor;
 
 /**
  * Fragment utilise pour ls gestion des interactions pour la presentation du drawer_navigation
@@ -86,6 +88,8 @@ public class NavigationDrawerFragmentActivity extends Fragment {
                 selectItem(position);
             }
         });
+
+
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
@@ -248,7 +252,18 @@ public class NavigationDrawerFragmentActivity extends Fragment {
     }
 
 
-    private void showGlobalContextActionBar() {
+    @Override
+    public boolean onContextItemSelected(MenuItem item)
+    {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
+        //Cursor c = (Cursor)adapter.getItem(info.position);
+        //long id = c.getLong();
+        //String tempCity = c.getString(...);
+        return true;
+    }
+
+    private void showGlobalContextActionBar()
+    {
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);

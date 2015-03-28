@@ -9,4 +9,6 @@
     <string name="modif_user">&#xf044;</string>
     <string name="plus">&#xf067;</string>
     <string name="recherche_covoiturage">&#xf002;</string>
+    <string name="icone_pseudo">&#xf003;</string>
+    <string name="icone_psswd">&#xf084;</string>
 </resources>

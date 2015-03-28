@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -119,9 +120,17 @@ public class RechercheActivity extends Fragment {
                     address.add(eStarting);
                     address.add(eDestination);
 
-                    GeocodingLocation locationAddress = new GeocodingLocation();
-                    locationAddress.getAddressFromLocation(address,
-                            getActivity().getApplicationContext(), new GeocoderHandler());
+                    // pour gerer le cas ou l'utilisateur rentre n'importe quoi
+
+                    try {
+                        GeocodingLocation locationAddress = new GeocodingLocation();
+                        locationAddress.getAddressFromLocation(address,
+                                getActivity().getApplicationContext(), new GeocoderHandler());
+                    }
+                    catch (Exception e)
+                    {
+                        Log.d("recherche", "destination erronee");
+                    }
                 }
                 else {
                     if (eStarting.length() == 0) {
@@ -236,6 +245,7 @@ public class RechercheActivity extends Fragment {
                     @Override
                     public void done(List<Offre> offres, ParseException e) {
                         if (e == null) {
+
 
                             List<Offre> offresAcceptables = getOffreCorrespondantes(offres,locationAddress);
                             if(offresAcceptables.size() == 0)

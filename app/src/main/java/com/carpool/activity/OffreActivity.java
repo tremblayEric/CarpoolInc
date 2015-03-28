@@ -100,12 +100,19 @@ public class OffreActivity extends Fragment {
         month_depart = c_date.get(Calendar.MONTH);
         day_depart   = c_date.get(Calendar.DAY_OF_MONTH);
 
+        //c_date.set(c_date.get(Calendar.YEAR), c_date.get(Calendar.MONTH )+4, 31);
+
+        //your_date_picker.setMaxDate(c.getTimeInMillis());
 
         etDate_.setText(new StringBuilder().append(month_depart + 1)
                 .append("-").append(day_depart).append("-").append(year_depart)
                 .append(" "));
         mDatePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
+
+
+                        //setMaxDate(c_date.get(Calendar.YEAR), c_date.get(Calendar.MONTH)+ 4, c_date.get(Calendar.DAY_OF_MONTH)%31);
+                //datepicker.setMaxDate(c_date.getTimeInMillis());
                 c_date.set(selectedyear, selectedmonth, selectedday);
 
                 // si ca se trouve ca sert a rien mais je le fais qd meme
@@ -125,6 +132,7 @@ public class OffreActivity extends Fragment {
 
 
                 mDatePicker.setTitle("Date de départ");
+                //mDatePicker.setm(c_date.getTimeInMillis());
                 mDatePicker.show();
 
                 Log.d("log","dans le logId");
@@ -184,7 +192,6 @@ public class OffreActivity extends Fragment {
         /***
          * Gestion du temps d'arrivee
          */
-        //TimePicker et
 
         ac_etBetweenEnd = (AutoCompleteTextView)rootview.findViewById(R.id.etBetweenEnd);
         c_time_et =  Calendar.getInstance();
@@ -200,7 +207,6 @@ public class OffreActivity extends Fragment {
                 hour_et = selectedHour;
                 minute_et = selectedMinute;
 
-                // set current time into textview
                 ac_etBetweenEnd.setText(new StringBuilder().append(padding_str(hour_et))
                         .append(":").append(padding_str(minute_et)));
             }
@@ -242,12 +248,22 @@ public class OffreActivity extends Fragment {
                 String nbProp = etNbreProp.getText().toString();
 
                 if (eStarting.length() > 0 && eDestination.length() >0 && nbProp.length()>0) {
-                    address.add(eStarting);
-                    address.add(eDestination);
 
-                    GeocodingLocation locationAddress = new GeocodingLocation();
-                    locationAddress.getAddressFromLocation(address,
-                            getActivity().getApplicationContext(), new GeocoderHandler());
+                    try
+                    {
+                        address.add(eStarting);
+                        address.add(eDestination);
+
+                        GeocodingLocation locationAddress = new GeocodingLocation();
+                        locationAddress.getAddressFromLocation(address,
+                                getActivity().getApplicationContext(), new GeocoderHandler());
+
+                    }
+                    catch (Exception e)
+                    {
+                        Log.d("offre", "offre erronee");
+                    }
+
                 }
                 else {
                     if (eStarting.length() == 0) {
@@ -332,7 +348,15 @@ public class OffreActivity extends Fragment {
                 default:
                     locationAddress = null;
             }
-            saveOffer(locationAddress);
+            // verification si l'utilisateur est connecte
+
+            ParseUser current = ParseUser.getCurrentUser();
+
+            if (current != null)
+                saveOffer(locationAddress);
+            else
+                Toast.makeText(getActivity(), "Veuillez vous " +
+                        "connecter ", Toast.LENGTH_SHORT).show();
         }
     }
 
