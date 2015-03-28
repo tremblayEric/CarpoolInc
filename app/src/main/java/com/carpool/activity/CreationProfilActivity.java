@@ -6,14 +6,18 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,11 +31,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.Inflater;
+
 import android.util.Log;
 import android.support.v7.app.ActionBarActivity;
 
 // Class Création d'un profil utilisateur
-public class CreationProfilActivity extends ActionBarActivity {
+public class CreationProfilActivity extends Fragment {
+
+    View rootview;
+
+    DatePickerDialog datePickerDialog;
 
     // Variables representant les composants de l'ui
     private EditText pseudo;
@@ -59,37 +69,23 @@ public class CreationProfilActivity extends ActionBarActivity {
     Toolbar toolbar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_creation_profil);
-
-        /***
-         * Gestion de la bare de toolbar ajoutee dans l'application:
-         * ajout du logo, titre de la toolbar, couleur du titre
-         */
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            toolbar.setLogo(R.drawable.carpool_logo);
-            toolbar.setTitle("      CARPOOL INC.       ");
-            toolbar.setTitleTextColor(Color.WHITE);
-            Log.d("toolbar", "dans la toolbar");
-        }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootview = inflater.inflate(R.layout.activity_creation_profil, container, false);
 
         /**
          * Recuperer les valeurs des composants dans des variables
          */
-        pseudo = (EditText) findViewById(R.id.txtPseudo);
-        mdp = (EditText) findViewById(R.id.txtMdp);
-        confmdp = (EditText) findViewById(R.id.txtConfMdp);
-        mail = (EditText) findViewById(R.id.txtCourriel);
-        dateNais = (EditText) findViewById(R.id.txtCalendar);
-        nom = (EditText) findViewById(R.id.txtNom);
-        prenom = (EditText) findViewById(R.id.txtPrenom);
-        compteCree = (TextView) findViewById(R.id.compteCree);
-
+        pseudo = (EditText) rootview.findViewById(R.id.txtPseudo);
+        mdp = (EditText) rootview.findViewById(R.id.txtMdp);
+        confmdp = (EditText) rootview.findViewById(R.id.txtConfMdp);
+        mail = (EditText) rootview.findViewById(R.id.txtCourriel);
+        dateNais = (EditText) rootview.findViewById(R.id.txtCalendar);
+        nom = (EditText) rootview.findViewById(R.id.txtNom);
+        prenom = (EditText) rootview.findViewById(R.id.txtPrenom);
+        compteCree = (TextView) rootview.findViewById(R.id.compteCree);
+        strSex="F";
+        ((RadioButton)rootview.findViewById(R.id.radioF)).setOnTouchListener(radioButtonListener);
+        ((RadioButton)rootview.findViewById(R.id.radioM)).setOnTouchListener(radioButtonListener);
         /**
          * Obtenir l'heure courante du calendrier
          */
@@ -101,11 +97,11 @@ public class CreationProfilActivity extends ActionBarActivity {
         /**
          * gestion affichage calendrier
          */
-        final EditText txtCalendar = (EditText) findViewById(R.id.txtCalendar);
+        final EditText txtCalendar = (EditText) rootview.findViewById(R.id.txtCalendar);
         txtCalendar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                showDialog(DATE_PICKER_ID);
+                datePickerDialog.show();
                 return false;
             }
         });
@@ -113,9 +109,9 @@ public class CreationProfilActivity extends ActionBarActivity {
         /**
          *  mettre une icone font-awesome sur le boutton de creation du profil
          */
-        final Button buttonCreation = (Button) findViewById(R.id.buttonCreer);
+        final Button buttonCreation = (Button) rootview.findViewById(R.id.buttonCreer);
 
-        Typeface font = Typeface.createFromAsset( getAssets(), "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
+        Typeface font = Typeface.createFromAsset( getActivity().getAssets(), "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
         buttonCreation.append("    CREATION");
 
         buttonCreation.setTypeface(font);
@@ -134,8 +130,8 @@ public class CreationProfilActivity extends ActionBarActivity {
         /**
          *  Controle sur la confirmation de Mdp
          */
-        final EditText password1 = (EditText) findViewById(R.id.txtMdp);
-        final EditText password2 = (EditText) findViewById(R.id.txtConfMdp);
+        final EditText password1 = (EditText) rootview.findViewById(R.id.txtMdp);
+        final EditText password2 = (EditText) rootview.findViewById(R.id.txtConfMdp);
 
         strMdp = password1.getText().toString();
 
@@ -153,7 +149,7 @@ public class CreationProfilActivity extends ActionBarActivity {
                 else{
                     password2.setError(null);
                 }
-           }
+            }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -183,37 +179,37 @@ public class CreationProfilActivity extends ActionBarActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && password1.getText().length()<5 && password1.getText().length() >0) {
                     // code to execute when EditText loses focus
-                       password1.setError("mot de passe trop court: minimum 5 caractères");
-                    }
-                    else if (password1.getText().length()>=5){
-                        password1.setError(null);
-                    }
+                    password1.setError("mot de passe trop court: minimum 5 caractères");
                 }
+                else if (password1.getText().length()>=5){
+                    password1.setError(null);
+                }
+            }
         });
 
         /**
          * Controle sur le format de l'adresse email
-          */
-        final EditText txtCourriel = (EditText) findViewById(R.id.txtCourriel);
+         */
+        final EditText txtCourriel = (EditText) rootview.findViewById(R.id.txtCourriel);
         txtCourriel.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && txtCourriel.getText().length()>0) {
                     // code to execute when EditText loses focus
                     if(!isValidEmailAddress(txtCourriel.getText().toString()))
                     {
-                       txtCourriel.setError("Email invalide");
+                        txtCourriel.setError("Email invalide");
                     }
                     else
                     {
                         txtCourriel.setError(null);
                     }
-               }
+                }
             }
         });
 
         /**
          * Controle sur l'age de l'utilisateur min 18 ans
-          */
+         */
         dateNais.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s)
             {
@@ -226,7 +222,7 @@ public class CreationProfilActivity extends ActionBarActivity {
                 else
                 {
                     dateNais.setError(null);
-                 }
+                }
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after)
@@ -236,16 +232,21 @@ public class CreationProfilActivity extends ActionBarActivity {
                 dateNais.setError(null);
             }
         });
-  }
+
+        datePickerDialog = new DatePickerDialog(getActivity(), pickerListener, year, month,day);
+
+        return rootview;
+    }
+
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
         /**
          * inflater le menu; cela ajoute des itens a l'ActionBar si il est present
          */
-        getMenuInflater().inflate(R.menu.menu_creation_profil, menu);
-        return true;
+        getActivity().getMenuInflater().inflate(R.menu.menu_creation_profil, menu);
+
     }
 
     @Override
@@ -393,9 +394,9 @@ public class CreationProfilActivity extends ActionBarActivity {
                     compteCree.setText("Compte Créé avec succès!");
                     compteCree.setTextColor(Color.parseColor("#ff80cbc4"));
 
-                    Intent newActivity = new Intent(CreationProfilActivity.this, AccueilActivity.class);
+                    Intent newActivity = new Intent(getActivity(), AccueilActivity.class);
                     startActivity(newActivity);
-                    finish();
+                    getActivity().finish();
 
                 } else {
                     // Sign up didn't succeed. Look at the ParseException
@@ -410,21 +411,6 @@ public class CreationProfilActivity extends ActionBarActivity {
 
         System.out.println(" Fin appel a creer Utilisateur");
   }
-
-    @Override
-    protected Dialog onCreateDialog(int id)
-    {
-        switch (id)
-        {
-            case DATE_PICKER_ID:
-
-                /**
-                 * ouvre le datePicker dialog , fixe l'heure courante et ajoute un picker listener au datepicker
-                 */
-                return new DatePickerDialog(this, pickerListener, year, month,day);
-        }
-        return null;
-    }
 
     private DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener()
     {
@@ -464,21 +450,24 @@ public class CreationProfilActivity extends ActionBarActivity {
         return true;
     }
 
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.radioM:
-                if (checked)  {strSex="M"; }
-                break;
-            case R.id.radioF:
-                if (checked) {strSex="F"; }
+    public View.OnTouchListener radioButtonListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            // Is the button now checked?
+            boolean checked = ((RadioButton) v).isChecked();
+            // Check which radio button was clicked
+            switch(v.getId()) {
+                case R.id.radioM:
+                    if (checked)  {strSex="M"; }
+                    break;
+                case R.id.radioF:
+                    if (checked) {strSex="F"; }
 
-                break;
+                    break;
+            }
+            return false;
         }
-
-       }
+    };
 
     /**
      *  Calcul de l'age pour verifier si l'age est valide

@@ -55,12 +55,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
-
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -69,12 +63,6 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCffC-xYqk8C6o5R6eXCZ3qRQ_RFIhzLGM"/>
-
-        <activity
-            android:name=".CreationProfilActivity"
-            android:label="CARPOOL INC." >
-        </activity>
-
 
     </application>
 
