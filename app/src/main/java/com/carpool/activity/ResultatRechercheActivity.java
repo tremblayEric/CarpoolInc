@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -15,6 +16,10 @@ import com.carpool.design.SlidingTabLayout;
 import com.carpool.design.ViewPagerAdapter;
 import com.carpool.model.Offre;
 import com.carpool.utils.MyResultSearchListAdapter;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +28,9 @@ import java.util.List;
  * Ce fragment est utilisé pour afficher la liste construite èa partir des résultat obtnue suite à une recherche.
  */
 public class ResultatRechercheActivity extends Fragment {
+
+    private SupportMapFragment fragment;
+    private GoogleMap map;
 
     View rootview = null;
 
@@ -62,13 +70,13 @@ public class ResultatRechercheActivity extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        //super.onViewCreated(view, savedInstanceState);
         final ExpandableListView listView = (ExpandableListView) rootview.findViewById(R.id.lvResultSearch);
 
-        Bundle bundle = getArguments();
-        List<Offre> offresAcceptables = (List<Offre>) bundle.getSerializable("offres");
-        MyResultSearchListAdapter adapter = new MyResultSearchListAdapter(getActivity(), offresAcceptables);
-        listView.setAdapter(adapter);
+        //Bundle bundle = getArguments();
+        //List<Offre> offresAcceptables = (List<Offre>) bundle.getSerializable("offres");
+        //MyResultSearchListAdapter adapter = new MyResultSearchListAdapter(getActivity(), offresAcceptables);
+        //listView.setAdapter(adapter);
         listView.setBackgroundColor(Color.WHITE);
     }
 
@@ -85,5 +93,26 @@ public class ResultatRechercheActivity extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        FragmentManager fm = getChildFragmentManager();
+        fragment = (SupportMapFragment) fm.findFragmentById(R.id.map);
+        if (fragment == null) {
+            fragment = SupportMapFragment.newInstance();
+            fm.beginTransaction().replace(R.id.map, fragment).commit();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (map == null) {
+            map = fragment.getMap();
+            map.addMarker(new MarkerOptions().position(new LatLng(12, -12)));
+            int i = 0;//test pour provoquer l'addition des changement à la branche
+        }
     }
 }
