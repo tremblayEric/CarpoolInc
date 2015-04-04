@@ -70,7 +70,7 @@
                 android:gravity="center"
                 android:layout_below="@+id/tvTitleSearch"
                 android:textColorHint="@color/material_deep_teal_500"
-                android:hint="&#xf002;      ex ville depart: Montreal"
+                android:hint="&#xf002; ex ville depart: Montreal"
                 android:layout_alignEnd="@+id/etSearchDestination"
                 android:layout_toEndOf="@+id/tvDepart"
                 android:layout_alignStart="@+id/etSearchDestination"

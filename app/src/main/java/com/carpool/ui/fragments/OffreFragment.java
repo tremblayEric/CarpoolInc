@@ -82,9 +82,15 @@ public class OffreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.offre_layout, container, false);
 
+        Typeface font = Typeface.createFromAsset( getActivity().getAssets(),
+                "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
+
+
          autoCompViewFrom = (AutoCompleteTextView) rootview.findViewById(R.id.etStarting);
+        autoCompViewFrom.setTypeface(font);
         autoCompViewFrom.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_autocomplete));
          autoCompViewTo = (AutoCompleteTextView) rootview.findViewById(R.id.etDestination);
+        autoCompViewTo.setTypeface(font);
         autoCompViewTo.setAdapter(new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_autocomplete));
 
         // NumericPicker nbre de places
@@ -227,7 +233,7 @@ public class OffreFragment extends Fragment {
 
         Button submitOffer = (Button)(rootview.findViewById(R.id.btnSubmitOffer));
 
-        Typeface font = Typeface.createFromAsset( getActivity().getAssets(),
+         font = Typeface.createFromAsset( getActivity().getAssets(),
                 "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
 
         submitOffer.append("     Ajouter Offre");
