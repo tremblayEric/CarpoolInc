@@ -15,6 +15,8 @@ import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.carpool.R;
+//import com.carpool.activity.*;
 
 /**
  * claase qui etend Boutton et qui permet de dessiner un boutton de type flottant comme delui
@@ -44,7 +46,7 @@ public class FloatingActionButton extends Boutton {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(dpToPx(sizeIcon, getResources()), dpToPx(sizeIcon, getResources()));
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         icon.setLayoutParams(params);
-        addView(icon);
+        //addView(icon);
     }
 
     protected void setDefaultProperties() {

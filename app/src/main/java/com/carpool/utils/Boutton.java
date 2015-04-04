@@ -13,14 +13,16 @@ import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
-import android.widget.RelativeLayout;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.carpool.R;
 
 /**
  * supper classe qui sera etendu par la classe FloatingActionButton pour gerer l'affichage du bouton floattant
  * dans la page de profil
  */
-public abstract class Boutton extends RelativeLayout {
+public abstract class Boutton extends Button {
 
     final static String MATERIAL_DESIGNXML = "http://schemas.android.com/apk/res-auto";
     final static String ANDROIDXML = "http://schemas.android.com/apk/res/android";

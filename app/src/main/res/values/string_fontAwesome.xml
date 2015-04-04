@@ -6,7 +6,12 @@
     <string name="string_tt_paswd">&#xf084;</string>
     <string name="strg_profil">&#xf007;</string>
     <string name="creer_user">&#xf1d8;</string>
-    <string name="modif_user">&#xf044;</string>
+
     <string name="plus">&#xf067;</string>
     <string name="recherche_covoiturage">&#xf002;</string>
+    <string name="icone_pseudo">&#xf003;</string>
+    <string name="icone_psswd">&#xf084;</string>
+    <string name="sign_out">&#xf08b;</string>
+    <string name="icone_modif_profil">&#xf044;</string>
+    <string name="icone_search">&#xf002;</string>
 </resources>

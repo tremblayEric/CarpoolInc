@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.carpool.activities.R;
+import com.carpool.R;
 import com.carpool.model.Offre;
 import com.carpool.model.Position;
 import com.parse.ParseUser;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

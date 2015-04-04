@@ -19,6 +19,7 @@ import java.util.ArrayList;
  * Classe qui s'occupe de fournir des suggestions de places au canada (ville ou autres places) en
  * fonction des paramètres d'entrée de l'utilisateur.
 */
+
 /**
  * Created by Gaëlle on 3/20/2015.
  */

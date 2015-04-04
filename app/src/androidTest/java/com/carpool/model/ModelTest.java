@@ -1,8 +1,8 @@
 package com.carpool.model;
 
 import android.test.ActivityInstrumentationTestCase2;
+import com.carpool.ui.activities.AccueilActivity;
 
-import com.carpool.activities.AccueilActivity;
 import com.parse.CountCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -51,7 +51,7 @@ public class ModelTest extends ActivityInstrumentationTestCase2<AccueilActivity>
     // Test parse Reservation
     public void testReservation() {
         Reservation rr = new Reservation();
-        rr.setStatut(Reservation.ReservationStatut.ATTENTE);
+        //rr.setStatut(Reservation.ReservationStatut.ATTENTE);
     }
 
     // Test parse Trajet
