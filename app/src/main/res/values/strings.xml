@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CARPOOL INC.</string>
+    <string name="title_section1">PROFIL </string>
+    <string name="title_section2">POSTER ANNONCE</string>
+    <string name="title_section3">RECHERCHE</string>
+    <string name="title_section4">MES ANNONCES</string>
+    <string name="title_section5">DECONNEXION</string>
+
+    <string name="title_section1_not_connected">CONNEXION </string>
+    <string name="title_section2_not_connected">POSTER ANNONCE</string>
+    <string name="title_section3_not_connected">RECHERCHE</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+
+
+
+    <string name="titre_profil">Profil</string>
+    <string name="titre_offre">Offre</string>
+    <string name="titre_recherche">Recherche</string>
+    <string name="titre_reservation">Réservation</string>
+    <string name="titre_consultation_offre">Consultation offres</string>
+    <string name="title_activity_creation_profil">Creation de profil</string>
+    <string name="title_activity_consulation_offre_encours">Consulation des Offre En cours</string>
+    <string name="sexe_prompt">Choisir sexe</string>
+    <string name="settings_pwd_not_equal">Confirmation invalide</string>
+    <string name="title_activity_consultation_offre">ConsultationOffreActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="str_btn_find">Find</string>
+    <string name="hnt_et_location">Enter location</string>
+    <string name="title_activity_recherche">Recherche</string>
+    <string name="title_activity_recherche_adresse">rechercheAdresse</string>
+    <string name="title_activity_adresse">Adresse</string>
+    <string name="title_activity_offreGooglePlay">Offre google play</string>
+    <string name="find">Find</string>
+    <string name="offrir">Offrir</string>
+    <string name="hint">Enter Place</string>
+    <string name="title_activity_resultat_recherche">ResultatRechercheActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- String pour l'offre de covoiturage -->
+    <string name="activity_title_offer">Annoncer un départ</string>
+    <string name="activity_title_search">Rechercher une offre</string>
+    <string name="textview_starting_offer">Ville de départ</string>
+    <string name="textview_starting_search">Ville de départ</string>
+    <string name="textview_destination_offer">Ville de d\'arrivée</string>
+    <string name="textview_destination_search">Ville de d\'arrivée</string>
+    <string name="textview_nbreProposition_offer">Nombre de places</string>
+    <string name="textview_date_offer">Date de départ</string>
+    <string name="textview_date_search">Date de départ</string>
+    <string name="textview_betweenStart_offer">Entre</string>
+    <string name="textview_betweenStart_search">Entre</string>
+    <string name="textview_betweenEnd_offer">Et</string>
+    <string name="textview_betweenEnd_search">Et</string>
+    <string name="button_submit_offer">Ajouter l\'offre</string>
+    <string name="button_submit_search">Rechercher une offre</string>
+
+    <!-- titre -->
+    <string name="titre_modif_profil">MODIFICATION INFOS. PROFIL</string>
+    <string name="modifier_user">MODIFIER </string>
+
+</resources>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/bg_activite">
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_activite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_activite"
+        android:padding="8dp"
+        android:id="@+id/lyOffer"
+        android:orientation="vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <TextView
+            android:id="@+id/tvTitleSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="RECHERCHE CAR"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"/>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="5dip"
+
+            android:id="@+id/lineSeparator"
+            android:src="@drawable/line"
+            android:layout_marginTop="10dp"
+            android:background="@color/material_deep_teal_500"
+            />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/tvDepart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:text="@string/textview_starting_search"
+                android:layout_alignBottom="@+id/etDepart"
+                android:layout_alignParentStart="true" />
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="fill_parent" />
+
+
+            <AutoCompleteTextView
+                android:id="@+id/etDepart"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@+id/tvTitleSearch"
+                android:textColorHint="@color/material_deep_teal_500"
+                android:hint="&#xf002;      ex ville depart: Montreal"
+                android:layout_alignEnd="@+id/etSearchDestination"
+                android:layout_toEndOf="@+id/tvDepart"
+                android:layout_alignStart="@+id/etSearchDestination"
+                android:textSize="@dimen/abc_text_size_small_material"
+              />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/tvSearchDestination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:text="@string/textview_destination_search"
+                android:layout_alignBottom="@+id/etSearchDestination"
+                android:layout_alignParentStart="true" />
+
+
+            <AutoCompleteTextView
+                android:id="@+id/etSearchDestination"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@+id/tvDepart"
+                android:layout_alignParentEnd="true"
+                android:hint="&#xf002;          ex ville arrivee :Laval"
+                android:textColorHint="@color/material_deep_teal_500"
+                android:layout_toEndOf="@+id/tvSearchDestination"
+                android:textSize="@dimen/abc_text_size_small_material"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/tvDateSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dip"
+                android:textStyle="bold"
+                android:text="@string/textview_date_search"
+                android:layout_alignBottom="@+id/etDateSearch"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp"/>
+
+            <AutoCompleteTextView
+                android:id="@+id/etDateSearch"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/textview_date_search"
+                android:gravity="center"
+                android:layout_below="@+id/tvSearchDestination"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/tvDateSearch"
+                android:textColorHint="@color/material_deep_teal_500"
+                android:textSize="@dimen/abc_text_size_small_material"
+                android:layout_alignStart="@+id/etSearchDestination" />
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:id="@+id/lyInterval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etDateSearch"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tvBetweenStartTextSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Heure de départ"
+                    android:layout_toRightOf="@id/etDateSearch"
+                    android:layout_marginTop="5dp"/>
+
+                <TimePicker
+                    android:id="@+id/etBetweenStartSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:layout_toRightOf="@id/etDateSearch"
+                    android:layout_marginTop="-10dp"/>
+
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toRightOf="@id/etDateSearch"
+                >
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSubmitSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lyInterval"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="45dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/material_deep_teal_500"
+            android:minHeight="40dp"
+            android:paddingLeft="-90dp"
+            android:paddingRight="15dip"
+            android:text="@string/recherche_covoiturage"
+            android:textStyle="bold"
+            android:textSize="20sp"
+
+            />
+    </LinearLayout>
+</ScrollView>
+    </RelativeLayout>

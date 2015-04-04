@@ -1,0 +1,150 @@
+
+<!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/drawer_layout"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- As the main content view, the view below consumes the entire
+         space available using match_parent in both dimensions.
+    <FrameLayout android:id="@+id/container" android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:gravity="center_horizontal"
+        android:orientation="vertical" android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.carpool.activity.LoginActivity"
+        android:background="@color/bg_activite">
+
+        <!-- Login progress -->
+        <ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" android:visibility="gone" />
+
+
+
+    <FrameLayout android:id="@+id/login_form" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="@color/bg_activite">
+
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text = "CONNEXION"
+                android:gravity="center"
+                android:textSize="30dp"/>
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="5dip"
+                android:id="@+id/lineSeparator"
+                android:src="@drawable/line"
+                android:layout_marginTop="10dp"
+                android:background="@color/material_deep_teal_500"
+                />
+
+            <LinearLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="vertical"
+                android:layout_marginTop="30dp">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/icone_pseudo"
+                        android:textSize="20dp"
+                        android:text="@string/icone_pseudo"
+                        android:paddingRight="10dp"
+                    />
+                <AutoCompleteTextView android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_email"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColorHighlight="#ff0e6742"
+                    android:maxLength="10"
+                    />
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:text="@string/icone_psswd"
+                        android:paddingRight="10dp"
+                        android:id="@+id/icone_psswd"/>
+
+                    <AutoCompleteTextView android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password"
+                    android:textColorHighlight="#ff0e6742"
+                    android:maxLines="1" android:singleLine="true"
+                    android:layout_marginTop="10dp"
+                    android:inputType="textPassword"
+                    android:maxLength="15"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/holo_red_light"
+                    android:id="@+id/error_connection"
+                    />
+
+                <Button android:id="@+id/email_sign_in_button"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text = "@string/bt_signIn"
+                    android:textStyle="bold"
+                    android:background="@color/material_deep_teal_500"
+                    android:textColor="@android:color/white"
+                    android:src ="@drawable/ic_launcher"
+                    android:paddingLeft="-100dp"
+                    android:textSize="20dp"
+                    />
+
+                <!--android:textSize="<i class="fa fa-sign-in"></i>"
+                android:text="@string/action_sign_in"-->
+
+
+                <Button android:id="@+id/register" style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/bt_register"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:background="@color/material_deep_teal_500"
+                    android:paddingLeft="-100dp"
+                    android:textSize="20dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>
