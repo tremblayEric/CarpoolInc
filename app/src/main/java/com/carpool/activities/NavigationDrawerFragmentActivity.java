@@ -1,4 +1,4 @@
-package com.carpool.activity;
+package com.carpool.activities;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;

@@ -1,4 +1,4 @@
-package com.carpool.activity;
+package com.carpool.activities;
 
 import android.graphics.Color;
 import android.support.v4.app.Fragment;

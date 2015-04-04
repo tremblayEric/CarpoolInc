@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:background="@color/bg_activite"
     android:orientation="vertical"
-    tools:context="com.carpool.activity.ResultatRechercheActivity">
+    tools:context="com.carpool.activities.ResultatRechercheActivity">
 
     <com.carpool.design.SlidingTabLayout
         android:id="@+id/sliding_tabs"

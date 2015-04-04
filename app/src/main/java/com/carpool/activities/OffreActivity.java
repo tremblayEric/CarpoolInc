@@ -1,4 +1,4 @@
-package com.carpool.activity;
+package com.carpool.activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;

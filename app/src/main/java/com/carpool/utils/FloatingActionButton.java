@@ -15,7 +15,6 @@ import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.carpool.activity.*;
 
 /**
  * claase qui etend Boutton et qui permet de dessiner un boutton de type flottant comme delui

@@ -1,4 +1,4 @@
-package com.carpool.activity;
+package com.carpool.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -25,7 +25,6 @@ import android.util.Log;
 import com.parse.*;
 import com.parse.ParseUser;
 import android.graphics.Typeface;
-import android.widget.Toast;
 
 
 public class LoginActivity extends Fragment {

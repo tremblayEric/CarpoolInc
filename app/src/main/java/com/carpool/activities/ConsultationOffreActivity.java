@@ -1,11 +1,10 @@
-package com.carpool.activity;
+package com.carpool.activities;
 
     import android.content.res.Resources;
     import android.graphics.Color;
     import android.graphics.drawable.Drawable;
     import android.os.AsyncTask;
     import android.os.Bundle;
-    import android.support.annotation.Nullable;
     import android.support.v4.app.Fragment;
     import android.support.v4.view.ViewPager;
     import android.util.Log;
@@ -14,7 +13,6 @@ package com.carpool.activity;
     import android.view.ViewGroup;
     import android.widget.BaseExpandableListAdapter;
     import android.widget.ExpandableListView;
-    import android.widget.ListView;
     import android.widget.TextView;
     import com.carpool.model.Offre;
     import com.carpool.model.Trajet;

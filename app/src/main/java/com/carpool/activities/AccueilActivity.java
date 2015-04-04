@@ -1,6 +1,5 @@
-package com.carpool.activity;
+package com.carpool.activities;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;

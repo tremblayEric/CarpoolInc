@@ -15,7 +15,6 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.carpool.activity.*;
 
 /**
  * supper classe qui sera etendu par la classe FloatingActionButton pour gerer l'affichage du bouton floattant

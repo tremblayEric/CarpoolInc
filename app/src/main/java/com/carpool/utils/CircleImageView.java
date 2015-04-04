@@ -17,7 +17,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.ImageView;
-import com.carpool.activity.*;
 
 /**
  * classe qui permet d'afficher une photo avec une vue en forme de cercle dans la page profil de

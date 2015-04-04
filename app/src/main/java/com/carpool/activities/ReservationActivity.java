@@ -1,4 +1,4 @@
-package com.carpool.activity;
+package com.carpool.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

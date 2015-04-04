@@ -1,16 +1,8 @@
 package com.carpool.model;
 
-import android.test.ActivityInstrumentationTestCase;
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.carpool.activity.AccueilActivity;
-import com.carpool.activity.LoginActivity;
-import com.carpool.model.Offre;
-import com.carpool.model.Cote;
-import com.carpool.model.Reservation;
-import com.carpool.model.Position;
-import com.carpool.model.Trajet;
-import com.carpool.model.User;
+import com.carpool.activities.AccueilActivity;
 import com.parse.CountCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
