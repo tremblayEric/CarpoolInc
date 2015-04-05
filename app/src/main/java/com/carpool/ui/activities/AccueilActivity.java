@@ -278,7 +278,11 @@ public abstract class AccueilActivity extends ActionBarActivity implements
             mDrawerLayout = null;
             return;
         }
+
+
     if (mActionBarToolbar != null) {
+
+            mActionBarToolbar.setLogo(getResources().getDrawable(R.drawable.carpool_logo));
             mActionBarToolbar.setNavigationIcon(R.drawable.ic_drawer);
             mActionBarToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
@@ -328,6 +332,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
 
 
         };
+
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);

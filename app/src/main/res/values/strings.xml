@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CARPOOL INC.</string>
+    <string name="app_name">   CARPOOL INC.   </string>
     <string name="title_section1">PROFIL </string>
     <string name="title_section2">POSTER ANNONCE</string>
     <string name="title_section3">RECHERCHE</string>
