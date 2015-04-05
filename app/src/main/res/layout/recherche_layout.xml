@@ -103,7 +103,7 @@
                 android:gravity="center"
                 android:layout_below="@+id/tvDepart"
                 android:layout_alignParentEnd="true"
-                android:hint="&#xf002;          ex ville arrivee :Laval"
+                android:hint="&#xf002;       ex ville arrivee :Laval"
                 android:textColorHint="@color/material_deep_teal_500"
                 android:layout_toEndOf="@+id/tvSearchDestination"
                 android:textSize="@dimen/abc_text_size_small_material"

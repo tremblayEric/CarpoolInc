@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.carpool.R;
@@ -18,6 +19,7 @@ import com.carpool.ui.activities.ProfilLoginActivity;
 import com.carpool.ui.design.CallbackFragment;
 import com.parse.ParseUser;
 
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 import com.carpool.utils.*;
@@ -28,7 +30,7 @@ import com.carpool.utils.*;
 public class ProfilFragment extends CallbackFragment {
 
     View rootview;
-    @Nullable
+
 
     TextView TextViewPseudo;
     TextView TextViewPrenom;
@@ -36,9 +38,8 @@ public class ProfilFragment extends CallbackFragment {
     TextView TextViewdate_naissance;
     TextView TextViewsexe;
     TextView TextViewcourriel;
-    boolean deconOK = false;
     UserSignOutTask mDeconnexionTask;
-    Activity activite ;
+
 
     /**
      * The fragment's current callback object.
@@ -59,7 +60,11 @@ public class ProfilFragment extends CallbackFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_profil_layout, container, false);
 
+        Typeface font = Typeface.createFromAsset( getActivity().getAssets(),
+                "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
+
         ParseUser currentUser = ParseUser.getCurrentUser();
+        int age = 0;
 
         if (currentUser != null) {
 
@@ -68,69 +73,49 @@ public class ProfilFragment extends CallbackFragment {
             TextViewsexe = (TextView) rootview.findViewById(R.id.txt_sexe_userProfil);
             TextviewNom = (TextView) rootview.findViewById(R.id.txt_nom_userProfil);
             TextViewPrenom = (TextView) rootview.findViewById(R.id.txt_prenom_userProfil);
-            TextViewPseudo = (TextView) rootview.findViewById(R.id.txt_pseudo_userProfil);
+            //TextViewPseudo = (TextView) rootview.findViewById(R.id.txt_pseudo_userProfil);
 
             Date date_naiss = currentUser.getDate("birthday");
 
-            TextViewPseudo.setText(currentUser.getUsername());
+            //TextViewPseudo.setText(currentUser.getUsername());
             TextviewNom.setText(currentUser.getString("firstname"));
             TextViewPrenom.setText(currentUser.getString("lastname"));
-            TextViewdate_naissance.setText(String.valueOf(getDayOfMonth(date_naiss)));
+            int jour_naiss = getDayOfMonth(date_naiss);
+            TextViewdate_naissance.setText(String.valueOf(jour_naiss));
 
-            switch(date_naiss.getMonth()+1)
-            {
+            String[] Months = new DateFormatSymbols().getMonths();
+            TextViewdate_naissance.append(" "+Months[date_naiss.getMonth()]+" ");
 
-                case 1: TextViewdate_naissance.append(" Janvier ");
-                    break;
-                case 2: TextViewdate_naissance.append(" Fevrier ");
-                    break;
-                case 3: TextViewdate_naissance.append(" Mars ");
-                    break;
-                case 4: TextViewdate_naissance.append(" Avril ");
-                    break;
-                case 5: TextViewdate_naissance.append(" Mai ");
-                    break;
-                case 6: TextViewdate_naissance.append(" Juin ");
-                    break;
-                case 7: TextViewdate_naissance.append(" Juillet ");
-                    break;
-                case 8: TextViewdate_naissance.append(" Aout ");
-                    break;
-                case 9: TextViewdate_naissance.append(" Septembre ");
-                    break;
-                case 10: TextViewdate_naissance.append(" Octobre ");
-                    break;
-                case 11: TextViewdate_naissance.append(" Novembre ");
-                    break;
-                case 12: TextViewdate_naissance.append(" Decembre ");
-                    break;
-            }
-            TextViewdate_naissance.append(" "+String.valueOf(date_naiss.getYear()+1900));
+            int date_n = date_naiss.getYear()+1900;
+            TextViewdate_naissance.append(String.valueOf(date_n));
 
             TextViewsexe.setText(currentUser.getString("gender"));
             TextViewcourriel.setText(currentUser.getString("email"));
 
             Log.d("trouve", "un utilisateur a ete trouve" + currentUser.getObjectId());
+
+            age = calculAge(date_n);
+
         } else {
             Log.d("faux", "un utilisateur na pas ete trouve");
         }
 
-        activite = this.getActivity();
+        // indiquer pseudo
+        TextView indic_pseudo = (TextView)rootview.findViewById(R.id.indic_pseudo);
+        indic_pseudo.setText(currentUser.getUsername());
 
-        if (deconOK) {
+        //indiquer age
 
-            Intent intent = new Intent(this.getActivity(), ProfilLoginActivity.class);
-            startActivity(intent);
-            this.getActivity().finish();
-        }
+        TextView indic_age = (TextView)rootview.findViewById(R.id.indic_age);
+        indic_age.setText(age+" ans");
+
+        // camera
+        Button camera = (Button)rootview.findViewById(R.id.indic_camera);
+        camera.setTypeface(font);
 
         FloatingActionButton fab = (FloatingActionButton)rootview.findViewById(R.id.fabButton);
         fab.setDrawableIcon(getResources().getDrawable(R.drawable.plus));
         fab.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
-
-        Typeface font = Typeface.createFromAsset( getActivity().getAssets(),
-                "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
-
         fab.setTypeface(font);
 
         fab.setOnClickListener( new View.OnClickListener(){
@@ -217,5 +202,13 @@ public class ProfilFragment extends CallbackFragment {
 
         // Reset the active callbacks interface to the dummy implementation.
         mCallbacks = sDummyCallbacks;
+    }
+
+    public int calculAge(int year)
+    {
+        Calendar cal = Calendar.getInstance();
+
+        int current_year = cal.get(Calendar.YEAR);
+        return current_year - year;
     }
 }
