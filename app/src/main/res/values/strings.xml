@@ -67,4 +67,11 @@
     <string name="titre_modif_profil">MODIFICATION INFOS. PROFIL</string>
     <string name="modifier_user">MODIFIER </string>
 
+    <!-- String pour le dialog d'avertissement de l'offre -->
+    <string name="title_dialog_offer">Accès refusé</string>
+    <string name="content_dialog_offer">Vous devriez vous authentifier ou vous inscrire si vous désirez poster une annonce.</string>
+    <string name="button_cancel_dialog_offer">Annuler</string>
+    <string name="button_login_dialog_offer">Se connecter</string>
+    <string name="button_register_dialog_offer">S\'inscrire</string>
+
 </resources>
