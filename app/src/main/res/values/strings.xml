@@ -6,7 +6,9 @@
     <string name="title_section2">POSTER ANNONCE</string>
     <string name="title_section3">RECHERCHE</string>
     <string name="title_section4">MES ANNONCES</string>
-    <string name="title_section5">DECONNEXION</string>
+    <string name="title_section5">MES RESERVATIONS</string>
+    <string name="title_section6">NOTIFICATIONS</string>
+    <string name="title_section7">DECONNEXION</string>
 
     <string name="title_section1_not_connected">CONNEXION </string>
     <string name="title_section2_not_connected">POSTER ANNONCE</string>

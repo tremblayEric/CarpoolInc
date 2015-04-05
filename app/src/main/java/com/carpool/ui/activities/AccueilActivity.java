@@ -81,7 +81,9 @@ public abstract class AccueilActivity extends ActionBarActivity implements
     protected static final int NAVDRAWER_ITEM_POSTER_ANNONCE =1; //verifier au besoin quon ai besoin de connexion
     protected static final int NAVDRAWER_ITEM_RECHERCHE = 2;
     protected static final int NAVDRAWER_ITEM_MES_ANNONCE = 3;
-    protected static final int NAVDRAWER_ITEM_DECONNEXION= 4;
+    protected static final int NAVDRAWER_ITEM_MES_RESERVATIONS = 4;
+    protected static final int NAVDRAWER_ITEM_NOTIFICATIONS = 5;
+    protected static final int NAVDRAWER_ITEM_DECONNEXION= 6;
 
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
     protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
@@ -94,6 +96,8 @@ public abstract class AccueilActivity extends ActionBarActivity implements
             R.string.title_section3,
             R.string.title_section4,
             R.string.title_section5,
+            R.string.title_section6,
+            R.string.title_section7,
 
     };
 
@@ -104,22 +108,24 @@ public abstract class AccueilActivity extends ActionBarActivity implements
             R.drawable.ic_settings, // Section 3
             R.drawable.ic_settings, // section 4
             R.drawable.ic_settings, //section 5
+            R.drawable.ic_settings, //section 6
+            R.drawable.ic_settings, //section 7
     };
 
     private static final String[] NAVDRAWER_FONT_ICON = new String[]{
             "\uf007", //profile
             "\uf0a1", // poster annonce
-            "\uf002",//recherche
+            "\uf002", //recherche
             "\uf06e", //mes annonces
-            "\uf08b" //deconnexion
-
+            "\uf0f2",  //reservation
+            "\uf0f3;",  //notification
+            "\uf08b", //deconnexion
     };
     // title if not connected
     private static final int[] NAVDRAWER_TITLE_RES_ID_IF_NOT_CONNECTED = new int[]{
             R.string.title_section1_not_connected,
             R.string.title_section2_not_connected,
             R.string.title_section3_not_connected,
-
     };
 
     // icons for navdrawer items (indices must correspond to above array)
@@ -397,6 +403,14 @@ public abstract class AccueilActivity extends ActionBarActivity implements
 
         mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR_SPECIAL);
 
+        mNavDrawerItems.add(NAVDRAWER_ITEM_MES_RESERVATIONS);
+
+        mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR);
+
+        mNavDrawerItems.add(NAVDRAWER_ITEM_NOTIFICATIONS);
+
+        mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR_SPECIAL);
+
         mNavDrawerItems.add(NAVDRAWER_ITEM_DECONNEXION);
 
         createNavDrawerItems();
@@ -523,6 +537,12 @@ public abstract class AccueilActivity extends ActionBarActivity implements
             case AccueilActivity.NAVDRAWER_ITEM_MES_ANNONCE:
                 startActivity(new Intent(this, ConsultationOffreActivity.class));
                 finish();
+                break;
+            case AccueilActivity.NAVDRAWER_ITEM_MES_RESERVATIONS:
+                startActivity(new Intent(this, ReservationActivity.class));
+                break;
+            case AccueilActivity.NAVDRAWER_ITEM_NOTIFICATIONS:
+                startActivity(new Intent(this, NotificationsActivity.class));
                 break;
             case AccueilActivity.NAVDRAWER_ITEM_DECONNEXION:
                 startActivity(new Intent(this, DeconnexionActivity.class));
