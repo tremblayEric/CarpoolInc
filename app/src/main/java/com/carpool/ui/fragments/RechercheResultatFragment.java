@@ -105,7 +105,8 @@ public class RechercheResultatFragment extends Fragment {
     }
 
     private String getMapsApiDirectionsUrl() {
-        String waypoints = "waypoints=optimize:true|"
+        String waypoints = "origin=" + LOWER_MANHATTAN.latitude + "," + LOWER_MANHATTAN.longitude
+                + "&destination=" + WALL_STREET.latitude + "," + WALL_STREET.longitude + "&waypoints=optimize:true|"
                 + LOWER_MANHATTAN.latitude + "," + LOWER_MANHATTAN.longitude
                 + "|" + "|" + BROOKLYN_BRIDGE.latitude + ","
                 + BROOKLYN_BRIDGE.longitude + "|" + WALL_STREET.latitude + ","
@@ -289,8 +290,6 @@ public class RechercheResultatFragment extends Fragment {
             }
         }
     }
-
-
 
     public class HttpConnection {
         public String readUrl(String mapsApiDirectionsUrl) throws IOException {
