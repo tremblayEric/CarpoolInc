@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
 
 import com.carpool.R;
 import com.carpool.model.Offre;
@@ -52,7 +53,6 @@ public class RechercheResultatFragment extends Fragment {
             -73.998585);
     private static final LatLng BROOKLYN_BRIDGE = new LatLng(40.7057, -73.9964);
     private static final LatLng WALL_STREET = new LatLng(40.7064, -74.0094);
-
 
     public static RechercheResultatFragment newInstance(int position) {
         RechercheResultatFragment frag = new RechercheResultatFragment();
@@ -95,9 +95,6 @@ public class RechercheResultatFragment extends Fragment {
             case 1:
 
                 result = inflater.inflate(R.layout.google_card_fragment, null);
-
-                //result = inflater.inflate(R.layout.google_card_fragment, null);
-
                 return (result);
 
         }
@@ -105,6 +102,8 @@ public class RechercheResultatFragment extends Fragment {
     }
 
     private String getMapsApiDirectionsUrl() {
+
+        //remplacer les param en dure par ceux de la liste de l'autre onglet
         String waypoints = "origin=" + LOWER_MANHATTAN.latitude + "," + LOWER_MANHATTAN.longitude
                 + "&destination=" + WALL_STREET.latitude + "," + WALL_STREET.longitude + "&waypoints=optimize:true|"
                 + LOWER_MANHATTAN.latitude + "," + LOWER_MANHATTAN.longitude
@@ -118,6 +117,12 @@ public class RechercheResultatFragment extends Fragment {
         String url = "https://maps.googleapis.com/maps/api/directions/"
                 + output + "?" + params;
         return url;
+    }
+
+    private void getTrajetAAfficher(){
+
+
+
     }
 
     private void addMarkers() {

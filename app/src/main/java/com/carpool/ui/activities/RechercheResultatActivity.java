@@ -24,6 +24,10 @@ public class RechercheResultatActivity extends AccueilActivity implements
     @Override
     public void onItemSelected(long id) {
 
+        int o = 0;
+
+
+
     }
 
     @Override
