@@ -1,17 +1,28 @@
 package com.carpool.utils;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.transition.Visibility;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.carpool.R;
 import com.carpool.model.Offre;
 import com.carpool.model.Position;
+import com.carpool.model.Reservation;
+import com.carpool.ui.fragments.WarningConnectionFragment;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.IOException;
@@ -30,6 +41,7 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
     private Activity activity;
     private LayoutInflater inflater;
     private List<Offre> listOffers;
+    public Offre selectedRow;
 
     public MyResultSearchListAdapter(Activity act, List<Offre> offers) {
         activity = act;
@@ -83,6 +95,8 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
                 holder.txtStartPoint = (TextView)convertView.findViewById(R.id.tvResultSearchStartPoint);
                 holder.txtEndHour = (TextView)convertView.findViewById(R.id.tvResultSearchEndHour);
                 holder.txtEndPoint = (TextView)convertView.findViewById(R.id.tvResultSearchEndPoint);
+                holder.txtCompleted = (TextView)convertView.findViewById(R.id.tvCompleted);
+                holder.txtAlreadyBooked = (TextView)convertView.findViewById(R.id.tvAlreadyBooked);
             }
             else
                 holder = (ListOffersGroupHolder)convertView.getTag();
@@ -96,6 +110,19 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
             holder.txtEndHour.setText(df.format(date));
             Position positionArrivee = listOffers.get(groupPosition).getTrajet().getPositionArrive();
             holder.txtEndPoint.setText(getCityNameFromPosition(positionArrivee));
+
+            if(listOffers.get(groupPosition).getReservationCount() <= 0)
+                holder.txtCompleted.setVisibility(View.VISIBLE);
+            else
+                holder.txtCompleted.setVisibility(View.GONE);
+            // c'est faux
+            if(listOffers.get(groupPosition).getUser().fetchIfNeeded().getObjectId().equals(ParseUser.getCurrentUser().getObjectId()))
+                holder.txtAlreadyBooked.setVisibility(View.VISIBLE);
+            else
+                holder.txtAlreadyBooked.setVisibility(View.GONE);
+
+
+
         }
         catch(Exception ex){
         }
@@ -104,22 +131,67 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        final int postition = groupPosition;
         try {
             final ListOffersDetailsHolder holder;
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.listrow_search_offer_detail, null);
                 holder = new ListOffersDetailsHolder();
-                holder.txtRendezvous = (TextView) convertView.findViewById(R.id.tvResultSearchRendezvous);
-                holder.txtChutePoint = (TextView) convertView.findViewById(R.id.tvResultSearchChutePoint);
-                holder.txtDriver = (TextView) convertView.findViewById(R.id.tvResultSearchDriver);
+                holder.txtNomConducteur = (TextView) convertView.findViewById(R.id.tvResultSearchNomConducteur);
+                holder.txtPlaceDispo = (TextView) convertView.findViewById(R.id.tvResultSearchPlaceDispo);
+                holder.txtHeureDepart = (TextView) convertView.findViewById(R.id.tvResultSearchHeure);
+                holder.btnReservation = (Button) convertView.findViewById(R.id.btnReservation);
             } else
                 holder = (ListOffersDetailsHolder) convertView.getTag();
 
-            holder.txtRendezvous.setText("Non spécifié");
-            holder.txtChutePoint.setText("Non spécifié");
-            ParseUser user = listOffers.get(groupPosition).getUser();
-            holder.txtDriver.setText(user.get("firstname") + " " + user.get("lastname"));
+            holder.txtPlaceDispo.setText(Integer.toString(listOffers.get(groupPosition).getReservationCount()));
+            holder.txtHeureDepart.setText("Non spécifié");
+            ParseUser user = listOffers.get(groupPosition).getUser().fetchIfNeeded();
+            holder.txtNomConducteur.setText(user.get("firstname") + " " + user.get("lastname"));
+            // c faux
+            if(listOffers.get(groupPosition).getUser().fetchIfNeeded().getObjectId().equals(ParseUser.getCurrentUser().getObjectId()))
+                holder.btnReservation.setVisibility(View.VISIBLE);
+            else
+                holder.btnReservation.setVisibility(View.GONE);
+
+            holder.btnReservation.setOnClickListener(new View.OnClickListener() {
+                String offreId = listOffers.get(groupPosition).getObjectId();
+                @Override
+                public void onClick(View v) {
+                    if(ParseUser.getCurrentUser() == null){
+                        Bundle bundle = new Bundle();
+                        bundle.putString("textContent", activity.getString(R.string.content_dialog_result));
+                        WarningConnectionFragment wcf = new WarningConnectionFragment();
+                        wcf.setArguments(bundle);
+                        wcf.show(((FragmentActivity)activity).getSupportFragmentManager(), "Alerte Connexion");
+                    }
+                    else {
+                        //Update le champ reservationCount de l'offre
+                        ParseQuery<Offre> query = ParseQuery.getQuery("Offre");
+                        query.getInBackground(offreId, new GetCallback<Offre>() {
+                            public void done(Offre offre, ParseException e) {
+                                if (e == null) {
+                                    offre.setReservationCount(offre.getReservationCount() - 1);
+                                    offre.saveInBackground();
+                                }
+                            }
+                        });
+                        //Créer une nouvelle réservation
+                        Reservation reservation = new Reservation();
+                        reservation.setReservationStatut(Reservation.ReservationStatut.ATTENTE);
+                        reservation.setOffreSource(listOffers.get(postition));
+                        reservation.setUserDemandeur(ParseUser.getCurrentUser());
+                        reservation.saveInBackground();
+                        holder.txtPlaceDispo.setText(Integer.toString(listOffers.get(groupPosition).getReservationCount() - 1));
+                        holder.btnReservation.setVisibility(View.INVISIBLE);
+                        Toast.makeText(activity, "Réservation effectuée",
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            });
+            selectedRow =  listOffers.get(groupPosition);
         }
         catch (Exception ex) {
         }
@@ -130,14 +202,6 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
-    }
-
-    static class ListOffersGroupHolder
-    {
-        TextView txtStartHour;
-        TextView txtStartPoint;
-        TextView txtEndHour;
-        TextView txtEndPoint;
     }
 
     private String getCityNameFromPosition(Position position)
@@ -154,10 +218,21 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
         return  cityName;
     }
 
+    static class ListOffersGroupHolder
+    {
+        TextView txtStartHour;
+        TextView txtStartPoint;
+        TextView txtEndHour;
+        TextView txtEndPoint;
+        TextView txtCompleted;
+        TextView txtAlreadyBooked;
+    }
+
     static class ListOffersDetailsHolder
     {
-        TextView txtRendezvous;
-        TextView txtChutePoint;
-        TextView txtDriver;
+        TextView txtNomConducteur;
+        TextView txtPlaceDispo;
+        TextView txtHeureDepart;
+        Button btnReservation;
     }
 }

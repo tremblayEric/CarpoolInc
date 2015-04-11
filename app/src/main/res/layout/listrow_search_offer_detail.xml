@@ -1,67 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:paddingRight="35dp" android:paddingLeft="35dp"
-    android:id="@+id/lyListSearchDetails">
+    android:paddingRight="20dp" android:paddingLeft="20dp"
+    android:paddingBottom="20dp"
+    android:id="@+id/lyListSearchDetails"
+    android:orientation="horizontal">
 
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Conducteur: "
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tvResultSearchNomConducteur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:textSize="15sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:text="Places disponibles:"
+                android:textSize="15sp"
+                android:textStyle="bold"
+               />
+
+            <TextView
+                android:id="@+id/tvResultSearchPlaceDispo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="heure depart:"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvResultSearchHeure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Voir profil conducteur"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                android:textStyle="italic"
+                android:textColor="@color/blue"/>
+      </LinearLayout>
+
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="20dp">
+        <Button
+            android:id="@+id/btnReservation"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="Reserver"
+            android:background="@color/material_deep_teal_200"
+            android:textSize="10sp"
+           android:layout_marginLeft="-17dp"
+        />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:text="Rendez-vous"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/tvResultSearchRendezvous"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:textSize="15sp"/>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:text="Point de chute"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/tvResultSearchChutePoint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:textSize="15sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:text="Conducteur"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/tvResultSearchDriver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:textSize="15sp"/>
-        </LinearLayout>
-
-    </LinearLayout>
 </LinearLayout>

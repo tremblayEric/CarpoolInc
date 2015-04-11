@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PROFIL"
+        android:text="PROFIL CONDUCTEUR"
         android:gravity="center"
         android:textSize="20dp"
         android:id="@+id/textView"
@@ -41,16 +41,7 @@
                 android:layout_gravity="center"
                 android:orientation="horizontal">
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="100dp"
-                    android:text="&#xf030;"
-                    android:textSize="20sp"
-                    android:id="@+id/indic_camera"
-                    android:background="#00000000"
 
-                    />
                 <com.carpool.utils.CircleImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -69,14 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hello "
-                    android:textSize="16sp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="60dp"
-                    />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,13 +68,9 @@
                     android:layout_marginTop="60dp"
                     android:textSize="16sp"
                     android:id="@+id/indic_pseudo"
+                    android:layout_marginLeft="20dp"
                     android:textColor="@color/material_deep_teal_500"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" !!"
-                        android:layout_marginTop="60dp"
-                        android:textSize="16sp"/>
+
                 </LinearLayout>
                 <TextView
                     android:layout_width="100dp"
@@ -244,22 +224,6 @@
         android:background="@color/material_deep_teal_500"
         /-->
 
-
-        <com.carpool.utils.FloatingActionButton
-            android:id="@+id/fabButton"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_gravity="bottom|right"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="25dp"
-            android:textSize="24sp"
-            android:text = "@string/icone_modif_profil"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp"
-
-            />
 
     </LinearLayout>
 

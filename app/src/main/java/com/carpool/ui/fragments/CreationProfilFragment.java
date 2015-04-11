@@ -124,8 +124,6 @@ public class CreationProfilFragment extends CallbackFragment {
         final Button buttonCreation = (Button) rootview.findViewById(R.id.buttonCreer);
 
         Typeface font = Typeface.createFromAsset( getActivity().getAssets(), "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
-        buttonCreation.append("    CREATION");
-
         buttonCreation.setTypeface(font);
 
         /**

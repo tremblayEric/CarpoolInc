@@ -23,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.carpool.utils.*;
+
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.apache.http.HttpConnection;
@@ -38,6 +39,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RechercheResultatFragment extends Fragment {
@@ -103,6 +108,7 @@ public class RechercheResultatFragment extends Fragment {
 
     private String getMapsApiDirectionsUrl() {
 
+        getTrajetAAfficher();
         //remplacer les param en dure par ceux de la liste de l'autre onglet
         String waypoints = "origin=" + LOWER_MANHATTAN.latitude + "," + LOWER_MANHATTAN.longitude
                 + "&destination=" + WALL_STREET.latitude + "," + WALL_STREET.longitude + "&waypoints=optimize:true|"
@@ -121,7 +127,9 @@ public class RechercheResultatFragment extends Fragment {
 
     private void getTrajetAAfficher(){
 
+       Object  a = RechercheResultatActivity.listOffreId.toArray();
 
+        int o = 0;
 
     }
 
@@ -216,16 +224,26 @@ public class RechercheResultatFragment extends Fragment {
 
                         final ExpandableListView listView = (ExpandableListView) result.findViewById(R.id.lvResultSearch);
                         Bundle bundle = getArguments();
-                        List<Offre> offresAcceptables = RechercheResultatActivity.listO; //(List<Offre>) bundle.getSerializable("offres");
 
-                        if (offresAcceptables != null)
-                            Log.d("Activity1Fragment",String.valueOf(offresAcceptables.size()));
-                        else
-                            Log.d("Activity1Fragment","liste vide");
 
-                        MyResultSearchListAdapter adapter = new MyResultSearchListAdapter(getActivity(), offresAcceptables);
-                        listView.setAdapter(adapter);
-                        listView.setBackgroundColor(Color.WHITE);
+                        ParseQuery.getQuery(Offre.class)
+                                .fromLocalDatastore()
+                                .whereContainedIn("objectId", RechercheResultatActivity.listOffreId)
+                                .findInBackground(new FindCallback<Offre>() {
+                                    @Override
+                                    public void done(List<Offre> offres, ParseException e) {
+                                        if (offres != null)
+                                            Log.d("Activity1Fragment",String.valueOf(offres.size()));
+                                        else
+                                            Log.d("Activity1Fragment","liste vide");
+
+                                        MyResultSearchListAdapter adapter = new MyResultSearchListAdapter(getActivity(), offres);
+                                        listView.setAdapter(adapter);
+                                        listView.setBackgroundColor(Color.WHITE);
+                                    }
+                                });
+
+
                 break;
 
             case 1: // vue carte

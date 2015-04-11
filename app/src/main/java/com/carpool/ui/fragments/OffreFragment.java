@@ -1,13 +1,18 @@
 package com.carpool.ui.fragments;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +25,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -27,6 +33,8 @@ import com.carpool.R;
 import com.carpool.model.Offre;
 import com.carpool.model.Position;
 import com.carpool.model.Trajet;
+import com.carpool.ui.activities.CreationProfilActivity;
+import com.carpool.ui.activities.ProfilLoginActivity;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -246,7 +254,7 @@ public class OffreFragment extends Fragment {
 
             // on verifie que l'utilisateur est connecte avant de rajouter une offre
 
-                ParseUser current = ParseUser.getCurrentUser();
+              ParseUser current = ParseUser.getCurrentUser();
 
               List<String> address = new ArrayList<>();
 
@@ -265,8 +273,11 @@ public class OffreFragment extends Fragment {
                     }
                     else
                     {
-                        Toast.makeText(getActivity(), "Vous devez-vous connecter",
-                                Toast.LENGTH_SHORT).show();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("textContent", getString(R.string.content_dialog_offer));
+                        WarningConnectionFragment wcf = new WarningConnectionFragment();
+                        wcf.setArguments(bundle);
+                        wcf.show(getActivity().getSupportFragmentManager(), "Alerte Connexion");
 
                     }
                 }
@@ -434,4 +445,51 @@ public class OffreFragment extends Fragment {
         autoCompleteTextView = (AutoCompleteTextView)rootview.findViewById(R.id.etBetweenEnd);
         autoCompleteTextView.setText("");
     }
+
+    /*public static class OffreDialog extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(R.string.title_dialog_offer);
+            builder.setMessage(R.string.content_dialog_offer)
+                    .setPositiveButton(R.string.button_register_dialog_offer, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent newActivity = new Intent(getActivity(), CreationProfilActivity.class);
+                            startActivity(newActivity);
+                            getActivity().finish();
+                        }
+                    })
+                    .setNeutralButton(R.string.button_login_dialog_offer, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent newActivity = new Intent(getActivity(), ProfilLoginActivity.class);
+                            startActivity(newActivity);
+                            getActivity().finish();
+                        }
+                    })
+                    .setNegativeButton(R.string.button_cancel_dialog_offer, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            return builder.create();
+        }
+
+        @Override
+        public void onStart() {
+            super.onStart();
+            // Title
+            final int titleId = getResources().getIdentifier("alertTitle", "id", "android");
+            final View title = getDialog().findViewById(titleId);
+            if (title != null) {
+                ((TextView) title).setTextColor(getResources().getColor(R.color.material_deep_teal_500));
+            }
+            // Title divider
+            final int titleDividerId = getResources().getIdentifier("titleDivider", "id", "android");
+            final View titleDivider = getDialog().findViewById(titleDividerId);
+            if (titleDivider != null) {
+                titleDivider.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
+            }
+        }
+    }*/
 }

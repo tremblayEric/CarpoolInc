@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CARPOOL INC.</string>
+    <string name="app_name">   CARPOOL INC.   </string>
     <string name="title_section1">PROFIL </string>
     <string name="title_section2">POSTER ANNONCE</string>
     <string name="title_section3">RECHERCHE</string>
     <string name="title_section4">MES ANNONCES</string>
-    <string name="title_section5">DECONNEXION</string>
+    <string name="title_section5">MES RESERVATIONS</string>
+    <string name="title_section6">NOTIFICATIONS</string>
+    <string name="title_section7">DECONNEXION</string>
 
     <string name="title_section1_not_connected">CONNEXION </string>
     <string name="title_section2_not_connected">POSTER ANNONCE</string>
@@ -64,5 +66,13 @@
     <!-- titre -->
     <string name="titre_modif_profil">MODIFICATION INFOS. PROFIL</string>
     <string name="modifier_user">MODIFIER </string>
+
+    <!-- String pour le dialog d'avertissement de l'offre et du résultat de la recherche de covoiturage-->
+    <string name="title_dialog_offer">Accès refusé</string>
+    <string name="content_dialog_offer">Vous devriez vous authentifier ou vous inscrire si vous désirez poster une annonce.</string>
+    <string name="content_dialog_result">Vous devriez vous authentifier ou vous inscrire si vous désirez réserver un covoiturage.</string>
+    <string name="button_cancel_dialog_offer">Annuler</string>
+    <string name="button_login_dialog_offer">Se connecter</string>
+    <string name="button_register_dialog_offer">S\'inscrire</string>
 
 </resources>

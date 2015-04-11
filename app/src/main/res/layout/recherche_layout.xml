@@ -2,7 +2,7 @@
 
 <RelativeLayout
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/bg_activite">
 
@@ -11,6 +11,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/bg_activite">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -103,7 +105,7 @@
                 android:gravity="center"
                 android:layout_below="@+id/tvDepart"
                 android:layout_alignParentEnd="true"
-                android:hint="&#xf002;          ex ville arrivee :Laval"
+                android:hint="&#xf002;       ex ville arrivee :Laval"
                 android:textColorHint="@color/material_deep_teal_500"
                 android:layout_toEndOf="@+id/tvSearchDestination"
                 android:textSize="@dimen/abc_text_size_small_material"
@@ -173,7 +175,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="date"
                     android:layout_toRightOf="@id/etDateSearch"
-                    android:layout_marginTop="-10dp"/>
+                    />
 
                 </LinearLayout>
 
@@ -208,4 +210,4 @@
             />
     </LinearLayout>
 </ScrollView>
-    </RelativeLayout>
+</RelativeLayout>

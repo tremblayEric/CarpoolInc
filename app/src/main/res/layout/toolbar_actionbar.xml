@@ -7,4 +7,5 @@
     theweatherapp:titleTextAppearance="@style/ActionBar.TitleText"
     theweatherapp:contentInsetStart="?actionBarInsetStart"
     android:layout_width="match_parent"
-    android:layout_height="?actionBarSize" />
+    android:layout_height="?actionBarSize"
+    />

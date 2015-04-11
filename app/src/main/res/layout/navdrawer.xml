@@ -8,7 +8,8 @@
     android:background="@color/navdrawer_background"
     android:fitsSystemWindows="true"
     app:insetForeground="#4000"
-    android:layout_marginTop="55dp">
+    android:layout_marginTop="55dp"
+    android:fillViewport="false">
 
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,15 +28,17 @@
                 android:tint="@color/session_photo_scrim"
                 android:id="@+id/profile_cover_image" />
 
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/keyline_1"
                 android:paddingRight="@dimen/keyline_1"
                 android:paddingTop="@dimen/keyline_1"
-                android:id="@+id/chosen_account_content_view">
+                android:id="@+id/chosen_account_content_view"/>
 
-                <com.carpool.ui.design.BezelImageView
+                <!--com.carpool.ui.design.BezelImageView
                     android:id="@+id/profile_image"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
@@ -47,7 +50,9 @@
 
 
 
-            </RelativeLayout>
+            </RelativeLayout-->
+
+
 
         </FrameLayout>
 
@@ -71,7 +76,13 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:orientation="vertical" />
+
+
         </FrameLayout>
+
+
     </LinearLayout>
+
+
 
 </com.carpool.ui.design.ScrimInsetsScrollView>
