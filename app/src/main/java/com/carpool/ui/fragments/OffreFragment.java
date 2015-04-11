@@ -273,9 +273,11 @@ public class OffreFragment extends Fragment {
                     }
                     else
                     {
-                        (new OffreDialog()).show(getActivity().getSupportFragmentManager(), "Alerte Connexion");
-                        /*Toast.makeText(getActivity(), "Vous devez-vous connecter",
-                                Toast.LENGTH_SHORT).show();*/
+                        Bundle bundle = new Bundle();
+                        bundle.putString("textContent", getString(R.string.content_dialog_offer));
+                        WarningConnectionFragment wcf = new WarningConnectionFragment();
+                        wcf.setArguments(bundle);
+                        wcf.show(getActivity().getSupportFragmentManager(), "Alerte Connexion");
 
                     }
                 }
@@ -444,7 +446,7 @@ public class OffreFragment extends Fragment {
         autoCompleteTextView.setText("");
     }
 
-    public static class OffreDialog extends DialogFragment {
+    /*public static class OffreDialog extends DialogFragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -489,5 +491,5 @@ public class OffreFragment extends Fragment {
                 titleDivider.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));
             }
         }
-    }
+    }*/
 }

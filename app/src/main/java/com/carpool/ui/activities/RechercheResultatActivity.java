@@ -8,18 +8,17 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.carpool.R;
-import com.carpool.model.Offre;
 import com.carpool.ui.adapters.SampleAdapter;
 import com.carpool.ui.design.CallbackFragment;
 import com.carpool.ui.design.SlidingTabLayout;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class RechercheResultatActivity extends AccueilActivity implements
         CallbackFragment.Callbacks  {
 
 
-    public static List<Offre> listO;
+    public static ArrayList<String> listOffreId;
 
     @Override
     public void onItemSelected(long id) {
@@ -44,11 +43,8 @@ public class RechercheResultatActivity extends AccueilActivity implements
         mSlidingTabLayout.setViewPager(mViewPager);
 
         Intent myIntent = getIntent();
-
-        Bundle bundleOffre = myIntent.getBundleExtra("offreBundle");
-        listO =  (List<Offre>)(bundleOffre.getSerializable("offres"));
-        //Log.d("offres",String.valueOf(listO.size()));
-
+        Bundle bundleOffre = myIntent.getExtras();
+        listOffreId = bundleOffre.getStringArrayList("offres");
     }
 
     private PagerAdapter buildAdapter() {
