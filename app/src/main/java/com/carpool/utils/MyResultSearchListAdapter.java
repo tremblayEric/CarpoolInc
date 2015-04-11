@@ -19,6 +19,7 @@ import com.carpool.R;
 import com.carpool.model.Offre;
 import com.carpool.model.Position;
 import com.carpool.model.Reservation;
+import com.carpool.ui.activities.RechercheResultatActivity;
 import com.carpool.ui.fragments.WarningConnectionFragment;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -41,7 +42,7 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
     private Activity activity;
     private LayoutInflater inflater;
     private List<Offre> listOffers;
-    public Offre selectedRow;
+
 
     public MyResultSearchListAdapter(Activity act, List<Offre> offers) {
         activity = act;
@@ -191,7 +192,7 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
                     }
                 }
             });
-            selectedRow =  listOffers.get(groupPosition);
+            RechercheResultatActivity.offreSelectionne = listOffers.get(groupPosition);
         }
         catch (Exception ex) {
         }

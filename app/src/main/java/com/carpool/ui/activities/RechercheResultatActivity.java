@@ -8,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.carpool.R;
+import com.carpool.model.Offre;
 import com.carpool.ui.adapters.SampleAdapter;
 import com.carpool.ui.design.CallbackFragment;
 import com.carpool.ui.design.SlidingTabLayout;
@@ -19,11 +20,11 @@ public class RechercheResultatActivity extends AccueilActivity implements
 
 
     public static ArrayList<String> listOffreId;
+    public static Offre offreSelectionne;
 
     @Override
     public void onItemSelected(long id) {
 
-        int o = 0;
     }
 
     @Override

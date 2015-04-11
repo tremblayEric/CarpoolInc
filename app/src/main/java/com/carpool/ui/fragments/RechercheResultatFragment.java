@@ -75,6 +75,7 @@ public class RechercheResultatFragment extends Fragment {
         {
             case 0: return String.format("VUE LISTE");
             case 1: return String.format("VUE CARTE");
+
         }
         // gerer la position
         return ""; //(String.format("position at %d", position + 1));
@@ -127,9 +128,10 @@ public class RechercheResultatFragment extends Fragment {
 
     private void getTrajetAAfficher(){
 
-       Object  a = RechercheResultatActivity.listOffreId.toArray();
+        if(RechercheResultatActivity.offreSelectionne != null){
+            Offre o =  RechercheResultatActivity.offreSelectionne;
+        }
 
-        int o = 0;
 
     }
 
@@ -247,7 +249,7 @@ public class RechercheResultatFragment extends Fragment {
                 break;
 
             case 1: // vue carte
-
+                    int o = 0;
                 break;
         }
 
