@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.carpool.activity.R;
+import com.carpool.R;
 import com.carpool.model.Offre;
 import com.carpool.model.Position;
 import com.parse.ParseUser;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -109,16 +110,17 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.listrow_search_offer_detail, null);
                 holder = new ListOffersDetailsHolder();
-                holder.txtRendezvous = (TextView) convertView.findViewById(R.id.tvResultSearchRendezvous);
-                holder.txtChutePoint = (TextView) convertView.findViewById(R.id.tvResultSearchChutePoint);
-                holder.txtDriver = (TextView) convertView.findViewById(R.id.tvResultSearchDriver);
+                holder.txtNomConducteur = (TextView) convertView.findViewById(R.id.tvResultSearchNomConducteur);
+                holder.txtPlaceDispo = (TextView) convertView.findViewById(R.id.tvResultSearchPlaceDispo);
+                holder.txtHeureDepart = (TextView) convertView.findViewById(R.id.tvResultSearchHeure);
             } else
                 holder = (ListOffersDetailsHolder) convertView.getTag();
 
-            holder.txtRendezvous.setText("Non spécifié");
-            holder.txtChutePoint.setText("Non spécifié");
+            holder.txtPlaceDispo.setText("Non spécifié");
+            holder.txtHeureDepart.setText("Non spécifié");
             ParseUser user = listOffers.get(groupPosition).getUser();
-            holder.txtDriver.setText(user.get("firstname") + " " + user.get("lastname"));
+            holder.txtNomConducteur.setText(user.get("firstname") + " " + user.get("lastname"));
+
         }
         catch (Exception ex) {
         }
@@ -155,8 +157,8 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
 
     static class ListOffersDetailsHolder
     {
-        TextView txtRendezvous;
-        TextView txtChutePoint;
-        TextView txtDriver;
+        TextView txtNomConducteur;
+        TextView txtPlaceDispo;
+        TextView txtHeureDepart;
     }
 }

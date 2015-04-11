@@ -1,6 +1,6 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.carpool.activity" >
+    package="com.carpool" >
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -36,6 +36,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 
+
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
@@ -43,11 +44,11 @@
     <application
         android:name="com.carpool.CarpoolApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label= "@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.MyTheme" >
         <activity
-            android:name=".AccueilActivity"
+            android:name="com.carpool.ui.activities.RechercheActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,7 +56,43 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.carpool.ui.activities.ProfilLoginActivity"
+            android:label="@string/app_name" >
+        </activity>
 
+        <activity
+            android:name="com.carpool.ui.activities.OffreActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.carpool.ui.activities.ConsultationOffreActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.carpool.ui.activities.CreationProfilActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.carpool.ui.activities.DeconnexionActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.carpool.ui.activities.RechercheResultatActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.carpool.ui.activities.ModificationProfilActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.carpool.ui.activities.ReservationActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.carpool.ui.activities.NotificationsActivity"
+            android:label="@string/app_name" >
+        </activity>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

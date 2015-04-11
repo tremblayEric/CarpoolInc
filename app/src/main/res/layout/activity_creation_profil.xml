@@ -338,7 +338,7 @@
                             <Button
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/creer_user"
+                                android:text="   &#xf234;    CREATION"
                                 android:paddingLeft="-150dp"
                                 android:id="@+id/buttonCreer"
                                 android:background="@color/material_deep_teal_500"
