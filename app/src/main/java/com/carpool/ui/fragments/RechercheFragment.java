@@ -272,7 +272,12 @@ public class RechercheFragment extends CallbackFragment {
                             }
                             else {
                                 Bundle bundle = new Bundle();
-                                bundle.putSerializable("offres", (Serializable) offresAcceptables);
+                                Offre.pinAllInBackground(offresAcceptables);
+                                ArrayList<String> offresId = new ArrayList<String>();
+                                for(Offre offre : offresAcceptables){
+                                    offresId.add(offre.getObjectId());
+                                }
+                                bundle.putStringArrayList("offres", offresId);
 
                                 /*
                                 Fragment objFragment = new ResultatRechercheFragment();
@@ -284,7 +289,8 @@ public class RechercheFragment extends CallbackFragment {
                                         */
 
                                 Intent intent = new Intent (getActivity(), RechercheResultatActivity.class);
-                                intent.putExtra("offreBundle",bundle);
+                                //intent.putExtra("offres", (Serializable) offresAcceptables);
+                                intent.putExtras(bundle);
                                 getActivity().startActivity(intent);
                                 getActivity().finish();
 
