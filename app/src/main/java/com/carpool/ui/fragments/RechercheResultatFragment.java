@@ -107,7 +107,7 @@ public class RechercheResultatFragment extends Fragment {
         return null;
     }
 
-    private String getMapsApiDirectionsUrl() {
+    public static String getMapsApiDirectionsUrl() {
 
         getTrajetAAfficher();
         //remplacer les param en dure par ceux de la liste de l'autre onglet
@@ -126,7 +126,7 @@ public class RechercheResultatFragment extends Fragment {
         return url;
     }
 
-    private void getTrajetAAfficher(){
+    private static void getTrajetAAfficher(){
 
         if(RechercheResultatActivity.offreSelectionne != null){
             Offre o =  RechercheResultatActivity.offreSelectionne;

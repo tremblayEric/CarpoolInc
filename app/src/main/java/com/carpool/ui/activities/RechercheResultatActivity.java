@@ -12,6 +12,7 @@ import com.carpool.model.Offre;
 import com.carpool.ui.adapters.SampleAdapter;
 import com.carpool.ui.design.CallbackFragment;
 import com.carpool.ui.design.SlidingTabLayout;
+import com.carpool.ui.fragments.RechercheResultatFragment;
 
 import java.util.ArrayList;
 
@@ -43,6 +44,23 @@ public class RechercheResultatActivity extends AccueilActivity implements
         mSlidingTabLayout.setSelectedIndicatorColors(Color.WHITE);//res.getColor(Color.WHITE));
         mSlidingTabLayout.setDistributeEvenly(true);
         mSlidingTabLayout.setViewPager(mViewPager);
+        mSlidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels){
+                int p = position;
+            }
+
+            @Override
+            public void onPageSelected(int position){
+                int i = 0;
+            }
+
+            @Override
+            public void onPageScrollStateChanged( int state){
+                RechercheResultatFragment.getMapsApiDirectionsUrl();
+            }
+        });
 
         Intent myIntent = getIntent();
         Bundle bundleOffre = myIntent.getExtras();
