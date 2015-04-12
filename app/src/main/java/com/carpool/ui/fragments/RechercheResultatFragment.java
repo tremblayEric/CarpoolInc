@@ -55,10 +55,7 @@ public class RechercheResultatFragment extends Fragment {
     View result;
     int position_;
 
-
-    private static  LatLng DEPART = new LatLng(40.722543,
-            -73.998585);
-    private static final LatLng BROOKLYN_BRIDGE = new LatLng(40.7057, -73.9964);
+    private static  LatLng DEPART = new LatLng(40.722543,-73.998585);
     private static  LatLng ARRIVEE = new LatLng(40.7064, -74.0094);
 
     public static RechercheResultatFragment newInstance(int position) {
@@ -77,7 +74,6 @@ public class RechercheResultatFragment extends Fragment {
         {
             case 0: return String.format("VUE LISTE");
             case 1: return String.format("VUE CARTE");
-
         }
         // gerer la position
         return ""; //(String.format("position at %d", position + 1));
@@ -94,30 +90,23 @@ public class RechercheResultatFragment extends Fragment {
         CompatTextView textView;
         switch (position)
         {
-
             case 0:
-
                 result = inflater.inflate(R.layout.activity_resultat_recherche, null);
                 return (result);
-
             case 1:
-
                 result = inflater.inflate(R.layout.google_card_fragment, null);
                 return (result);
-
         }
         return null;
     }
 
     public static String getMapsApiDirectionsUrl() {
 
-
         //remplacer les param en dure par ceux de la liste de l'autre onglet
         String waypoints = "origin=" + DEPART.latitude + "," + DEPART.longitude
                 + "&destination=" + ARRIVEE.latitude + "," + ARRIVEE.longitude + "&waypoints=optimize:true|"
                 + DEPART.latitude + "," + DEPART.longitude
-                + "|" + "|" + BROOKLYN_BRIDGE.latitude + ","
-                + BROOKLYN_BRIDGE.longitude + "|" + ARRIVEE.latitude + ","
+                + "|" + "|" + ARRIVEE.latitude + ","
                 + ARRIVEE.longitude;
 
         String sensor = "sensor=false";
@@ -137,18 +126,12 @@ public class RechercheResultatFragment extends Fragment {
 
             DEPART = new LatLng(positionDepart.getLatitude(),
                     positionDepart.getLongitude());
-
             ARRIVEE = new LatLng(positionArrivee.getLatitude(), positionArrivee.getLongitude());
-            int oo = 0;
         }
-
-
     }
 
     private void addMarkers() {
         if (map != null) {
-            map.addMarker(new MarkerOptions().position(BROOKLYN_BRIDGE)
-                    .title("First Point"));
             map.addMarker(new MarkerOptions().position(DEPART)
                     .title("Second Point"));
             map.addMarker(new MarkerOptions().position(ARRIVEE)
@@ -254,8 +237,6 @@ public class RechercheResultatFragment extends Fragment {
                                         listView.setBackgroundColor(Color.WHITE);
                                     }
                                 });
-
-
                 break;
 
             case 1: // vue carte
@@ -298,24 +279,6 @@ public class RechercheResultatFragment extends Fragment {
 
     }
 
-    public void refreshMap(){
-        map = fragment.getMap();
-        // map.addMarker(new MarkerOptions().position(new LatLng(12, -12)));
-        getTrajetAAfficher();
-        MarkerOptions options = new MarkerOptions();
-        options.position(DEPART);
-        options.position(BROOKLYN_BRIDGE);
-        options.position(ARRIVEE);
-        map.addMarker(options);
-        String url = getMapsApiDirectionsUrl();
-        ReadTask downloadTask = new ReadTask();
-        downloadTask.execute(url);
-
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(BROOKLYN_BRIDGE,
-                13));
-        addMarkers();
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -328,14 +291,13 @@ public class RechercheResultatFragment extends Fragment {
                     getTrajetAAfficher();
                     MarkerOptions options = new MarkerOptions();
                     options.position(DEPART);
-                    options.position(BROOKLYN_BRIDGE);
                     options.position(ARRIVEE);
                     map.addMarker(options);
                     String url = getMapsApiDirectionsUrl();
                     ReadTask downloadTask = new ReadTask();
                     downloadTask.execute(url);
 
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(BROOKLYN_BRIDGE,
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(DEPART,
                             13));
                     addMarkers();
                 int i = 0;//test pour provoquer l'addition des changement à la branche
