@@ -284,8 +284,9 @@ public class RechercheResultatFragment extends Fragment {
         }
     }
 
-    public  void rafraichirCarte(GoogleMap map){
+    public void rafraichirCarte(GoogleMap map){
 
+        map = fragment.getMap();
         // map.addMarker(new MarkerOptions().position(new LatLng(12, -12)));
         getTrajetAAfficher();
         MarkerOptions options = new MarkerOptions();
@@ -318,6 +319,7 @@ public class RechercheResultatFragment extends Fragment {
                     downloadTask.execute(url);
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(DEPART,13));
                     addMarkers();
+
                 break;
             }
         }

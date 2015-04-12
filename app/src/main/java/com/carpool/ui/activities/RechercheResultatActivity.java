@@ -5,6 +5,8 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -99,8 +101,9 @@ public class RechercheResultatActivity extends AccueilActivity implements
                 MAP.moveCamera(CameraUpdateFactory.newLatLngZoom(DEPART,
                         13));
                 addMarkers(MAP);
-
-
+                mapFragment.onResume();
+               // Fragment fff = ((FragmentPagerAdapter)mViewPager.getAdapter()).getItem(0);
+                //fff.onResume();
             }
             private void addMarkers(GoogleMap map) {
                 if (map != null) {
