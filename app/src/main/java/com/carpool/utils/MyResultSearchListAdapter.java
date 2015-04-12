@@ -135,6 +135,7 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
     public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final int postition = groupPosition;
         try {
+            RechercheResultatActivity.offreSelectionne = listOffers.get(groupPosition);
             final ListOffersDetailsHolder holder;
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.listrow_search_offer_detail, null);

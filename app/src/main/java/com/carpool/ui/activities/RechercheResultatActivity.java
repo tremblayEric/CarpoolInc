@@ -58,7 +58,7 @@ public class RechercheResultatActivity extends AccueilActivity implements
 
             @Override
             public void onPageScrollStateChanged( int state){
-                RechercheResultatFragment.getMapsApiDirectionsUrl();
+                RechercheResultatFragment.test();
             }
         });
 

@@ -16,6 +16,8 @@ import android.widget.ListView;
 
 import com.carpool.R;
 import com.carpool.model.Offre;
+import com.carpool.model.Position;
+import com.carpool.model.Trajet;
 import com.carpool.ui.activities.RechercheResultatActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -54,10 +56,10 @@ public class RechercheResultatFragment extends Fragment {
     int position_;
 
 
-    private static final LatLng LOWER_MANHATTAN = new LatLng(40.722543,
+    private static  LatLng DEPART = new LatLng(40.722543,
             -73.998585);
     private static final LatLng BROOKLYN_BRIDGE = new LatLng(40.7057, -73.9964);
-    private static final LatLng WALL_STREET = new LatLng(40.7064, -74.0094);
+    private static  LatLng ARRIVEE = new LatLng(40.7064, -74.0094);
 
     public static RechercheResultatFragment newInstance(int position) {
         RechercheResultatFragment frag = new RechercheResultatFragment();
@@ -109,14 +111,14 @@ public class RechercheResultatFragment extends Fragment {
 
     public static String getMapsApiDirectionsUrl() {
 
-        getTrajetAAfficher();
+
         //remplacer les param en dure par ceux de la liste de l'autre onglet
-        String waypoints = "origin=" + LOWER_MANHATTAN.latitude + "," + LOWER_MANHATTAN.longitude
-                + "&destination=" + WALL_STREET.latitude + "," + WALL_STREET.longitude + "&waypoints=optimize:true|"
-                + LOWER_MANHATTAN.latitude + "," + LOWER_MANHATTAN.longitude
+        String waypoints = "origin=" + DEPART.latitude + "," + DEPART.longitude
+                + "&destination=" + ARRIVEE.latitude + "," + ARRIVEE.longitude + "&waypoints=optimize:true|"
+                + DEPART.latitude + "," + DEPART.longitude
                 + "|" + "|" + BROOKLYN_BRIDGE.latitude + ","
-                + BROOKLYN_BRIDGE.longitude + "|" + WALL_STREET.latitude + ","
-                + WALL_STREET.longitude;
+                + BROOKLYN_BRIDGE.longitude + "|" + ARRIVEE.latitude + ","
+                + ARRIVEE.longitude;
 
         String sensor = "sensor=false";
         String params = waypoints + "&" + sensor;
@@ -130,6 +132,14 @@ public class RechercheResultatFragment extends Fragment {
 
         if(RechercheResultatActivity.offreSelectionne != null){
             Offre o =  RechercheResultatActivity.offreSelectionne;
+            Position positionDepart = o.getTrajet().getPositionDepart();
+            Position positionArrivee = o.getTrajet().getPositionArrive();
+
+            DEPART = new LatLng(positionDepart.getLatitude(),
+                    positionDepart.getLongitude());
+
+            ARRIVEE = new LatLng(positionArrivee.getLatitude(), positionArrivee.getLongitude());
+            int oo = 0;
         }
 
 
@@ -139,9 +149,9 @@ public class RechercheResultatFragment extends Fragment {
         if (map != null) {
             map.addMarker(new MarkerOptions().position(BROOKLYN_BRIDGE)
                     .title("First Point"));
-            map.addMarker(new MarkerOptions().position(LOWER_MANHATTAN)
+            map.addMarker(new MarkerOptions().position(DEPART)
                     .title("Second Point"));
-            map.addMarker(new MarkerOptions().position(WALL_STREET)
+            map.addMarker(new MarkerOptions().position(ARRIVEE)
                     .title("Third Point"));
         }
     }
@@ -288,20 +298,38 @@ public class RechercheResultatFragment extends Fragment {
 
     }
 
+    public void refreshMap(){
+        map = fragment.getMap();
+        // map.addMarker(new MarkerOptions().position(new LatLng(12, -12)));
+        getTrajetAAfficher();
+        MarkerOptions options = new MarkerOptions();
+        options.position(DEPART);
+        options.position(BROOKLYN_BRIDGE);
+        options.position(ARRIVEE);
+        map.addMarker(options);
+        String url = getMapsApiDirectionsUrl();
+        ReadTask downloadTask = new ReadTask();
+        downloadTask.execute(url);
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(BROOKLYN_BRIDGE,
+                13));
+        addMarkers();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         switch(position_) {
             case 1:
 
-
                 if (map == null) {
                 map = fragment.getMap();
                // map.addMarker(new MarkerOptions().position(new LatLng(12, -12)));
+                    getTrajetAAfficher();
                     MarkerOptions options = new MarkerOptions();
-                    options.position(LOWER_MANHATTAN);
+                    options.position(DEPART);
                     options.position(BROOKLYN_BRIDGE);
-                    options.position(WALL_STREET);
+                    options.position(ARRIVEE);
                     map.addMarker(options);
                     String url = getMapsApiDirectionsUrl();
                     ReadTask downloadTask = new ReadTask();
