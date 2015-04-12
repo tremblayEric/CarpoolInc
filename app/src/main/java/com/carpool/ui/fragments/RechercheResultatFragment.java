@@ -139,6 +139,15 @@ public class RechercheResultatFragment extends Fragment {
         }
     }
 
+    private static void addMarkers(GoogleMap map) {
+        if (map != null) {
+            map.addMarker(new MarkerOptions().position(DEPART)
+                    .title("Second Point"));
+            map.addMarker(new MarkerOptions().position(ARRIVEE)
+                    .title("Third Point"));
+        }
+    }
+
     private class ReadTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... url) {
@@ -199,12 +208,10 @@ public class RechercheResultatFragment extends Fragment {
 
                     points.add(position);
                 }
-
                 polyLineOptions.addAll(points);
                 polyLineOptions.width(2);
                 polyLineOptions.color(Color.BLUE);
             }
-
             map.addPolyline(polyLineOptions);
         }
     }
@@ -261,7 +268,6 @@ public class RechercheResultatFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -276,7 +282,23 @@ public class RechercheResultatFragment extends Fragment {
                 }
                 break;
         }
+    }
 
+    public  void rafraichirCarte(GoogleMap map){
+
+        // map.addMarker(new MarkerOptions().position(new LatLng(12, -12)));
+        getTrajetAAfficher();
+        MarkerOptions options = new MarkerOptions();
+        options.position(DEPART);
+        options.position(ARRIVEE);
+        map.addMarker(options);
+        String url = getMapsApiDirectionsUrl();
+        ReadTask downloadTask = new ReadTask();
+        downloadTask.execute(url);
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(DEPART,
+                13));
+        addMarkers(map);
     }
 
     @Override
@@ -284,10 +306,8 @@ public class RechercheResultatFragment extends Fragment {
         super.onResume();
         switch(position_) {
             case 1:
-
                 if (map == null) {
                 map = fragment.getMap();
-               // map.addMarker(new MarkerOptions().position(new LatLng(12, -12)));
                     getTrajetAAfficher();
                     MarkerOptions options = new MarkerOptions();
                     options.position(DEPART);
@@ -296,11 +316,8 @@ public class RechercheResultatFragment extends Fragment {
                     String url = getMapsApiDirectionsUrl();
                     ReadTask downloadTask = new ReadTask();
                     downloadTask.execute(url);
-
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(DEPART,
-                            13));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(DEPART,13));
                     addMarkers();
-                int i = 0;//test pour provoquer l'addition des changement à la branche
                 break;
             }
         }
