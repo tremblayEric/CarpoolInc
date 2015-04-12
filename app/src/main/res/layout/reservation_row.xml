@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!-- CHILD -->
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:stretchColumns="1" android:paddingTop="0dip"
+    android:layout_gravity="top"
+    >
+    <TableRow>
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1" android:paddingTop="0dip" android:layout_gravity="top"
+            >
+            <TableRow>
+                <TextView
+                    android:id="@+id/labelPseudodemandeur"
+                    android:textColor="#000000"
+                    android:layout_width="90dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="12dip"
+                    android:textStyle="bold"
+                    android:text="Demandeur:"
+                    android:layout_column="0"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"/>
+                <TextView
+                    android:id="@+id/pseudoDemandeur"
+                    android:textColor="#000000"
+                    android:layout_width="90dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="12dip"
+                    android:layout_column="1"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"/>
+                <TextView
+                    android:id="@+id/labelage"
+                    android:textColor="#000000"
+                    android:layout_width="50dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="12dip"
+                    android:textStyle="bold"
+                    android:text="Age:"
+                    android:layout_column="2"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"/>
+                <TextView
+                    android:id="@+id/age"
+                    android:textColor="#000000"
+                    android:layout_width="70dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="12dip"
+                    android:layout_column="3"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginTop="7dp"/>
+           </TableRow>
+        </TableLayout>
+    </TableRow>
+</TableLayout>
