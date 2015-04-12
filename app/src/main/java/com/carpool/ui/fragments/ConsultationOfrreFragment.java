@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.carpool.R;
 import com.carpool.model.Offre;
+import com.carpool.model.Reservation;
 import com.carpool.model.Trajet;
+import com.carpool.model.User;
 import com.carpool.ui.design.CallbackFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -36,6 +38,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,9 +49,15 @@ import java.util.List;
  */
 public class ConsultationOfrreFragment extends CallbackFragment {
 
+
     View rootview;
+    private boolean chargee = false;
     ExpandableListView lv;
     private final ArrayList<Offre> listeOffres=new ArrayList<Offre>();
+    private final HashMap<String,String> listeAdressesDepartOffre=new HashMap<String,String>();
+    private final HashMap<String,String> listeAdressesArriveeOffre=new HashMap<String,String>();
+
+    private final HashMap<String,List<Reservation>> listeReservationsOffre=new HashMap<String,List<Reservation>>();
     private int ParentClickStatus=-1;
 
     String [] tabDepart;
@@ -69,43 +80,62 @@ public class ConsultationOfrreFragment extends CallbackFragment {
     };
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.activity_consultation_offre, container, false);
+     rootview = inflater.inflate(R.layout.activity_consultation_offre, container, false);
 
 
-        return rootview;
-    }
+     return rootview;
+     }
 
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        lv = (ExpandableListView) view.findViewById(R.id.expListView);
-        Resources res = this.getResources();
-        Drawable devider = res.getDrawable(R.drawable.line);
-        lv.setGroupIndicator(null);
-        lv.setDivider(devider);
-        lv.setChildDivider(devider);
-        lv.setDividerHeight(1);
+     @Override
+     public void onViewCreated(View view, Bundle savedInstanceState) {
+         super.onViewCreated(view, savedInstanceState);
+         lv = (ExpandableListView) view.findViewById(R.id.expListView);
+         Resources res = this.getResources();
+         Drawable devider = res.getDrawable(R.drawable.line);
+         lv.setGroupIndicator(null);
+         lv.setDivider(devider);
+         lv.setChildDivider(devider);
+         lv.setDividerHeight(1);
 
-        ParseQuery<Offre> query = ParseQuery.getQuery("Offre");
-        query.whereEqualTo("userOffre", ParseUser.getCurrentUser());
-        query.findInBackground(new FindCallback<Offre>() {
-            @Override
-            public void done(List<Offre> offres, ParseException e) {
-                if (e == null) {
+         registerForContextMenu(lv);
 
-                    tabDepart = new String[offres.size()];
-                    tabDestination = new String[offres.size()];
-                    listeOffres.addAll(offres);
-                    lv.setAdapter(new MyExpandableListAdapter());
-                }
-                else {
+         ParseQuery<Offre> query = ParseQuery.getQuery("Offre");
 
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+         query.whereEqualTo("userOffre", ParseUser.getCurrentUser());
+         query.findInBackground(new FindCallback<Offre>() {
+             @Override
+             public void done(List<Offre> offres, ParseException e) {
+                 if (e == null) {
+                     tabDepart = new String[offres.size()];
+                     tabDestination = new String[offres.size()];
+                     listeOffres.addAll(offres);
+
+                     for (Offre offreTrouvee : offres) {
+
+                         ParseQuery<Reservation> queryReservation = ParseQuery.getQuery("Reservation");
+                         queryReservation.whereEqualTo("offreSource", offreTrouvee);
+                         final Offre oo = offreTrouvee;
+                         queryReservation.findInBackground(new FindCallback<Reservation>() {
+                             @Override
+                             public void done(List<Reservation> reservations, ParseException e) {
+                                 listeReservationsOffre.put(oo.getObjectId(),reservations);
+                                 System.out.println(oo.getObjectId());
+                             }
+                         });
+
+                     }
+
+                     lv.setAdapter(new MyExpandableListAdapter());
+
+                 }
+                 else {
+
+                     e.printStackTrace();
+                 }
+             }
+         });
+     }
     /**
      * A Custom adapter to create Parent view (Used grouprow.xml) and Child View((Used childrow.xml).
      */
@@ -162,7 +192,9 @@ public class ConsultationOfrreFragment extends CallbackFragment {
                 }
 
                 protected void onPostExecute(String result) {
+                    chargee = true;
                     ((TextView) convertViewLocale.findViewById(R.id.adDepart)).setText(result);
+                    listeAdressesDepartOffre.put(offre.getObjectId(),result);
 
                 }
 
@@ -177,12 +209,20 @@ public class ConsultationOfrreFragment extends CallbackFragment {
 
                 protected void onPostExecute(String result) {
                     ((TextView) convertViewLocale.findViewById(R.id.adDestination)).setText(result);
+                    listeAdressesArriveeOffre.put(offre.getObjectId(),result);
 
                 }
 
             }
-            new TaskDeparts().execute(String.valueOf(lattDep),String.valueOf(longDep));
-            new TaskDestinations().execute(String.valueOf(lattArr),String.valueOf(longArr));
+            if(!chargee){
+                new TaskDeparts().execute(String.valueOf(lattDep),String.valueOf(longDep));
+                new TaskDestinations().execute(String.valueOf(lattArr),String.valueOf(longArr));
+            }
+            else{
+                ((TextView) convertViewLocale.findViewById(R.id.adDepart)).setText(listeAdressesDepartOffre.get(offre.getObjectId()));
+                ((TextView) convertViewLocale.findViewById(R.id.adDestination)).setText(listeAdressesArriveeOffre.get(offre.getObjectId()));
+            }
+
 
 
             return convertViewLocale;
@@ -190,31 +230,78 @@ public class ConsultationOfrreFragment extends CallbackFragment {
 
         // This Function used to inflate child rows view
         @Override
-        public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
-                                 View convertView, ViewGroup parentView)
-        {
-            return null;
+        public View getChildView(int groupPosition,  int childPosition, boolean isLastChild,
+                                 View convertView,  ViewGroup parentView){
+
+
+            final Offre offreSelectionnee = listeOffres.get(groupPosition);
+            List<Reservation> listeRes = listeReservationsOffre.get(offreSelectionnee.getObjectId());
+
+            Reservation res = listeRes.get(childPosition);
+
+            convertView = inflater.inflate(R.layout.reservation_row, parentView, false);
+
+            try {
+                res.getUserDemandeur().fetchIfNeeded();
+
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+
+            ((TextView) convertView.findViewById(R.id.pseudoDemandeur)).setText(res.getUserDemandeur().getUsername().toString());
+            ParseUser  us = res.getUserDemandeur();
+            Date dateNaissance = us.getDate("birthday");
+            System.out.println("dateNaissance demandeur =="+dateNaissance);
+           int age = getYears(dateNaissance);
+
+            ((TextView) convertView.findViewById(R.id.age)).setText(age + " ans");
+          //  ((TextView) convertView.findViewById(R.id.statutReservation)).setText(res.getReservationStatut().toString());
+            return convertView;
+
         }
+
+        public  int getYears(Date d)
+        {
+            Calendar curr = Calendar.getInstance();
+            Calendar birth = Calendar.getInstance();
+            birth.setTime(d);
+            int age = curr.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
+            curr.add(Calendar.YEAR,-age);
+            System.out.println("curr demandeur =="+curr);
+            System.out.println("birth demandeur =="+birth);
+            if(birth.after(curr))
+            {
+                age = age - 1;
+            }
+            return age;
+        }
+
 
 
         @Override
         public Object getChild(int groupPosition, int childPosition)
         {
-            return null ;
+            final Offre offreSelectionnee = listeOffres.get(groupPosition);
+            List<Reservation> listeRes = listeReservationsOffre.get(offreSelectionnee.getObjectId());
+            return listeRes.get(childPosition);
         }
 
         //Call when child row clicked
         @Override
         public long getChildId(int groupPosition, int childPosition)
         {
-            return 0;
+            final Offre offreSelectionnee = listeOffres.get(groupPosition);
+            List<Reservation> listeRes = listeReservationsOffre.get(offreSelectionnee.getObjectId());
+            return childPosition;
+
         }
 
         @Override
         public int getChildrenCount(int groupPosition)
         {
-            int size=0;
-            return size;
+            final Offre offreSelectionnee = listeOffres.get(groupPosition);
+            List<Reservation> listeRes = listeReservationsOffre.get(offreSelectionnee.getObjectId());
+            return listeRes.size();
         }
 
 
@@ -222,7 +309,6 @@ public class ConsultationOfrreFragment extends CallbackFragment {
         public Object getGroup(int groupPosition)
         {
             Log.i("Offre", groupPosition + "=  getGroup ");
-
             return listeOffres.get(groupPosition);
         }
 
@@ -236,11 +322,6 @@ public class ConsultationOfrreFragment extends CallbackFragment {
         @Override
         public long getGroupId(int groupPosition)
         {
-            Log.i("Offre", groupPosition+"=  getGroupId "+ParentClickStatus);
-            ParentClickStatus=groupPosition;
-            if(ParentClickStatus==0)
-                ParentClickStatus=-1;
-
             return groupPosition;
         }
 
@@ -337,26 +418,5 @@ public class ConsultationOfrreFragment extends CallbackFragment {
         }
         return sbRetour.toString();
 
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        // Activities containing this fragment must implement its callbacks.
-        if (!(activity instanceof Callbacks)) {
-            throw new IllegalStateException(
-                    "Activity must implement fragment's callbacks.");
-        }
-
-        mCallbacks = (Callbacks) activity;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-        // Reset the active callbacks interface to the dummy implementation.
-        mCallbacks = sDummyCallbacks;
     }
 }
