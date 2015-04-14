@@ -41,6 +41,8 @@ public class CreationProfilFragment extends CallbackFragment {
     View rootview;
 
     DatePickerDialog datePickerDialog;
+    Toolbar toolbar;
+    private Callbacks mCallbacks = sDummyCallbacks;
 
     // Variables representant les composants de l'ui
     private EditText pseudo;
@@ -65,8 +67,7 @@ public class CreationProfilFragment extends CallbackFragment {
     private int month;
     private int day;
     static final int DATE_PICKER_ID = 1111;
-    Toolbar toolbar;
-    private Callbacks mCallbacks = sDummyCallbacks;
+
 
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
@@ -217,6 +218,22 @@ public class CreationProfilFragment extends CallbackFragment {
             }
         });
 
+        pseudo.setOnFocusChangeListener( new View.OnFocusChangeListener() {
+
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                   if (!hasFocus && pseudo.getText().length()>0) {
+
+                       if (pseudo.length()<5)
+
+                           pseudo.setError("Pseudo trop court!! Min 5 carateres");
+                        else
+                           pseudo.setError(null);
+                   }
+           }
+         });
+
+
         /**
          * Controle sur l'age de l'utilisateur min 18 ans
          */
@@ -294,6 +311,12 @@ public class CreationProfilFragment extends CallbackFragment {
         if (TextUtils.isEmpty(strPseudo))
         {
             pseudo.setError("Champ Obligatoire");
+            saisieValide = false;
+            focusView = pseudo;
+        }
+        if (strPseudo.length()<5)
+        {
+            pseudo.setError("Pseudo trop court!! Min 5 carateres");
             saisieValide = false;
             focusView = pseudo;
         }
