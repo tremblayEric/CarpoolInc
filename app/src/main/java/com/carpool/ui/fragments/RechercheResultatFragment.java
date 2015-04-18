@@ -105,7 +105,7 @@ public class RechercheResultatFragment extends Fragment {
         String waypoints = "origin=" + DEPART.latitude + "," + DEPART.longitude
                 + "&destination=" + ARRIVEE.latitude + "," + ARRIVEE.longitude + "&waypoints=optimize:true|"
                 + DEPART.latitude + "," + DEPART.longitude
-                + "|" + "|" + ARRIVEE.latitude + ","
+                + "|" + ARRIVEE.latitude + ","
                 + ARRIVEE.longitude;
 
         String sensor = "sensor=false";

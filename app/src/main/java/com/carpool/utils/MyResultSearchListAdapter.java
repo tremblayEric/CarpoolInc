@@ -239,7 +239,7 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
                     }
                 }
             });
-            RechercheResultatActivity.offreSelectionne = listOffers.get(groupPosition);
+            //RechercheResultatActivity.offreSelectionne = listOffers.get(groupPosition);
             //RechercheResultatFragment.getMapsApiDirectionsUrl();
         }
         catch (Exception ex) {
