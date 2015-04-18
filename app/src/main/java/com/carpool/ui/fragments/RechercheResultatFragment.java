@@ -45,6 +45,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class RechercheResultatFragment extends Fragment {
@@ -55,8 +56,6 @@ public class RechercheResultatFragment extends Fragment {
     View result;
     int position_;
 
-    private static  LatLng DEPART = new LatLng(40.722543,-73.998585);
-    private static  LatLng ARRIVEE = new LatLng(40.7064, -74.0094);
 
     public static RechercheResultatFragment newInstance(int position) {
         RechercheResultatFragment frag = new RechercheResultatFragment();
@@ -100,13 +99,13 @@ public class RechercheResultatFragment extends Fragment {
         return null;
     }
 
-    public static String getMapsApiDirectionsUrl() {
+    public static String getMapsApiDirectionsUrl(LatLng depart, LatLng arrivee) {
         //remplacer les param en dure par ceux de la liste de l'autre onglet
-        String waypoints = "origin=" + DEPART.latitude + "," + DEPART.longitude
-                + "&destination=" + ARRIVEE.latitude + "," + ARRIVEE.longitude + "&waypoints=optimize:true|"
-                + DEPART.latitude + "," + DEPART.longitude
-                + "|" + ARRIVEE.latitude + ","
-                + ARRIVEE.longitude;
+        String waypoints = "origin=" + depart.latitude + "," + depart.longitude
+                + "&destination=" + arrivee.latitude + "," + arrivee.longitude + "&waypoints=optimize:true|"
+                + depart.latitude + "," + depart.longitude
+                + "|" + arrivee.latitude + ","
+                + arrivee.longitude;
 
         String sensor = "sensor=false";
         String params = waypoints + "&" + sensor;
@@ -116,33 +115,11 @@ public class RechercheResultatFragment extends Fragment {
         return url;
     }
 
-    private static void getTrajetAAfficher(){
-
-        if(RechercheResultatActivity.offreSelectionne != null){
-            Offre o =  RechercheResultatActivity.offreSelectionne;
-            Position positionDepart = o.getTrajet().getPositionDepart();
-            Position positionArrivee = o.getTrajet().getPositionArrive();
-
-            DEPART = new LatLng(positionDepart.getLatitude(),
-                    positionDepart.getLongitude());
-            ARRIVEE = new LatLng(positionArrivee.getLatitude(), positionArrivee.getLongitude());
-        }
-    }
-
-    private void addMarkers() {
+    private void addMarkers(LatLng depart, LatLng arrivee) {
         if (map != null) {
-            map.addMarker(new MarkerOptions().position(DEPART)
+            map.addMarker(new MarkerOptions().position(depart)
                     .title("Second Point"));
-            map.addMarker(new MarkerOptions().position(ARRIVEE)
-                    .title("Third Point"));
-        }
-    }
-
-    private static void addMarkers(GoogleMap map) {
-        if (map != null) {
-            map.addMarker(new MarkerOptions().position(DEPART)
-                    .title("Second Point"));
-            map.addMarker(new MarkerOptions().position(ARRIVEE)
+            map.addMarker(new MarkerOptions().position(arrivee)
                     .title("Third Point"));
         }
     }
@@ -283,6 +260,39 @@ public class RechercheResultatFragment extends Fragment {
         }
     }
 
+    public void tracerTrajets(){
+
+
+        List<Offre> listOffers = RechercheResultatActivity.listOffers;
+        Iterator<Offre> iterator = listOffers.iterator();
+        boolean flag = false;
+
+
+        while (iterator.hasNext()) {
+            Offre uneOffre = iterator.next();
+
+              LatLng depart = new LatLng(uneOffre.getTrajet().getPositionDepart().getLatitude(),
+                      uneOffre.getTrajet().getPositionDepart().getLongitude());
+              LatLng arrivee = new LatLng(uneOffre.getTrajet().getPositionArrive().getLatitude(),
+                      uneOffre.getTrajet().getPositionArrive().getLongitude());
+
+            MarkerOptions options = new MarkerOptions();
+            options.position(depart);
+            options.position(arrivee);
+            map.addMarker(options);
+            String url = getMapsApiDirectionsUrl(depart,arrivee);
+            ReadTask downloadTask = new ReadTask();
+            downloadTask.execute(url);
+            if(!flag){
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(depart,13));
+            }
+
+            addMarkers(depart, arrivee);
+        }
+
+
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -290,16 +300,7 @@ public class RechercheResultatFragment extends Fragment {
             case 1:
                 if (map == null) {
                 map = fragment.getMap();
-                    getTrajetAAfficher();
-                    MarkerOptions options = new MarkerOptions();
-                    options.position(DEPART);
-                    options.position(ARRIVEE);
-                    map.addMarker(options);
-                    String url = getMapsApiDirectionsUrl();
-                    ReadTask downloadTask = new ReadTask();
-                    downloadTask.execute(url);
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(DEPART,13));
-                    addMarkers();
+                tracerTrajets();
                 break;
             }
         }

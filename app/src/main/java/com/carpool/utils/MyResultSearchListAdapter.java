@@ -45,7 +45,7 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
 
     private Activity activity;
     private LayoutInflater inflater;
-    private List<Offre> listOffers;
+    public List<Offre> listOffers;
 
 
     public MyResultSearchListAdapter(Activity act, List<Offre> offers) {

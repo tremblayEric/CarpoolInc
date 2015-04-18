@@ -18,6 +18,7 @@ import com.carpool.ui.adapters.SampleAdapter;
 import com.carpool.ui.design.CallbackFragment;
 import com.carpool.ui.design.SlidingTabLayout;
 import com.carpool.ui.fragments.RechercheResultatFragment;
+import com.carpool.utils.MyResultSearchListAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -45,6 +46,7 @@ public class RechercheResultatActivity extends AccueilActivity implements
 
     public static ArrayList<String> listOffreId;
     public static Offre offreSelectionne;
+    public static List<Offre> listOffers;
     GoogleMap MAP;
 
     @Override
