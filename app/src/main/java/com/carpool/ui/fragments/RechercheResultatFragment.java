@@ -101,7 +101,6 @@ public class RechercheResultatFragment extends Fragment {
     }
 
     public static String getMapsApiDirectionsUrl() {
-
         //remplacer les param en dure par ceux de la liste de l'autre onglet
         String waypoints = "origin=" + DEPART.latitude + "," + DEPART.longitude
                 + "&destination=" + ARRIVEE.latitude + "," + ARRIVEE.longitude + "&waypoints=optimize:true|"
@@ -284,24 +283,6 @@ public class RechercheResultatFragment extends Fragment {
         }
     }
 
-    public void rafraichirCarte(GoogleMap map){
-
-        map = fragment.getMap();
-        // map.addMarker(new MarkerOptions().position(new LatLng(12, -12)));
-        getTrajetAAfficher();
-        MarkerOptions options = new MarkerOptions();
-        options.position(DEPART);
-        options.position(ARRIVEE);
-        map.addMarker(options);
-        String url = getMapsApiDirectionsUrl();
-        ReadTask downloadTask = new ReadTask();
-        downloadTask.execute(url);
-
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(DEPART,
-                13));
-        addMarkers(map);
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -319,7 +300,6 @@ public class RechercheResultatFragment extends Fragment {
                     downloadTask.execute(url);
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(DEPART,13));
                     addMarkers();
-
                 break;
             }
         }
