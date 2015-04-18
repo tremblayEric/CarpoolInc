@@ -31,7 +31,8 @@
                 android:layout_gravity="left"
                 android:textColor="@color/primary_green"
                 android:textStyle="bold"
-                android:text="Complet"/>
+                android:text="Complet"
+                android:visibility="invisible"/>
             <TextView
                 android:id="@+id/tvAlreadyBooked"
                 android:layout_width="wrap_content"
@@ -39,7 +40,8 @@
                 android:layout_gravity="right"
                 android:textColor="@color/primary_green"
                 android:textStyle="bold"
-                android:text="Déjà réservé"/>
+                android:text="Déjà réservé"
+                android:visibility="invisible"/>
         </FrameLayout>
 
         <LinearLayout

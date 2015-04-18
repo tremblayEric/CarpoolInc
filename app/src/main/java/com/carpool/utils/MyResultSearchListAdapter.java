@@ -19,7 +19,9 @@ import com.carpool.R;
 import com.carpool.model.Offre;
 import com.carpool.model.Position;
 import com.carpool.model.Reservation;
+import com.carpool.ui.activities.RechercheResultatActivity;
 import com.carpool.ui.fragments.WarningConnectionFragment;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -114,11 +116,27 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
                 holder.txtCompleted.setVisibility(View.VISIBLE);
             else
                 holder.txtCompleted.setVisibility(View.GONE);
-            // c'est faux
-            if(listOffers.get(groupPosition).getUser().fetchIfNeeded().getObjectId().equals(ParseUser.getCurrentUser().getObjectId()))
-                holder.txtAlreadyBooked.setVisibility(View.VISIBLE);
-            else
-                holder.txtAlreadyBooked.setVisibility(View.GONE);
+
+            // Savoir si l'offre a déjà été réservé par l'utilisateur en cours
+            if(ParseUser.getCurrentUser() != null){
+                ParseQuery<Reservation> query = ParseQuery.getQuery(Reservation.class);
+                query.whereEqualTo("offreSource", listOffers.get(groupPosition));
+                query.findInBackground(new FindCallback<Reservation>() {
+                    @Override
+                    public void done(List<Reservation> results, ParseException e) {
+                        boolean alreadyBooked = false;
+                        for (Reservation reservation : results) {
+                            if(reservation.getUserDemandeur().equals(ParseUser.getCurrentUser())){
+                                alreadyBooked = true;
+                                holder.txtAlreadyBooked.setVisibility(View.VISIBLE);
+                            }
+
+                        }
+                        if(!alreadyBooked)
+                            holder.txtAlreadyBooked.setVisibility(View.INVISIBLE);
+                    }
+                });
+            }
         }
         catch(Exception ex){
         }
@@ -129,6 +147,7 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final int postition = groupPosition;
+        final ViewGroup viewParent = parent;
         try {
             final ListOffersDetailsHolder holder;
             if (convertView == null) {
@@ -145,12 +164,30 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
             holder.txtHeureDepart.setText("Non spécifié");
             ParseUser user = listOffers.get(groupPosition).getUser().fetchIfNeeded();
             holder.txtNomConducteur.setText(user.get("firstname") + " " + user.get("lastname"));
-            // c faux
-            if(listOffers.get(groupPosition).getUser().fetchIfNeeded().getObjectId().equals(ParseUser.getCurrentUser().getObjectId()))
-                holder.btnReservation.setVisibility(View.VISIBLE);
-            else
-                holder.btnReservation.setVisibility(View.GONE);
 
+            // Savoir si l'offre a déjà été réservé par l'utilisateur en cours
+            if(ParseUser.getCurrentUser() != null) {
+                ParseQuery<Reservation> query = ParseQuery.getQuery(Reservation.class);
+                query.whereEqualTo("offreSource", listOffers.get(groupPosition));
+                query.findInBackground(new FindCallback<Reservation>() {
+                    @Override
+                    public void done(List<Reservation> results, ParseException e) {
+                        boolean alreadyBooked = false;
+                        for (Reservation reservation : results) {
+                            if (reservation.getUserDemandeur().equals(ParseUser.getCurrentUser())) {
+                                alreadyBooked = true;
+                                holder.btnReservation.setVisibility(View.INVISIBLE);
+                            }
+
+                        }
+                        if (!alreadyBooked)
+                            holder.btnReservation.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+            else{
+                holder.btnReservation.setVisibility(View.VISIBLE);
+            }
             holder.btnReservation.setOnClickListener(new View.OnClickListener() {
                 String offreId = listOffers.get(groupPosition).getObjectId();
                 @Override
@@ -179,8 +216,12 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
                         reservation.setOffreSource(listOffers.get(postition));
                         reservation.setUserDemandeur(ParseUser.getCurrentUser());
                         reservation.saveInBackground();
-                        holder.txtPlaceDispo.setText(Integer.toString(listOffers.get(groupPosition).getReservationCount() - 1));
+                        Integer newCountReservation = listOffers.get(groupPosition).getReservationCount() - 1;
+                        holder.txtPlaceDispo.setText(Integer.toString(newCountReservation));
                         holder.btnReservation.setVisibility(View.INVISIBLE);
+                        ((TextView)viewParent.findViewById(R.id.tvAlreadyBooked)).setVisibility(View.VISIBLE);
+                        if(newCountReservation == 0)
+                            ((TextView)viewParent.findViewById(R.id.tvCompleted)).setVisibility(View.VISIBLE);
                         Toast.makeText(activity, "Réservation effectuée",
                                 Toast.LENGTH_SHORT).show();
 
