@@ -73,8 +73,8 @@ public class ReservationFragment extends Fragment {
         switch (position)
         {
             case 0: return String.format("EN COURS");
-            case 1: return String.format("ACCEPTEE");
-            case 2: return String.format("ANNULEE");
+            case 1: return String.format("HISTORIQUE");
+
         }
         // gerer la position
         return ""; //(String.format("position at %d", position + 1));
@@ -96,12 +96,10 @@ public class ReservationFragment extends Fragment {
                 return (result);
 
             case 1:
-                result = inflater.inflate(R.layout._reservation_acceptee_layout, null);
+                result = inflater.inflate(R.layout.historique_reservation_layout, null);
 
                 return (result);
-            case 2:
-                result = inflater.inflate(R.layout._reservation_annulee_layout, null);
-                return result;
+
         }
         return null;
     }
