@@ -5,13 +5,25 @@
     android:background="@color/bg_activite"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_activite">
+
+     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/titre_modif_profil"
         android:gravity="center"
         android:textSize="20dp"
-
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_marginStart="32dp"
@@ -20,19 +32,12 @@
         />
 
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="5dip"
             android:id="@+id/lineSeparator"
             android:src="@drawable/line"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:background="@color/material_deep_teal_500"
             />
         <LinearLayout
@@ -275,5 +280,5 @@
         />
 
     </LinearLayout>
-
+</ScrollView>
 </RelativeLayout>
