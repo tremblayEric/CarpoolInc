@@ -475,8 +475,8 @@ public class CreationProfilFragment extends CallbackFragment {
                     // Sign up didn't succeed. Look at the ParseException
                     // to figure out what went wrong
                     System.out.println("Exception signUpInBackground is not null  "+e);
-                    compteCree.setError(e.getMessage().toString());
-                    //compteCree.setText("Pseudo ou email déjà utilisé");
+                   // compteCree.setError(e.getMessage().toString());
+                    compteCree.setText("Pseudo ou email déjà utilisé");
 
                 }
             }
