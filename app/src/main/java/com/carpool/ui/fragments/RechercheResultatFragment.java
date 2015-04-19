@@ -119,7 +119,7 @@ public class RechercheResultatFragment extends Fragment {
     private void addMarkers(Offre offre,LatLng depart, LatLng arrivee) {
         if (map != null) {
             map.addMarker(new MarkerOptions().position(depart)
-                    .title("Offert par : " + offre.getUser().getUsername() + " " + offre.getUser().getEmail()).snippet(
+                    .title("Offert par : " + offre.getUser().getUsername() + " courriel: " + offre.getUser().getEmail()).snippet(
                             "Départ entre :" + offre.getHeureDebut() + "\n" +
                             "et : " + offre.getHeureFin()));
             map.addMarker(new MarkerOptions().position(arrivee)
