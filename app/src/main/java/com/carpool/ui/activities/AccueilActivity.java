@@ -177,6 +177,9 @@ public abstract class AccueilActivity extends ActionBarActivity implements
     private ActionBarDrawerToggle mDrawerToggle;
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

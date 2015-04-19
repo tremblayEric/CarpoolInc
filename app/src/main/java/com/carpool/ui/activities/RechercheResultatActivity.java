@@ -3,26 +3,53 @@ package com.carpool.ui.activities;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.carpool.R;
+import com.carpool.model.Offre;
+import com.carpool.model.Position;
 import com.carpool.ui.adapters.SampleAdapter;
 import com.carpool.ui.design.CallbackFragment;
 import com.carpool.ui.design.SlidingTabLayout;
+import com.carpool.ui.fragments.RechercheResultatFragment;
+import com.carpool.utils.MyResultSearchListAdapter;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class RechercheResultatActivity extends AccueilActivity implements
         CallbackFragment.Callbacks  {
 
 
     public static ArrayList<String> listOffreId;
+    public static Offre offreSelectionne;
+    GoogleMap MAP;
 
     @Override
     public void onItemSelected(long id) {
-
     }
 
     @Override
@@ -41,11 +68,11 @@ public class RechercheResultatActivity extends AccueilActivity implements
         mSlidingTabLayout.setSelectedIndicatorColors(Color.WHITE);//res.getColor(Color.WHITE));
         mSlidingTabLayout.setDistributeEvenly(true);
         mSlidingTabLayout.setViewPager(mViewPager);
-
         Intent myIntent = getIntent();
         Bundle bundleOffre = myIntent.getExtras();
         listOffreId = bundleOffre.getStringArrayList("offres");
     }
+
 
     private PagerAdapter buildAdapter() {
         return(new SampleAdapter(this, getSupportFragmentManager()));

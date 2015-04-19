@@ -80,6 +80,8 @@ public class RechercheFragment extends CallbackFragment {
         rootview = inflater.inflate(R.layout.recherche_layout,container,false);
         listView = (ExpandableListView) rootview.findViewById(R.id.lvResultSearch);
 
+
+
         autoCompViewFrom = (AutoCompleteTextView) rootview.findViewById(R.id.etDepart);
 
 

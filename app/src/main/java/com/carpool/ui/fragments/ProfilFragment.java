@@ -113,6 +113,7 @@ public class ProfilFragment extends CallbackFragment {
         Button camera = (Button)rootview.findViewById(R.id.indic_camera);
         camera.setTypeface(font);
 
+
         FloatingActionButton fab = (FloatingActionButton)rootview.findViewById(R.id.fabButton);
         fab.setDrawableIcon(getResources().getDrawable(R.drawable.plus));
         fab.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_500));

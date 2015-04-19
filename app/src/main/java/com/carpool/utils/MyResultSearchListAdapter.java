@@ -20,6 +20,9 @@ import com.carpool.model.Offre;
 import com.carpool.model.Position;
 import com.carpool.model.Reservation;
 import com.carpool.ui.activities.RechercheResultatActivity;
+
+import com.carpool.ui.fragments.RechercheResultatFragment;
+
 import com.carpool.ui.fragments.WarningConnectionFragment;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -44,7 +47,8 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
 
     private Activity activity;
     private LayoutInflater inflater;
-    private List<Offre> listOffers;
+    public List<Offre> listOffers;
+
 
     public MyResultSearchListAdapter(Activity act, List<Offre> offers) {
         activity = act;
@@ -119,6 +123,12 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
             else
                 holder.txtCompleted.setVisibility(View.GONE);
 
+            // c'est faux
+            if(listOffers.get(groupPosition).getUser().fetchIfNeeded().getObjectId().equals(ParseUser.getCurrentUser().getObjectId()))
+                holder.txtAlreadyBooked.setVisibility(View.VISIBLE);
+            else
+                holder.txtAlreadyBooked.setVisibility(View.GONE);
+
             // Savoir si l'offre a déjà été réservé par l'utilisateur en cours
             if(ParseUser.getCurrentUser() != null){
                 ParseQuery<Reservation> query = ParseQuery.getQuery(Reservation.class);
@@ -151,6 +161,7 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
         final int postition = groupPosition;
         final ViewGroup viewParent = parent;
         try {
+            RechercheResultatActivity.offreSelectionne = listOffers.get(groupPosition);
             final ListOffersDetailsHolder holder;
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.listrow_search_offer_detail, null);
@@ -244,7 +255,8 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
                     }
                 }
             });
-
+            //RechercheResultatActivity.offreSelectionne = listOffers.get(groupPosition);
+            //RechercheResultatFragment.getMapsApiDirectionsUrl();
         }
         catch (Exception ex) {
         }
