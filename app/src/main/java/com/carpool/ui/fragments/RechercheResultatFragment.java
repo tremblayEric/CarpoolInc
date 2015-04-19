@@ -118,9 +118,9 @@ public class RechercheResultatFragment extends Fragment {
     private void addMarkers(LatLng depart, LatLng arrivee) {
         if (map != null) {
             map.addMarker(new MarkerOptions().position(depart)
-                    .title("Second Point"));
+                    .title(depart.toString()));
             map.addMarker(new MarkerOptions().position(arrivee)
-                    .title("Third Point"));
+                    .title(arrivee.toString()));
         }
     }
 
@@ -262,7 +262,6 @@ public class RechercheResultatFragment extends Fragment {
     }
 
     public void tracerTrajets(){
-
 
         ParseQuery.getQuery(Offre.class)
                 .fromLocalDatastore()
