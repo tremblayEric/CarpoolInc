@@ -26,6 +26,8 @@ import android.widget.TextView;
 
 import com.carpool.R;
 import com.carpool.model.User;
+import com.carpool.ui.activities.AccueilActivity;
+import com.carpool.ui.activities.ProfilLoginActivity;
 import com.carpool.ui.activities.RechercheActivity;
 import com.carpool.ui.design.CallbackFragment;
 import com.parse.ParseInstallation;
@@ -38,6 +40,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.IOException;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import android.graphics.Bitmap.CompressFormat;
+import com.parse.*;
 
 public class CreationProfilFragment extends CallbackFragment {
 
@@ -356,6 +369,12 @@ public class CreationProfilFragment extends CallbackFragment {
             focusView = mail;
         }
 
+        if (!isValidEmailAddress(strMail))
+        {
+            mail.setError("email invalide");
+            saisieValide = false;
+            focusView = mail;
+        }
         System.out.println(" saisievalide = "+saisieValide);
 
         if(!saisieValide)
@@ -416,8 +435,22 @@ public class CreationProfilFragment extends CallbackFragment {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         us.setBirthday(sdf.parse(birthDay));
         us.setGender(User.UserGender.valueOf(gender));
+
+        /*
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.unnamed);
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(CompressFormat.PNG, 0 , bos);
+        byte[] bitmapdata = bos.toByteArray();
+        ParseFile file = new ParseFile("profilDefault.png", bitmapdata);
+
+        //us.setImageFile(file);
+        us.put("imageFile", file);*/
+
         us.saveInBackground();
+
         System.out.println("Fin saveinBackground");
+
 
         us.signUpInBackground(new SignUpCallback() {
             public void done(com.parse.ParseException e) {
@@ -443,7 +476,7 @@ public class CreationProfilFragment extends CallbackFragment {
                     // to figure out what went wrong
                     System.out.println("Exception signUpInBackground is not null  "+e);
                     compteCree.setError(e.getMessage().toString());
-                    compteCree.setText("Pseudo ou email déjà utilisé");
+                    //compteCree.setText("Pseudo ou email déjà utilisé");
 
                 }
             }

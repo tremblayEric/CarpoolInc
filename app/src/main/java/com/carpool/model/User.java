@@ -1,6 +1,7 @@
 package com.carpool.model;
 
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 import java.io.Serializable;
 import java.util.Date;
@@ -50,5 +51,5 @@ public class User extends ParseUser implements Serializable {
         put("gender", gender.toString());
     }
 
-    public void setImageFile (File imageFile){ put ("imageFile", imageFile); }
+    public void setImageFile (ParseFile imageFile){ put ("imageFile", imageFile); }
 }
