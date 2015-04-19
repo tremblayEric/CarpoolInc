@@ -59,6 +59,8 @@
                     app:border_width="2dp"
                     app:border_color="@color/dark"
                     android:layout_marginTop="30dp"
+                    android:id = "@+id/imageView1"
+
                 />
 
                 <LinearLayout

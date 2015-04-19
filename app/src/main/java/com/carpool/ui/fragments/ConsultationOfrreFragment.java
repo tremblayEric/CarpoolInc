@@ -156,7 +156,15 @@ public class ConsultationOfrreFragment extends CallbackFragment {
         public View getGroupView(int groupPosition, boolean isExpanded,
                                  View convertView, ViewGroup parentView)
         {
-
+            // - Si on clique sur une notification, expand l'offre en question et scroll à la position de l'offre
+            if(listeReservationsOffre != null &&
+                    listeReservationsOffre.get(listeOffres.get(groupPosition).getObjectId()) != null &&
+                    listeReservationsOffre.get(listeOffres.get(groupPosition).getObjectId()).size()> 0) {
+                if(getArguments().get("offreIdNotifie") != null && getArguments().get("offreIdNotifie").toString().equals(listeOffres.get(groupPosition).getObjectId().toString())){
+                    lv.expandGroup(groupPosition);
+                    lv.smoothScrollToPosition(groupPosition);
+                }
+            }
             final Offre offre = listeOffres.get(groupPosition);
             final  View convertViewLocale = inflater.inflate(R.layout.liste_offres, parentView, false);
             try {

@@ -1,17 +1,12 @@
 package com.carpool.ui.activities;
 
 import android.os.Bundle;
-
 import com.carpool.R;
 import com.carpool.ui.design.CallbackFragment;
 import com.carpool.ui.fragments.RechercheFragment;
 
-/**
- * Created by sachin on 17/1/15.
- */
 public class RechercheActivity extends AccueilActivity implements
         CallbackFragment.Callbacks {
-
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -24,9 +19,7 @@ public class RechercheActivity extends AccueilActivity implements
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.session_fragment, of).commit();
-
     }
-
 
     @Override
     protected int getLayoutResource() {

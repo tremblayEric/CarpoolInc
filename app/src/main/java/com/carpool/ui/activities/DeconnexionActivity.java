@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.carpool.R;
 import com.carpool.ui.design.CallbackFragment;
+import com.parse.ParsePush;
 import com.parse.ParseUser;
 
 /**
@@ -27,6 +28,9 @@ public class DeconnexionActivity extends AccueilActivity implements
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser.isAuthenticated()) {
             ParseUser.logOut();
+
+            //Unsuscribe user
+            ParsePush.unsubscribeInBackground("Offre");
 
             currentUser= ParseUser.getCurrentUser();
             if(currentUser == null)

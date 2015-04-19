@@ -20,12 +20,20 @@ import com.carpool.model.Offre;
 import com.carpool.model.Position;
 import com.carpool.model.Reservation;
 import com.carpool.ui.activities.RechercheResultatActivity;
+
+import com.carpool.ui.fragments.RechercheResultatFragment;
+
 import com.carpool.ui.fragments.WarningConnectionFragment;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -42,7 +50,8 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
 
     private Activity activity;
     private LayoutInflater inflater;
-    private List<Offre> listOffers;
+    public List<Offre> listOffers;
+
 
     public MyResultSearchListAdapter(Activity act, List<Offre> offers) {
         activity = act;
@@ -117,6 +126,12 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
             else
                 holder.txtCompleted.setVisibility(View.GONE);
 
+            // c'est faux
+            if(listOffers.get(groupPosition).getUser().fetchIfNeeded().getObjectId().equals(ParseUser.getCurrentUser().getObjectId()))
+                holder.txtAlreadyBooked.setVisibility(View.VISIBLE);
+            else
+                holder.txtAlreadyBooked.setVisibility(View.GONE);
+
             // Savoir si l'offre a déjà été réservé par l'utilisateur en cours
             if(ParseUser.getCurrentUser() != null){
                 ParseQuery<Reservation> query = ParseQuery.getQuery(Reservation.class);
@@ -149,6 +164,7 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
         final int postition = groupPosition;
         final ViewGroup viewParent = parent;
         try {
+            RechercheResultatActivity.offreSelectionne = listOffers.get(groupPosition);
             final ListOffersDetailsHolder holder;
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.listrow_search_offer_detail, null);
@@ -225,10 +241,31 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
                         Toast.makeText(activity, "Réservation effectuée",
                                 Toast.LENGTH_SHORT).show();
 
+                        // Envoyer un push notification à l'utilisateur qui a posté l'offre
+                        ParsePush parsePush = new ParsePush();
+                        ParseQuery pQuery = ParseInstallation.getQuery();
+                        try {
+                            pQuery.whereEqualTo("channels", "Offre");
+                            pQuery.whereEqualTo("user", listOffers.get(postition).getUser().fetchIfNeeded());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        parsePush.setQuery(pQuery);
+                        JSONObject data = new JSONObject();
+                        try {
+                            data.put("alert", ParseUser.getCurrentUser().getUsername() + " a réservé votre offre");
+                            data.put("offreId", listOffers.get(postition).getObjectId());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        parsePush.setData(data);
+                        parsePush.sendInBackground();
+
                     }
                 }
             });
-
+            //RechercheResultatActivity.offreSelectionne = listOffers.get(groupPosition);
+            //RechercheResultatFragment.getMapsApiDirectionsUrl();
         }
         catch (Exception ex) {
         }
