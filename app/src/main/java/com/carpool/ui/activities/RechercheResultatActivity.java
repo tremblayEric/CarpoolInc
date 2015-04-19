@@ -46,7 +46,6 @@ public class RechercheResultatActivity extends AccueilActivity implements
 
     public static ArrayList<String> listOffreId;
     public static Offre offreSelectionne;
-    public static List<Offre> listOffers;
     GoogleMap MAP;
 
     @Override

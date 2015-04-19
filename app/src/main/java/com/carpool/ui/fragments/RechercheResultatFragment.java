@@ -210,10 +210,11 @@ public class RechercheResultatFragment extends Fragment {
                                 .findInBackground(new FindCallback<Offre>() {
                                     @Override
                                     public void done(List<Offre> offres, ParseException e) {
-                                        if (offres != null)
-                                            Log.d("Activity1Fragment",String.valueOf(offres.size()));
-                                        else
-                                            Log.d("Activity1Fragment","liste vide");
+                                        if (offres != null) {
+                                            Log.d("Activity1Fragment", String.valueOf(offres.size()));
+                                        }else{
+                                            Log.d("Activity1Fragment", "liste vide");
+                                        }
 
                                         MyResultSearchListAdapter adapter = new MyResultSearchListAdapter(getActivity(), offres);
                                         listView.setAdapter(adapter);
@@ -223,7 +224,7 @@ public class RechercheResultatFragment extends Fragment {
                 break;
 
             case 1: // vue carte
-                    int o = 0;
+
                 break;
         }
 
@@ -263,32 +264,47 @@ public class RechercheResultatFragment extends Fragment {
     public void tracerTrajets(){
 
 
-        List<Offre> listOffers = RechercheResultatActivity.listOffers;
-        Iterator<Offre> iterator = listOffers.iterator();
-        boolean flag = false;
+        ParseQuery.getQuery(Offre.class)
+                .fromLocalDatastore()
+                .whereContainedIn("objectId", RechercheResultatActivity.listOffreId)
+                .findInBackground(new FindCallback<Offre>() {
+                    @Override
+                    public void done(List<Offre> offres, ParseException e) {
+                        if (offres != null) {
+                                map = fragment.getMap();
+                                if(offres != null) {
 
+                                    Iterator<Offre> iterator = offres.iterator();
+                                    boolean flag = false;
 
-        while (iterator.hasNext()) {
-            Offre uneOffre = iterator.next();
+                                    while (iterator.hasNext()) {
+                                        Offre uneOffre = iterator.next();
 
-              LatLng depart = new LatLng(uneOffre.getTrajet().getPositionDepart().getLatitude(),
-                      uneOffre.getTrajet().getPositionDepart().getLongitude());
-              LatLng arrivee = new LatLng(uneOffre.getTrajet().getPositionArrive().getLatitude(),
-                      uneOffre.getTrajet().getPositionArrive().getLongitude());
+                                        LatLng depart = new LatLng(uneOffre.getTrajet().getPositionDepart().getLatitude(),
+                                                uneOffre.getTrajet().getPositionDepart().getLongitude());
+                                        LatLng arrivee = new LatLng(uneOffre.getTrajet().getPositionArrive().getLatitude(),
+                                                uneOffre.getTrajet().getPositionArrive().getLongitude());
 
-            MarkerOptions options = new MarkerOptions();
-            options.position(depart);
-            options.position(arrivee);
-            map.addMarker(options);
-            String url = getMapsApiDirectionsUrl(depart,arrivee);
-            ReadTask downloadTask = new ReadTask();
-            downloadTask.execute(url);
-            if(!flag){
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(depart,13));
-            }
+                                        MarkerOptions options = new MarkerOptions();
+                                        options.position(depart);
+                                        options.position(arrivee);
+                                        map.addMarker(options);
+                                        String url = getMapsApiDirectionsUrl(depart, arrivee);
+                                        ReadTask downloadTask = new ReadTask();
+                                        downloadTask.execute(url);
+                                        if (!flag) {
+                                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(depart, 13));
+                                        }
+                                        addMarkers(depart, arrivee);
+                                    }
+                                }
 
-            addMarkers(depart, arrivee);
-        }
+                            Log.d("Activity1Fragment", String.valueOf(offres.size()));
+                        }else{
+                            Log.d("Activity1Fragment", "liste vide");
+                        }
+                    }
+                });
 
 
     }
@@ -298,11 +314,12 @@ public class RechercheResultatFragment extends Fragment {
         super.onResume();
         switch(position_) {
             case 1:
-                if (map == null) {
-                map = fragment.getMap();
-                tracerTrajets();
+                if (fragment != null && map == null) {
+                    map = fragment.getMap();
+                    tracerTrajets();
+                }
                 break;
-            }
+
         }
     }
 
