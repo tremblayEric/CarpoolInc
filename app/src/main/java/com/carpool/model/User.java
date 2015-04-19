@@ -4,7 +4,7 @@ import com.parse.ParseClassName;
 import com.parse.ParseUser;
 import java.io.Serializable;
 import java.util.Date;
-
+import java.io.File;
 /***
  * Classe représentant le concept d'utilisateur (un utilisateur est une personne qui s'est créée
  * un compte en fournissant des informations personnelles.
@@ -49,4 +49,6 @@ public class User extends ParseUser implements Serializable {
     public void setGender(UserGender gender) {
         put("gender", gender.toString());
     }
+
+    public void setImageFile (File imageFile){ put ("imageFile", imageFile); }
 }

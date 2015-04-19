@@ -19,15 +19,42 @@ import com.carpool.ui.activities.ProfilLoginActivity;
 import com.carpool.ui.design.CallbackFragment;
 import com.parse.ParseUser;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 import com.carpool.utils.*;
+import android.provider.MediaStore;
+import android.graphics.Bitmap;
+import android.hardware.Camera;
+import android.hardware.Camera.Size;
+import android.util.AttributeSet;
+import android.view.SurfaceHolder;
+import java.io.IOException;
+import android.view.SurfaceView;
+import java.util.List;
+import android.widget.Toast;
+
+import android.content.pm.PackageManager;
+import android.widget.ImageView;
+import com.parse.ParseFile;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+
+import android.net.Uri;
+import android.os.Environment;
+import java.io.FileOutputStream;
+import android.graphics.Bitmap;
+import com.parse.*;
+import java.text.ParseException;
+import android.graphics.BitmapFactory;
+
 /**
  * classe qui permet de recuperer les informations de l'utilisateur qui se connecte dans la DB et
  * qui les affiche sur le profil de l'utilisateur
  */
-public class ProfilFragment extends CallbackFragment {
+public class ProfilFragment extends CallbackFragment {//implements SurfaceHolder.Callback  {
 
     View rootview;
 
@@ -39,7 +66,17 @@ public class ProfilFragment extends CallbackFragment {
     TextView TextViewsexe;
     TextView TextViewcourriel;
     UserSignOutTask mDeconnexionTask;
+    ImageView imagePhoto;
 
+    // gestion de la camera
+    private static final int CAMERA_PIC_REQUEST = 001;
+    String mCurrentPhotoPath;
+
+
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_TAKE_PHOTO = 1;
+    Bitmap thumbnail;
 
     /**
      * The fragment's current callback object.
@@ -63,7 +100,7 @@ public class ProfilFragment extends CallbackFragment {
         Typeface font = Typeface.createFromAsset( getActivity().getAssets(),
                 "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
 
-        ParseUser currentUser = ParseUser.getCurrentUser();
+        final ParseUser currentUser = ParseUser.getCurrentUser();
         int age = 0;
 
         if (currentUser != null) {
@@ -73,6 +110,7 @@ public class ProfilFragment extends CallbackFragment {
             TextViewsexe = (TextView) rootview.findViewById(R.id.txt_sexe_userProfil);
             TextviewNom = (TextView) rootview.findViewById(R.id.txt_nom_userProfil);
             TextViewPrenom = (TextView) rootview.findViewById(R.id.txt_prenom_userProfil);
+            imagePhoto = (ImageView)rootview.findViewById(R.id.imageView1);
             //TextViewPseudo = (TextView) rootview.findViewById(R.id.txt_pseudo_userProfil);
 
             Date date_naiss = currentUser.getDate("birthday");
@@ -96,7 +134,37 @@ public class ProfilFragment extends CallbackFragment {
 
             age = calculAge(date_n);
 
-        } else {
+            // telecharger l'image et la mettre dans le circleView
+
+
+                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+                        "_User");
+
+                query.getInBackground(currentUser.getObjectId(),
+                        new GetCallback<ParseObject>() {
+                            @Override
+                            public void done(ParseObject object, com.parse.ParseException e) {
+                                ParseFile fileObject = (ParseFile) object.get("imageFile");
+                                fileObject.getDataInBackground(new GetDataCallback() {
+
+                                    @Override
+                                    public void done(byte[] data, com.parse.ParseException e) {
+                                        if (e == null) {
+                                            Log.d("test", "We've got data in data.");
+                                            // Decode the Byte[] into, Bitmap
+                                            Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                            // Set the Bitmap into the, ImageView
+                                            imagePhoto.setImageBitmap(bmp);
+                                        } else {
+                                            Log.d("test", "There was a problem downloading the data.");
+                                        }
+                                    }
+                                });
+                            }
+                        });
+
+
+    } else {
             Log.d("faux", "un utilisateur na pas ete trouve");
         }
 
@@ -110,8 +178,30 @@ public class ProfilFragment extends CallbackFragment {
         indic_age.setText(age+" ans");
 
         // camera
-        Button camera = (Button)rootview.findViewById(R.id.indic_camera);
-        camera.setTypeface(font);
+        Button cameraButton = (Button)rootview.findViewById(R.id.indic_camera);
+        cameraButton.setTypeface(font);
+
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {   File photoFile = null;
+
+
+                if (testPresenceCamera()) {
+                   Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                   startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
+
+                    // enregistrement de l'image dans parse
+
+                   // Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+                          //  R.drawable.androidbegin);
+                    // Convert it to byte
+
+
+                }
+
+            }
+        });
 
 
         FloatingActionButton fab = (FloatingActionButton)rootview.findViewById(R.id.fabButton);
@@ -134,6 +224,130 @@ public class ProfilFragment extends CallbackFragment {
         return rootview;
 
     }
+
+
+    private boolean testPresenceCamera() {
+        PackageManager packageManager = getActivity().getPackageManager();
+        return packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_PIC_REQUEST) {
+            thumbnail = (Bitmap) data.getExtras().get("data");
+            //File fichierImage =
+
+            //sauvegarder le fichier
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            // Compress image to lower quality scale 1 - 100
+            thumbnail.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] image = stream.toByteArray();
+
+            // Create the ParseFile
+            ParseFile file = new ParseFile("profilPhoto.png", image);
+            // Upload the image into Parse Cloud
+            //file.saveInBackground();
+            ParseUser currentUser = ParseUser.getCurrentUser();
+            currentUser.put("imageFile",file);
+            currentUser.saveInBackground();
+
+              // afficher l'image dans la view
+            imagePhoto.setImageBitmap(thumbnail);
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
+    }
+
+    /*@Override
+    public void surfaceCreated(SurfaceHolder holder) {
+
+        camera = Camera.open();
+        try {
+            camera.setPreviewDisplay(holder);
+        } catch (IOException exception) {
+            camera.release();
+            camera = null;
+        }
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
+        Camera.Parameters parameters = camera.getParameters();
+
+        List<Size> sizes = parameters.getSupportedPreviewSizes();
+        Size optimalSize = getOptimalPreviewSize(sizes, w, h);
+        parameters.setPreviewSize(optimalSize.width, optimalSize.height);
+
+        camera.setParameters(parameters);
+
+        // let render
+        camera.startPreview();
+       // camera.setPreviewCallback(frameCallback);
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        camera.stopPreview();
+        camera.release();
+        camera = null;
+    }*/
+
+    private Size getOptimalPreviewSize(List<Size> sizes, int w, int h) {
+
+        // requirement
+        final double ASPECT_TOLERANCE = 0.05;
+
+        double targetRatio = (double) w / h;
+        if (sizes == null) {
+            return null;
+        }
+
+        Size optimalSize = null;
+        double minDiff = Double.MAX_VALUE;
+
+        int targetHeight = h;
+
+        // find a size that match aspect ratio and size
+        for (Size size : sizes) {
+            double ratio = (double) size.width / size.height;
+            if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE)
+                continue;
+            if (Math.abs(size.height - targetHeight) < minDiff) {
+                optimalSize = size;
+                minDiff = Math.abs(size.height - targetHeight);
+            }
+        }
+
+        // it's not possible
+        // ignore the requirement
+        if (optimalSize == null) {
+            minDiff = Double.MAX_VALUE;
+            for (Size size : sizes) {
+                if (Math.abs(size.height - targetHeight) < minDiff) {
+                    optimalSize = size;
+                    minDiff = Math.abs(size.height - targetHeight);
+                }
+            }
+        }
+
+        return optimalSize;
+    }
+
 
 
     public class UserSignOutTask extends AsyncTask<Void, Void, Boolean> {
@@ -193,9 +407,18 @@ public class ProfilFragment extends CallbackFragment {
             throw new IllegalStateException(
                     "Activity must implement fragment's callbacks.");
         }
-
         mCallbacks = (Callbacks) activity;
     }
+
+    /* @Override
+   public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            mImageView.setImageBitmap(imageBitmap);
+        }
+    }*/
 
     @Override
     public void onDetach() {
@@ -212,4 +435,8 @@ public class ProfilFragment extends CallbackFragment {
         int current_year = cal.get(Calendar.YEAR);
         return current_year - year;
     }
+
+
+
+
 }
