@@ -70,8 +70,11 @@ public class LoginFragment extends CallbackFragment {
         texte = (TextView)rootview.findViewById(R.id.error_connection);
 
         mUsername = (AutoCompleteTextView) rootview.findViewById(R.id.username);
+
         mPasswordView = (EditText) rootview.findViewById(R.id.password);
         Button mEmailSignInButton = (Button) rootview.findViewById(R.id.email_sign_in_button);
+
+
 
         /**
          * mise en forme du bouton de connexion avec des icones fontAwesome
@@ -91,11 +94,13 @@ public class LoginFragment extends CallbackFragment {
          *
          * on clique sur le bouton de creation du profil pour pouvoir creer le profil
          */
-        TextView icone_pseudo = (TextView)rootview.findViewById(R.id.icone_pseudo);
-        icone_pseudo.setTypeface(font);
+        //TextView icone_pseudo = (TextView)rootview.findViewById(R.id.icone_pseudo);
+       // icone_pseudo.setTypeface(font);
+        mUsername.setTypeface(font);
+        mPasswordView.setTypeface(font);
 
-        TextView icone_psswd = (TextView)rootview.findViewById(R.id.icone_psswd);
-        icone_psswd.setTypeface(font);
+        //TextView icone_psswd = (TextView)rootview.findViewById(R.id.icone_psswd);
+       // icone_psswd.setTypeface(font);
 
         Button registerButton = (Button) rootview.findViewById(R.id.register);
         registerButton.setOnClickListener(new OnClickListener() {

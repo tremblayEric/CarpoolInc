@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.carpool.R;
 import com.carpool.model.Offre;
@@ -90,6 +91,9 @@ public class ConsultationOfrreFragment extends CallbackFragment {
      @Override
      public void onViewCreated(View view, Bundle savedInstanceState) {
          super.onViewCreated(view, savedInstanceState);
+
+
+
          lv = (ExpandableListView) view.findViewById(R.id.expListView);
          Resources res = this.getResources();
          Drawable devider = res.getDrawable(R.drawable.line);
@@ -126,6 +130,12 @@ public class ConsultationOfrreFragment extends CallbackFragment {
 
                      }
 
+                     if (offres.size() == 0)
+                     {
+                         TextView text = new TextView(getActivity());
+                         text.setText("\\ue415 !! Aucune annonce pour le moment!! \\ue415");
+
+                     }
                      lv.setAdapter(new MyExpandableListAdapter());
 
                  }
@@ -165,6 +175,7 @@ public class ConsultationOfrreFragment extends CallbackFragment {
                     lv.smoothScrollToPosition(groupPosition);
                 }
             }
+
             final Offre offre = listeOffres.get(groupPosition);
             final  View convertViewLocale = inflater.inflate(R.layout.liste_offres, parentView, false);
             try {
