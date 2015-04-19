@@ -145,21 +145,23 @@ public class ProfilFragment extends CallbackFragment {//implements SurfaceHolder
                             @Override
                             public void done(ParseObject object, com.parse.ParseException e) {
                                 ParseFile fileObject = (ParseFile) object.get("imageFile");
-                                fileObject.getDataInBackground(new GetDataCallback() {
+                                if (fileObject != null) {
+                                    fileObject.getDataInBackground(new GetDataCallback() {
 
-                                    @Override
-                                    public void done(byte[] data, com.parse.ParseException e) {
-                                        if (e == null) {
-                                            Log.d("test", "We've got data in data.");
-                                            // Decode the Byte[] into, Bitmap
-                                            Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                            // Set the Bitmap into the, ImageView
-                                            imagePhoto.setImageBitmap(bmp);
-                                        } else {
-                                            Log.d("test", "There was a problem downloading the data.");
+                                        @Override
+                                        public void done(byte[] data, com.parse.ParseException e) {
+                                            if (e == null) {
+                                                Log.d("test", "We've got data in data.");
+                                                // Decode the Byte[] into, Bitmap
+                                                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                                // Set the Bitmap into the, ImageView
+                                                imagePhoto.setImageBitmap(bmp);
+                                            } else {
+                                                Log.d("test", "There was a problem downloading the data.");
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                                }
                             }
                         });
 
@@ -254,98 +256,6 @@ public class ProfilFragment extends CallbackFragment {//implements SurfaceHolder
               // afficher l'image dans la view
             imagePhoto.setImageBitmap(thumbnail);
         }
-    }
-
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-        return image;
-    }
-
-    /*@Override
-    public void surfaceCreated(SurfaceHolder holder) {
-
-        camera = Camera.open();
-        try {
-            camera.setPreviewDisplay(holder);
-        } catch (IOException exception) {
-            camera.release();
-            camera = null;
-        }
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
-        Camera.Parameters parameters = camera.getParameters();
-
-        List<Size> sizes = parameters.getSupportedPreviewSizes();
-        Size optimalSize = getOptimalPreviewSize(sizes, w, h);
-        parameters.setPreviewSize(optimalSize.width, optimalSize.height);
-
-        camera.setParameters(parameters);
-
-        // let render
-        camera.startPreview();
-       // camera.setPreviewCallback(frameCallback);
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        camera.stopPreview();
-        camera.release();
-        camera = null;
-    }*/
-
-    private Size getOptimalPreviewSize(List<Size> sizes, int w, int h) {
-
-        // requirement
-        final double ASPECT_TOLERANCE = 0.05;
-
-        double targetRatio = (double) w / h;
-        if (sizes == null) {
-            return null;
-        }
-
-        Size optimalSize = null;
-        double minDiff = Double.MAX_VALUE;
-
-        int targetHeight = h;
-
-        // find a size that match aspect ratio and size
-        for (Size size : sizes) {
-            double ratio = (double) size.width / size.height;
-            if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE)
-                continue;
-            if (Math.abs(size.height - targetHeight) < minDiff) {
-                optimalSize = size;
-                minDiff = Math.abs(size.height - targetHeight);
-            }
-        }
-
-        // it's not possible
-        // ignore the requirement
-        if (optimalSize == null) {
-            minDiff = Double.MAX_VALUE;
-            for (Size size : sizes) {
-                if (Math.abs(size.height - targetHeight) < minDiff) {
-                    optimalSize = size;
-                    minDiff = Math.abs(size.height - targetHeight);
-                }
-            }
-        }
-
-        return optimalSize;
     }
 
 
