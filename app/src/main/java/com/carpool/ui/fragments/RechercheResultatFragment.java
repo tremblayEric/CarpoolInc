@@ -47,6 +47,7 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class RechercheResultatFragment extends Fragment {
     private SupportMapFragment fragment;
@@ -185,12 +186,20 @@ public class RechercheResultatFragment extends Fragment {
                     points.add(position);
                 }
                 polyLineOptions.addAll(points);
-                polyLineOptions.width(2);
-                polyLineOptions.color(Color.BLUE);
+                polyLineOptions.width(5);
+                polyLineOptions.color(randomColor());
             }
             map.addPolyline(polyLineOptions);
         }
     }
+
+    public int randomColor()
+    {
+        Random random=new Random();
+        int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+        return  color ;
+    }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
