@@ -116,12 +116,15 @@ public class RechercheResultatFragment extends Fragment {
         return url;
     }
 
-    private void addMarkers(LatLng depart, LatLng arrivee) {
+    private void addMarkers(Offre offre,LatLng depart, LatLng arrivee) {
         if (map != null) {
             map.addMarker(new MarkerOptions().position(depart)
-                    .title(depart.toString()));
+                    .title("Offert par : " + offre.getUser().getUsername() + " " + offre.getUser().getEmail()).snippet(
+                            "Départ entre :" + offre.getHeureDebut() + "\n" +
+                            "et : " + offre.getHeureFin()));
             map.addMarker(new MarkerOptions().position(arrivee)
-                    .title(arrivee.toString()));
+                    .title("Arrivée Offert par : " + offre.getUser().getUsername() ).snippet(
+                            offre.getUser().getEmail()));
         }
     }
 
@@ -303,7 +306,7 @@ public class RechercheResultatFragment extends Fragment {
                                         if (!flag) {
                                             map.moveCamera(CameraUpdateFactory.newLatLngZoom(depart, 13));
                                         }
-                                        addMarkers(depart, arrivee);
+                                        addMarkers(uneOffre,depart, arrivee);
                                     }
                                 }
 
