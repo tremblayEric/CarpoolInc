@@ -15,6 +15,10 @@ public class ConsultationOffreActivity  extends AccueilActivity implements
         Bundle bundle = new Bundle();
 
         bundle.putString("Title", "ConsultationOffreActivity");
+        if(getIntent().getExtras() != null && getIntent().getExtras().get("offreId") != null) {
+            bundle.putString("offreIdNotifie", getIntent().getExtras().get("offreId").toString());
+        }
+
         ConsultationOfrreFragment of = new ConsultationOfrreFragment();
         of.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()

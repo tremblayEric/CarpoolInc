@@ -118,13 +118,21 @@ public class RechercheResultatFragment extends Fragment {
 
     private void addMarkers(Offre offre,LatLng depart, LatLng arrivee) {
         if (map != null) {
-            map.addMarker(new MarkerOptions().position(depart)
-                    .title("Offert par : " + offre.getUser().getUsername() + "<" + offre.getUser().getEmail() + ">").snippet(
-                            "Départ entre :" + offre.getHeureDebut() + "\n" +
-                            "et : " + offre.getHeureFin()));
-            map.addMarker(new MarkerOptions().position(arrivee)
-                    .title("Arrivée de l'offre de : " + offre.getUser().getUsername() ).snippet(
-                            "<" + offre.getUser().getEmail() + ">"));
+            try {
+                map.addMarker(new MarkerOptions().position(depart)
+                        .title("Offert par : " + offre.getUser().fetchIfNeeded().getUsername() + "<" + offre.getUser().fetchIfNeeded().getEmail() + ">").snippet(
+                                "Départ entre :" + offre.getHeureDebut() + "\n" +
+                                        "et : " + offre.getHeureFin()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            try {
+                map.addMarker(new MarkerOptions().position(arrivee)
+                        .title("Arrivée de l'offre de : " + offre.getUser().fetchIfNeeded().getUsername()).snippet(
+                                "<" + offre.getUser().fetchIfNeeded().getEmail() + ">"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 

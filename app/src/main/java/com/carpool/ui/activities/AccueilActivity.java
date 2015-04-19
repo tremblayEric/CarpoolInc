@@ -410,9 +410,10 @@ public abstract class AccueilActivity extends ActionBarActivity implements
 
         mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR);
 
-        mNavDrawerItems.add(NAVDRAWER_ITEM_NOTIFICATIONS);
+        // - Commenté l'activité NOTIFICATIONS - Gaëlle
+        //mNavDrawerItems.add(NAVDRAWER_ITEM_NOTIFICATIONS);
 
-        mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR_SPECIAL);
+        //mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR_SPECIAL);
 
         mNavDrawerItems.add(NAVDRAWER_ITEM_DECONNEXION);
 

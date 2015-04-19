@@ -139,7 +139,7 @@
             </intent-filter>
         </receiver>
         <!-- Class name -->
-        <receiver android:name="com.parse.ParsePushBroadcastReceiver" android:exported="false">
+        <receiver android:name="com.carpool.utils.ReceiverPushNotification" android:exported="false">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />

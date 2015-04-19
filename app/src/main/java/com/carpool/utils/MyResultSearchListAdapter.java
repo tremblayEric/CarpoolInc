@@ -32,6 +32,9 @@ import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -248,8 +251,14 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
                             e.printStackTrace();
                         }
                         parsePush.setQuery(pQuery);
-                        parsePush.setMessage(ParseUser.getCurrentUser().getUsername() +
-                                " a réservé votre offre");
+                        JSONObject data = new JSONObject();
+                        try {
+                            data.put("alert", ParseUser.getCurrentUser().getUsername() + " a réservé votre offre");
+                            data.put("offreId", listOffers.get(postition).getObjectId());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        parsePush.setData(data);
                         parsePush.sendInBackground();
 
                     }
