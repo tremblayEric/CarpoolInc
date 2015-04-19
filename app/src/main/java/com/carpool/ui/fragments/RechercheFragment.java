@@ -359,7 +359,7 @@ public class RechercheFragment extends CallbackFragment {
                 locationOfferte.setLongitude(trajetResultat.getPositionDepart().getLongitude());
 
                 double distance = locationSouhaitable.distanceTo(locationOfferte) / 1000;
-                if (distance <= 20) { // le départ proposé est à moins de 20km du départ souhaité
+                if (distance <= 5) { // le départ proposé est à moins de 20km du départ souhaité
 
                     locationSouhaitable.setLatitude(arrivee[0]);
                     locationSouhaitable.setLongitude(arrivee[1]);
@@ -367,7 +367,7 @@ public class RechercheFragment extends CallbackFragment {
                     locationOfferte.setLatitude(trajetResultat.getPositionArrive().getLatitude());
                     locationOfferte.setLongitude(trajetResultat.getPositionArrive().getLongitude());
                     distance = locationSouhaitable.distanceTo(locationOfferte) / 1000;
-                    if (distance <= 20) {//l'arrivée proposé est à moins de 20km du départ souhaité
+                    if (distance <= 5) {//l'arrivée proposé est à moins de 20km du départ souhaité
                         offresAcceptables.add(lesOffres.get(i));
                     }
                 }
