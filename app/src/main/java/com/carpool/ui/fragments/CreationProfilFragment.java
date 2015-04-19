@@ -28,6 +28,9 @@ import com.carpool.R;
 import com.carpool.model.User;
 import com.carpool.ui.activities.RechercheActivity;
 import com.carpool.ui.design.CallbackFragment;
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
+import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 import java.text.SimpleDateFormat;
@@ -424,6 +427,12 @@ public class CreationProfilFragment extends CallbackFragment {
                     compteCree.setError(null);
                     compteCree.setText("Compte Créé avec succès!");
                     compteCree.setTextColor(Color.parseColor("#ff80cbc4"));
+
+                    // Subscribe to channel "Offre"
+                    ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                    installation.put("user", ParseUser.getCurrentUser());
+                    installation.saveInBackground();
+                    ParsePush.subscribeInBackground("Offre");
 
                     Intent newActivity = new Intent(getActivity(), RechercheActivity.class);
                     startActivity(newActivity);

@@ -24,6 +24,8 @@ import com.carpool.ui.fragments.WarningConnectionFragment;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -224,6 +226,20 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
                             ((TextView)viewParent.findViewById(R.id.tvCompleted)).setVisibility(View.VISIBLE);
                         Toast.makeText(activity, "Réservation effectuée",
                                 Toast.LENGTH_SHORT).show();
+
+                        // Envoyer un push notification à l'utilisateur qui a posté l'offre
+                        ParsePush parsePush = new ParsePush();
+                        ParseQuery pQuery = ParseInstallation.getQuery();
+                        try {
+                            pQuery.whereEqualTo("channels", "Offre");
+                            pQuery.whereEqualTo("user", listOffers.get(postition).getUser().fetchIfNeeded());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        parsePush.setQuery(pQuery);
+                        parsePush.setMessage(ParseUser.getCurrentUser().getUsername() +
+                                " a réservé votre offre");
+                        parsePush.sendInBackground();
 
                     }
                 }
