@@ -28,6 +28,8 @@ import com.carpool.ui.activities.RechercheActivity;
 import com.carpool.ui.design.CallbackFragment;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
 import com.parse.ParseUser;
 
 public class LoginFragment extends CallbackFragment {
@@ -308,6 +310,13 @@ public class LoginFragment extends CallbackFragment {
                 texte.setText("");
                 Log.d("utilis", utilis.getObjectId());
                 Log.d("trouve", "utilisateur touve");
+
+                // Subscribe to channel "Offre"
+                ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                installation.put("user", ParseUser.getCurrentUser());
+                installation.saveInBackground();
+                ParsePush.subscribeInBackground("Offre");
+
                 Intent newActivity  = new Intent(getActivity(), RechercheActivity.class);
                 startActivity(newActivity);
                 getActivity().finish();
