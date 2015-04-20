@@ -2,6 +2,7 @@ package com.carpool.ui.fragments;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -136,11 +137,15 @@ public class ConsultationOfrreFragment extends CallbackFragment {
 
                      lv.setAdapter(new MyExpandableListAdapter());
 
+                     // on verifie s'il ya des annonces
                      if (offres.size() == 0)
                      {
                          Typeface font = Typeface.createFromAsset( getActivity().getAssets(),
                                  "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
-                         text_annonce.setText("\uf119 !! Aucune annonce pour le moment!! \uf119");
+                         text_annonce.setText("      \uf119 !! Aucune annonce pour le moment!! \uf119");
+                         text_annonce.setGravity(0);
+                         text_annonce.setTextSize(15);
+                         text_annonce.setTextColor(Color.RED);
                          text_annonce.setTypeface(font);
 
                      }
