@@ -47,8 +47,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * classe qui permet de recuperer les informations de l'utilisateur qui se connecte dans la DB et
- * qui les affiche sur le profil de l'utilisateur
+ * classe qui permet d afficher la liste des offres créés par l utilisateur connecté
  */
 public class ConsultationOfrreFragment extends CallbackFragment {
 
@@ -178,6 +177,9 @@ public class ConsultationOfrreFragment extends CallbackFragment {
         public View getGroupView(int groupPosition, boolean isExpanded,
                                  View convertView, ViewGroup parentView)
         {
+
+            System.out.println("offre : "+groupPosition);
+
             // - Si on clique sur une notification, expand l'offre en question et scroll à la position de l'offre
             if(listeReservationsOffre != null &&
                     listeReservationsOffre.get(listeOffres.get(groupPosition).getObjectId()) != null &&
@@ -282,7 +284,6 @@ public class ConsultationOfrreFragment extends CallbackFragment {
             ((TextView) convertView.findViewById(R.id.pseudoDemandeur)).setText(res.getUserDemandeur().getUsername().toString());
             ParseUser  us = res.getUserDemandeur();
             Date dateNaissance = us.getDate("birthday");
-            System.out.println("dateNaissance demandeur =="+dateNaissance);
            int age = getYears(dateNaissance);
 
             ((TextView) convertView.findViewById(R.id.age)).setText(age + " ans");
@@ -298,8 +299,6 @@ public class ConsultationOfrreFragment extends CallbackFragment {
             birth.setTime(d);
             int age = curr.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
             curr.add(Calendar.YEAR,-age);
-            System.out.println("curr demandeur =="+curr);
-            System.out.println("birth demandeur =="+birth);
             if(birth.after(curr))
             {
                 age = age - 1;
@@ -404,7 +403,6 @@ public class ConsultationOfrreFragment extends CallbackFragment {
             DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
             HttpGet httpget = new HttpGet(url);
 
-
             HttpResponse response = httpclient.execute(httpget);
 
             HttpEntity entity = response.getEntity();
@@ -440,8 +438,21 @@ public class ConsultationOfrreFragment extends CallbackFragment {
             try {
                 JSONObject oneObject = jArray.getJSONObject(0);
                 // Pulling items from the array
-                sbRetour.append(oneObject.getString("formatted_address"));
-                System.out.println(sbRetour.toString());
+                //sbRetour.append(oneObject.getString("formatted_address"));
+                JSONArray address_components  = oneObject.getJSONArray("address_components");
+
+                for (int i = 0; i < address_components.length(); i++) {
+                    JSONObject zero2 = address_components.getJSONObject(i);
+                    String long_name = zero2.getString("long_name");
+
+                JSONArray mtypes = zero2.getJSONArray("types");
+                String Type = mtypes.getString(0);
+                if (Type.equalsIgnoreCase("locality")) {
+                    // Address2 = Address2 + long_name + ", ";
+                    sbRetour.append(long_name);
+                    System.out.println(sbRetour.toString());
+                }
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();

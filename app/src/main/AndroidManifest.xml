@@ -2,17 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.carpool" >
 
-
-
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera"
+
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <!--
@@ -23,12 +22,12 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
+        android:required="true" />
 
     <permission
         android:name="in.wptrafficanalyzer.locationgeocodingv2.permission.MAPS_RECEIVE"
@@ -50,24 +49,24 @@
         IMPORTANT: Change "com.parse.tutorials.pushnotifications.permission.C2D_MESSAGE" in the lines below
         to match your app's package name + ".permission.C2D_MESSAGE".
     -->
-    <permission android:protectionLevel="signature"
-        android:name="com.carpool.permission.C2D_MESSAGE" />
+    <permission
+        android:name="com.carpool.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="com.carpool.permission.C2D_MESSAGE" />
-
-
 
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
 
     <application
-        android:name="com.carpool.CarpoolApplication"
+        android:name=".CarpoolApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.MyTheme" >
         <activity
-            android:name="com.carpool.ui.activities.RechercheActivity"
+            android:name=".ui.activities.RechercheActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -76,63 +75,61 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.carpool.ui.activities.ProfilLoginActivity"
+            android:name=".ui.activities.ProfilLoginActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".ui.activities.OffreActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".ui.activities.ConsultationOffreActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".ui.activities.CreationProfilActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".ui.activities.DeconnexionActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".ui.activities.RechercheResultatActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".ui.activities.ModificationProfilActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".ui.activities.NotificationsActivity"
             android:label="@string/app_name" >
         </activity>
 
-        <activity
-            android:name="com.carpool.ui.activities.OffreActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.carpool.ui.activities.ConsultationOffreActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.carpool.ui.activities.CreationProfilActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.carpool.ui.activities.DeconnexionActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.carpool.ui.activities.RechercheResultatActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.carpool.ui.activities.ModificationProfilActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.carpool.ui.activities.ReservationActivity"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.carpool.ui.activities.NotificationsActivity"
-            android:label="@string/app_name" >
-        </activity>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCffC-xYqk8C6o5R6eXCZ3qRQ_RFIhzLGM"/>
+            android:value="AIzaSyCffC-xYqk8C6o5R6eXCZ3qRQ_RFIhzLGM" />
 
         <!-- replace @drawable/push_icon with your push icon identifier -->
-        <!--<meta-data android:name="com.parse.push.notification_icon" android:resource="@drawable/push_icon"/>-->
+        <!-- <meta-data android:name="com.parse.push.notification_icon" android:resource="@drawable/push_icon"/> -->
+
 
         <!-- Pour le push notification - configuration avec parse -->
         <service android:name="com.parse.PushService" />
-        <receiver android:name="com.parse.ParseBroadcastReceiver">
+
+        <receiver android:name="com.parse.ParseBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.parse.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
+        <receiver
+            android:name="com.parse.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
@@ -145,7 +142,9 @@
             </intent-filter>
         </receiver>
         <!-- Class name -->
-        <receiver android:name="com.carpool.utils.ReceiverPushNotification" android:exported="false">
+        <receiver
+            android:name=".utils.ReceiverPushNotification"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />
@@ -153,6 +152,10 @@
             </intent-filter>
         </receiver>
 
+        <activity
+            android:name=".ui.activities.MesReservationsActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>
