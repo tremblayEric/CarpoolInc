@@ -102,7 +102,6 @@
             android:name=".ui.activities.ModificationProfilActivity"
             android:label="@string/app_name" >
         </activity>
-
         <activity
             android:name=".ui.activities.NotificationsActivity"
             android:label="@string/app_name" >
