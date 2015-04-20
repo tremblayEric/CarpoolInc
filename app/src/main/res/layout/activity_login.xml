@@ -62,18 +62,11 @@
                     android:orientation="horizontal"
                     >
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/icone_pseudo"
-                        android:textSize="20dp"
-                        android:text="@string/icone_pseudo"
-                        android:paddingRight="10dp"
-                    />
+
                 <AutoCompleteTextView android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_email"
+                    android:hint="&#xf007;   Pseudo"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColorHighlight="#ff0e6742"
@@ -85,22 +78,17 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20dp"
-                        android:text="@string/icone_psswd"
-                        android:paddingRight="10dp"
-                        android:id="@+id/icone_psswd"/>
+
 
                     <AutoCompleteTextView android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_password"
+                    android:hint="&#xf084;  Mot de passe"
                     android:textColorHighlight="#ff0e6742"
                     android:maxLines="1" android:singleLine="true"
                     android:layout_marginTop="10dp"
                     android:inputType="textPassword"
+
                     android:maxLength="15"/>
 
                 </LinearLayout>

@@ -2,6 +2,8 @@ package com.carpool.ui.fragments;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.carpool.R;
 import com.carpool.model.Offre;
@@ -67,6 +70,7 @@ public class ConsultationOfrreFragment extends CallbackFragment {
      * The fragment's current callback object.
      */
     private Callbacks mCallbacks = sDummyCallbacks;
+    TextView text_annonce;
 
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
@@ -82,7 +86,7 @@ public class ConsultationOfrreFragment extends CallbackFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
      rootview = inflater.inflate(R.layout.activity_consultation_offre, container, false);
 
-
+     text_annonce = (TextView) rootview.findViewById(R.id.text_annonce);
      return rootview;
      }
 
@@ -90,6 +94,9 @@ public class ConsultationOfrreFragment extends CallbackFragment {
      @Override
      public void onViewCreated(View view, Bundle savedInstanceState) {
          super.onViewCreated(view, savedInstanceState);
+
+
+
          lv = (ExpandableListView) view.findViewById(R.id.expListView);
          Resources res = this.getResources();
          Drawable devider = res.getDrawable(R.drawable.line);
@@ -107,6 +114,7 @@ public class ConsultationOfrreFragment extends CallbackFragment {
              @Override
              public void done(List<Offre> offres, ParseException e) {
                  if (e == null) {
+                     text_annonce.setText("");
                      tabDepart = new String[offres.size()];
                      tabDestination = new String[offres.size()];
                      listeOffres.addAll(offres);
@@ -126,7 +134,21 @@ public class ConsultationOfrreFragment extends CallbackFragment {
 
                      }
 
+
                      lv.setAdapter(new MyExpandableListAdapter());
+
+                     // on verifie s'il ya des annonces
+                     if (offres.size() == 0)
+                     {
+                         Typeface font = Typeface.createFromAsset( getActivity().getAssets(),
+                                 "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
+                         text_annonce.setText("      \uf119 !! Aucune annonce pour le moment!! \uf119");
+                         text_annonce.setGravity(0);
+                         text_annonce.setTextSize(15);
+                         text_annonce.setTextColor(Color.RED);
+                         text_annonce.setTypeface(font);
+
+                     }
 
                  }
                  else {
@@ -165,6 +187,7 @@ public class ConsultationOfrreFragment extends CallbackFragment {
                     lv.smoothScrollToPosition(groupPosition);
                 }
             }
+
             final Offre offre = listeOffres.get(groupPosition);
             final  View convertViewLocale = inflater.inflate(R.layout.liste_offres, parentView, false);
             try {
