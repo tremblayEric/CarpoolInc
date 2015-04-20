@@ -2,6 +2,7 @@ package com.carpool.ui.fragments;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -68,6 +69,7 @@ public class ConsultationOfrreFragment extends CallbackFragment {
      * The fragment's current callback object.
      */
     private Callbacks mCallbacks = sDummyCallbacks;
+    TextView text_annonce;
 
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
@@ -83,7 +85,7 @@ public class ConsultationOfrreFragment extends CallbackFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
      rootview = inflater.inflate(R.layout.activity_consultation_offre, container, false);
 
-
+     text_annonce = (TextView) rootview.findViewById(R.id.text_annonce);
      return rootview;
      }
 
@@ -111,6 +113,7 @@ public class ConsultationOfrreFragment extends CallbackFragment {
              @Override
              public void done(List<Offre> offres, ParseException e) {
                  if (e == null) {
+                     text_annonce.setText("");
                      tabDepart = new String[offres.size()];
                      tabDestination = new String[offres.size()];
                      listeOffres.addAll(offres);
@@ -130,13 +133,17 @@ public class ConsultationOfrreFragment extends CallbackFragment {
 
                      }
 
+
+                     lv.setAdapter(new MyExpandableListAdapter());
+
                      if (offres.size() == 0)
                      {
-                         TextView text = new TextView(getActivity());
-                         text.setText("\\ue415 !! Aucune annonce pour le moment!! \\ue415");
+                         Typeface font = Typeface.createFromAsset( getActivity().getAssets(),
+                                 "font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" );
+                         text_annonce.setText("\uf119 !! Aucune annonce pour le moment!! \uf119");
+                         text_annonce.setTypeface(font);
 
                      }
-                     lv.setAdapter(new MyExpandableListAdapter());
 
                  }
                  else {
