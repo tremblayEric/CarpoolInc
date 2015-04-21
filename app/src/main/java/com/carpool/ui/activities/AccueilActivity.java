@@ -163,9 +163,6 @@ public abstract class AccueilActivity extends ActionBarActivity implements
 
     // variables that control the Action Bar auto hide behavior (aka "quick recall")
     private boolean mActionBarAutoHideEnabled = false;
-    private int mActionBarAutoHideSensivity = 0;
-    private int mActionBarAutoHideMinY = 0;
-    private int mActionBarAutoHideSignal = 0;
     private boolean mActionBarShown = true;
 
     // A Runnable that we should execute when the navigation drawer finishes its closing animation
@@ -198,6 +195,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
         mLUtils = UIUtils.getInstance(this);
         mThemedStatusBarColor = getResources().getColor(R.color.material_deep_teal_200);
         mNormalStatusBarColor = mThemedStatusBarColor;
+        Log.d("ici","onCreate");
     }
 
     @Override
@@ -205,51 +203,11 @@ public abstract class AccueilActivity extends ActionBarActivity implements
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
+        Log.d("ici","onOptionsItemSelected");
         return super.onOptionsItemSelected(item);
     }
 
     protected abstract int getLayoutResource();
-
-    /*
-    private void trySetupSwipeRefresh() {
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        if (mSwipeRefreshLayout != null) {
-            mSwipeRefreshLayout.setColorSchemeResources(
-                    R.color.refresh_progress_1,
-                    R.color.refresh_progress_2,
-                    R.color.refresh_progress_3);
-            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    requestDataRefresh();
-                }
-            });
-
-            if (mSwipeRefreshLayout instanceof MultiSwipeRefreshLayout) {
-                MultiSwipeRefreshLayout mswrl = (MultiSwipeRefreshLayout) mSwipeRefreshLayout;
-                mswrl.setCanChildScrollUpCallback(this);
-            }
-        }
-    }*/
-
-    protected void setProgressBarTopWhenActionBarShown(int progressBarTopWhenActionBarShown) {
-        mProgressBarTopWhenActionBarShown = progressBarTopWhenActionBarShown;
-        updateSwipeRefreshProgressBarTop();
-    }
-
-    private void updateSwipeRefreshProgressBarTop() {
-        if (mSwipeRefreshLayout == null) {
-            return;
-        }
-
-        int progressBarStartMargin = getResources().getDimensionPixelSize(
-                R.dimen.swipe_refresh_progress_bar_start_margin);
-        int progressBarEndMargin = getResources().getDimensionPixelSize(
-                R.dimen.swipe_refresh_progress_bar_end_margin);
-        int top = mActionBarShown ? mProgressBarTopWhenActionBarShown : 0;
-        mSwipeRefreshLayout.setProgressViewOffset(false,
-                top + progressBarStartMargin, top + progressBarEndMargin);
-    }
 
     /**
      * Returns the navigation drawer item that corresponds to this Activity. Subclasses
@@ -257,6 +215,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
      * Return NAVDRAWER_ITEM_INVALID to mean that this Activity should not have a Nav Drawer.
      */
     protected int getSelfNavDrawerItem() {
+        Log.d("ici","getSelfNavDrawerItem");
         return NAVDRAWER_ITEM_INVALID;
     }
 
@@ -267,6 +226,8 @@ public abstract class AccueilActivity extends ActionBarActivity implements
      */
     private void setupNavDrawer() {
         // What nav drawer item should be selected?
+        Log.d("ici","setUpNavDrawer");
+
         int selfItem = getSelfNavDrawerItem();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -361,6 +322,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
+        Log.d("ici","onConfigurationChanged");
     }
 
 
@@ -369,12 +331,14 @@ public abstract class AccueilActivity extends ActionBarActivity implements
         if (mActionBarAutoHideEnabled && isOpen) {
             autoShowOrHideActionBar(true);
         }
+        Log.d("ici","onNavDrawerStateChanged");
     }
 
     protected void onNavDrawerSlide(float offset) {
     }
 
     protected boolean isNavDrawerOpen() {
+        Log.d("ici","isNavDrawerOpen");
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(Gravity.START);
     }
 
@@ -382,6 +346,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(Gravity.START);
         }
+        Log.d("ici","closeNavDrawer");
     }
 
     /**
@@ -410,14 +375,10 @@ public abstract class AccueilActivity extends ActionBarActivity implements
 
         mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR);
 
-        // - Commenté l'activité NOTIFICATIONS - Gaëlle
-        //mNavDrawerItems.add(NAVDRAWER_ITEM_NOTIFICATIONS);
-
-        //mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR_SPECIAL);
-
         mNavDrawerItems.add(NAVDRAWER_ITEM_DECONNEXION);
 
         createNavDrawerItems();
+        Log.d("ici","populateNavDrawerConnected");
     }
 
     // populate NAVDRAWER not connected
@@ -437,6 +398,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
         mNavDrawerItems.add(NAVDRAWER_ITEM_RECHERCHE);
 
         createNavDrawerItems();
+        Log.d("ici","populateNavDrawerNotConnected");
 
     }
 
@@ -455,6 +417,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
             mDrawerItemsListContainer.addView(mNavDrawerItemViews[i]);
             ++i;
         }
+        Log.d("ici","createNavDrawerItems");
     }
 
     /**
@@ -470,6 +433,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
                 }
             }
         }
+        Log.d("ici","selectedNavDrawerItem");
     }
 
     @Override
@@ -482,6 +446,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
             populateNavDrawerNotConnected();
 
         invalidateOptionsMenu();
+        Log.d("ici","onSharePreferenceChanged");
     }
 
     @Override
@@ -490,7 +455,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
         setupNavDrawer();
 
         //trySetupSwipeRefresh();
-        updateSwipeRefreshProgressBarTop();
+        //updateSwipeRefreshProgressBarTop();
 
         View mainContent = findViewById(R.id.main_content);
         if (mainContent != null) {
@@ -501,6 +466,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
         }
 
         mDrawerToggle.syncState();
+        Log.d("ici","onPostCreate");
     }
 
     @Override
@@ -510,18 +476,9 @@ public abstract class AccueilActivity extends ActionBarActivity implements
         } else {
             super.onBackPressed();
         }
+        Log.d("ici","onBackPressed");
     }
 
-    protected void requestDataRefresh() {
-
-        Log.d(TAG, "Requesting manual data refresh.");
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                onRefreshingStateChanged(false);
-            }
-        }, 3000);
-    }
 
     // en mode connecte
     protected void goToNavDrawerItem(int item) {
@@ -553,6 +510,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
                 finish();
                 break;
         }
+        Log.d("ici","goToNavDrawerItem");
     }
 
     //en mode non connecte
@@ -573,6 +531,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
                 finish();
                 break;
         }
+        Log.d("ici","goToNavDrawerNotConnected");
     }
 
 
@@ -617,55 +576,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
         }
 
         mDrawerLayout.closeDrawer(Gravity.START);
-    }
-
-    /**
-     * Initializes the Action Bar auto-hide (aka Quick Recall) effect.
-     */
-    private void initActionBarAutoHide() {
-        mActionBarAutoHideEnabled = true;
-        mActionBarAutoHideMinY = getResources().getDimensionPixelSize(
-                R.dimen.action_bar_auto_hide_min_y);
-        mActionBarAutoHideSensivity = getResources().getDimensionPixelSize(
-                R.dimen.action_bar_auto_hide_sensivity);
-    }
-
-    /*
-    public void showButterBar(String messageText, String actionText, long timeout,
-                              View.OnClickListener listener){
-        UIUtils.setUpButterBar(findViewById(R.id.butter_bar), messageText, actionText, timeout, listener);
-    }
-
-    public void hideButterBar(){
-        findViewById(R.id.butter_bar).setVisibility(View.GONE);
-    }*/
-
-    /**
-     * Indicates that the main content has scrolled (for the purposes of showing/hiding
-     * the action bar for the "action bar auto hide" effect). currentY and deltaY may be exact
-     * (if the underlying view supports it) or may be approximate indications:
-     * deltaY may be INT_MAX to mean "scrolled forward indeterminately" and INT_MIN to mean
-     * "scrolled backward indeterminately".  currentY may be 0 to mean "somewhere close to the
-     * start of the list" and INT_MAX to mean "we don't know, but not at the start of the list"
-     */
-    private void onMainContentScrolled(int currentY, int deltaY) {
-        if (deltaY > mActionBarAutoHideSensivity) {
-            deltaY = mActionBarAutoHideSensivity;
-        } else if (deltaY < -mActionBarAutoHideSensivity) {
-            deltaY = -mActionBarAutoHideSensivity;
-        }
-
-        if (Math.signum(deltaY) * Math.signum(mActionBarAutoHideSignal) < 0) {
-            // deltaY is a motion opposite to the accumulated signal, so reset signal
-            mActionBarAutoHideSignal = deltaY;
-        } else {
-            // add to accumulated signal
-            mActionBarAutoHideSignal += deltaY;
-        }
-
-        boolean shouldShow = currentY < mActionBarAutoHideMinY ||
-                (mActionBarAutoHideSignal <= -mActionBarAutoHideSensivity);
-        autoShowOrHideActionBar(shouldShow);
+        Log.d("ici","onNavDrawerItemclicked");
     }
 
     protected Toolbar getActionBarToolbar() {
@@ -675,6 +586,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
                 setSupportActionBar(mActionBarToolbar);
             }
         }
+        Log.d("ici","getActionToolBar");
         return mActionBarToolbar;
     }
 
@@ -684,29 +596,10 @@ public abstract class AccueilActivity extends ActionBarActivity implements
         }
 
         mActionBarShown = show;
-        onActionBarAutoShowOrHide(show);
+        Log.d("ici","autoshowOrHideAction");
+        //onActionBarAutoShowOrHide(show);
     }
 
-    protected void enableActionBarAutoHide(final AbsListView listView) {
-        initActionBarAutoHide();
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            final static int ITEMS_THRESHOLD = 3;
-            int lastFvi = 0;
-
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                onMainContentScrolled(firstVisibleItem <= ITEMS_THRESHOLD ? 0 : Integer.MAX_VALUE,
-                        lastFvi - firstVisibleItem > 0 ? Integer.MIN_VALUE :
-                                lastFvi == firstVisibleItem ? 0 : Integer.MAX_VALUE
-                );
-                lastFvi = firstVisibleItem;
-            }
-        });
-    }
 
     private View makeNavDrawerItem(final int itemId, ViewGroup container) {
         boolean selected = getSelfNavDrawerItem() == itemId;
@@ -788,8 +681,10 @@ public abstract class AccueilActivity extends ActionBarActivity implements
         }
 
 
-
+        Log.d("ici","makeNavDrawerItem");
         return view;
+
+
     }
 
     private boolean isSpecialItem(int itemId) {
@@ -803,6 +698,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
     private void formatNavDrawerItem(View view, int itemId, boolean selected) {
         if (isSeparator(itemId)) {
             // not applicable
+
             return;
         }
 
@@ -817,90 +713,14 @@ public abstract class AccueilActivity extends ActionBarActivity implements
                 getResources().getColor(R.color.material_deep_teal_500) :
                 getResources().getColor(R.color.navdrawer_icon_tint));
         iconView.setTextSize(20);
+        Log.d("ici","forNavDrawerItem");
     }
 
-    protected void onRefreshingStateChanged(boolean refreshing) {
-        if (mSwipeRefreshLayout != null) {
-            mSwipeRefreshLayout.setRefreshing(refreshing);
-        }
-    }
-
-    protected void enableDisableSwipeRefresh(boolean enable) {
-        if (mSwipeRefreshLayout != null) {
-            mSwipeRefreshLayout.setEnabled(enable);
-        }
-    }
-
-    protected void registerHideableHeaderView(View hideableHeaderView) {
-        if (!mHideableHeaderViews.contains(hideableHeaderView)) {
-            mHideableHeaderViews.add(hideableHeaderView);
-        }
-    }
-
-    protected void deregisterHideableHeaderView(View hideableHeaderView) {
-        if (mHideableHeaderViews.contains(hideableHeaderView)) {
-            mHideableHeaderViews.remove(hideableHeaderView);
-        }
-    }
-
-    public UIUtils getLUtils() {
-        return mLUtils;
-    }
-
-    public int getThemedStatusBarColor() {
-        return mThemedStatusBarColor;
-    }
-
-    public void setNormalStatusBarColor(int color) {
-        mNormalStatusBarColor = color;
-        if (mDrawerLayout != null) {
-            mDrawerLayout.setStatusBarBackgroundColor(mNormalStatusBarColor);
-        }
-    }
-
-    protected void onActionBarAutoShowOrHide(boolean shown) {
-        if (mStatusBarColorAnimator != null) {
-            mStatusBarColorAnimator.cancel();
-        }
-        mStatusBarColorAnimator = ObjectAnimator.ofInt(
-                (mDrawerLayout != null) ? mDrawerLayout : mLUtils,
-                (mDrawerLayout != null) ? "statusBarBackgroundColor" : "statusBarColor",
-                shown ? Color.BLACK : mNormalStatusBarColor,
-                shown ? mNormalStatusBarColor : Color.BLACK)
-                .setDuration(250);
-        if (mDrawerLayout != null) {
-            mStatusBarColorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    ViewCompat.postInvalidateOnAnimation(mDrawerLayout);
-                }
-            });
-        }
-        mStatusBarColorAnimator.setEvaluator(ARGB_EVALUATOR);
-        mStatusBarColorAnimator.start();
-
-        updateSwipeRefreshProgressBarTop();
-
-        for (View view : mHideableHeaderViews) {
-            if (shown) {
-                view.animate()
-                        .translationY(0)
-                        .alpha(1)
-                        .setDuration(HEADER_HIDE_ANIM_DURATION)
-                        .setInterpolator(new DecelerateInterpolator());
-            } else {
-                view.animate()
-                        .translationY(-view.getBottom())
-                        .alpha(0)
-                        .setDuration(HEADER_HIDE_ANIM_DURATION)
-                        .setInterpolator(new DecelerateInterpolator());
-            }
-        }
-    }
 
 
     @Override
     public boolean canSwipeRefreshChildScrollUp() {
+        Log.d("ici","canSwipe");
         return false;
     }
 
@@ -911,6 +731,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             view.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         }
+        Log.d("ici","setAccessibilityIgnore");
     }
 
 

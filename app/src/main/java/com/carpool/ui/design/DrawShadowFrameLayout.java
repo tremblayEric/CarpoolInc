@@ -50,6 +50,7 @@ public class DrawShadowFrameLayout extends FrameLayout {
 
     public DrawShadowFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
         final TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.DrawShadowFrameLayout, 0, 0);
 
@@ -92,30 +93,7 @@ public class DrawShadowFrameLayout extends FrameLayout {
         }
     }
 
-    public void setShadowTopOffset(int shadowTopOffset) {
-        this.mShadowTopOffset = shadowTopOffset;
-        updateShadowBounds();
-        ViewCompat.postInvalidateOnAnimation(this);
-    }
 
-    public void setShadowVisible(boolean shadowVisible, boolean animate) {
-        this.mShadowVisible = shadowVisible;
-        if (mAnimator != null) {
-            mAnimator.cancel();
-            mAnimator = null;
-        }
-
-        if (animate && mShadowDrawable != null) {
-            mAnimator = ObjectAnimator.ofFloat(this, SHADOW_ALPHA,
-                    shadowVisible ? 0f : 1f,
-                    shadowVisible ? 1f : 0f);
-            mAnimator.setDuration(1000);
-            mAnimator.start();
-        }
-
-        ViewCompat.postInvalidateOnAnimation(this);
-        setWillNotDraw(!mShadowVisible || mShadowDrawable == null);
-    }
 
     private static Property<DrawShadowFrameLayout, Float> SHADOW_ALPHA
             = new Property<DrawShadowFrameLayout, Float>(Float.class, "shadowAlpha") {

@@ -37,6 +37,7 @@ public class MultiSwipeRefreshLayout extends SwipeRefreshLayout {
 
     public MultiSwipeRefreshLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+
         final TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.MultiSwipeRefreshLayout, 0, 0);
 
@@ -65,9 +66,9 @@ public class MultiSwipeRefreshLayout extends SwipeRefreshLayout {
         }
     }
 
-    public void setCanChildScrollUpCallback(CanChildScrollUpCallback canChildScrollUpCallback) {
-        mCanChildScrollUpCallback = canChildScrollUpCallback;
-    }
+    //public void setCanChildScrollUpCallback(CanChildScrollUpCallback canChildScrollUpCallback) {
+      //  mCanChildScrollUpCallback = canChildScrollUpCallback;
+    //}
 
     public static interface CanChildScrollUpCallback {
         public boolean canSwipeRefreshChildScrollUp();

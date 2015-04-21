@@ -17,7 +17,7 @@ public class OffreActivity extends AccueilActivity implements
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         Bundle bundle = new Bundle();
-        bundle.putString("Title", "LogInActivity");
+        bundle.putString("Title", "OffreActivity");
 
         OffreFragment of = new OffreFragment();
         of.setArguments(bundle);

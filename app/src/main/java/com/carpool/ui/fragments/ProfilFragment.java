@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,30 +23,13 @@ import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 import com.carpool.utils.*;
-import android.provider.MediaStore;
 import android.graphics.Bitmap;
-import android.hardware.Camera;
-import android.hardware.Camera.Size;
-import android.util.AttributeSet;
-import android.view.SurfaceHolder;
-import java.io.IOException;
-import android.view.SurfaceView;
-import java.util.List;
-import android.widget.Toast;
 
 import android.content.pm.PackageManager;
 import android.widget.ImageView;
 import com.parse.ParseFile;
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-
-import android.net.Uri;
-import android.os.Environment;
-import java.io.FileOutputStream;
-import android.graphics.Bitmap;
 import com.parse.*;
-import java.text.ParseException;
 import android.graphics.BitmapFactory;
 
 /**
@@ -71,8 +53,6 @@ public class ProfilFragment extends CallbackFragment {//implements SurfaceHolder
     // gestion de la camera
     private static final int CAMERA_PIC_REQUEST = 001;
     String mCurrentPhotoPath;
-
-
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_TAKE_PHOTO = 1;
@@ -186,25 +166,14 @@ public class ProfilFragment extends CallbackFragment {//implements SurfaceHolder
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
-            {   File photoFile = null;
-
-
+            {
+                File photoFile = null;
                 if (testPresenceCamera()) {
                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                    startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
-
-                    // enregistrement de l'image dans parse
-
-                   // Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                          //  R.drawable.androidbegin);
-                    // Convert it to byte
-
-
                 }
-
             }
         });
-
 
         FloatingActionButton fab = (FloatingActionButton)rootview.findViewById(R.id.fabButton);
         fab.setDrawableIcon(getResources().getDrawable(R.drawable.plus));
@@ -237,23 +206,21 @@ public class ProfilFragment extends CallbackFragment {//implements SurfaceHolder
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_PIC_REQUEST) {
             thumbnail = (Bitmap) data.getExtras().get("data");
-            //File fichierImage =
 
             //sauvegarder le fichier
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            // Compress image to lower quality scale 1 - 100
             thumbnail.compress(Bitmap.CompressFormat.PNG, 100, stream);
             byte[] image = stream.toByteArray();
 
             // Create the ParseFile
             ParseFile file = new ParseFile("profilPhoto.png", image);
+
             // Upload the image into Parse Cloud
-            //file.saveInBackground();
             ParseUser currentUser = ParseUser.getCurrentUser();
             currentUser.put("imageFile",file);
             currentUser.saveInBackground();
 
-              // afficher l'image dans la view
+            // afficher l'image dans la view
             imagePhoto.setImageBitmap(thumbnail);
         }
     }
@@ -320,15 +287,6 @@ public class ProfilFragment extends CallbackFragment {//implements SurfaceHolder
         mCallbacks = (Callbacks) activity;
     }
 
-    /* @Override
-   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            mImageView.setImageBitmap(imageBitmap);
-        }
-    }*/
 
     @Override
     public void onDetach() {

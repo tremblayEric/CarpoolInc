@@ -213,10 +213,7 @@
         <item name="android:textSize">@dimen/text_size_small</item>
     </style>
 
-    <style name="fade_animation">
-        <item name="@android:windowEnterAnimation">@anim/popup_show</item>
-        <item name="@android:windowExitAnimation">@anim/popup_hide</item>
-    </style>
+
 
     <!--Base application theme.
 <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
