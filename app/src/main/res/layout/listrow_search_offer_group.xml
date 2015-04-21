@@ -18,7 +18,7 @@
         android:paddingBottom="10dp"
         android:paddingRight="10dp"
         android:paddingLeft="0dp"
-        android:background="#F7F7F0"
+        android:background="#ffd2d2ba"
         android:layout_marginTop="10dp">
 
         <FrameLayout
@@ -64,7 +64,8 @@
                 android:layout_height="wrap_content"
                 android:text="Départ"
                 android:textSize="15sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_marginLeft="20dp"/>
             <TextView
                 android:id="@+id/tvResultSearchStartHour"
                 android:layout_width="70dp"
@@ -89,7 +90,8 @@
                 android:layout_height="wrap_content"
                 android:text="Arrivée"
                 android:textSize="15sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_marginLeft="20dp"/>
             <TextView
                 android:id="@+id/tvResultSearchEndHour"
                 android:layout_width="70dp"
