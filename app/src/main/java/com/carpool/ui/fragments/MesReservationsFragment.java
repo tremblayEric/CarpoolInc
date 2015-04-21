@@ -110,15 +110,19 @@ public class MesReservationsFragment extends CallbackFragment {
                         } catch (ParseException e1) {
                             e1.printStackTrace();
                         }
-
-                        if( !res.getOffreSource().getDepart().before(dateJour)){
+                        Date today = new Date();
+                        Log.d("date_depart",res.getOffreSource().getDepart().toString());
+                        Log.d("date_jour",dateJour.toString());
+                        if( today.before(res.getOffreSource().getDepart())  || dateJour.equals(res.getOffreSource().getDepart()) ){
                             listeReservation.add(res);
-                            System.out.println(" isEncourSelected true ----------------- "+res.getObjectId());
+                           // System.out.println(" isEncourSelected true ----------------- "+res.getObjectId());
                         }
                    }
                     lv.setAdapter(new MyExpandableListAdapter());
+                    Log.d("reservation","in");
                 }
                 else {
+                    Log.d("reservation","out");
                     e.printStackTrace();
                 }
             }

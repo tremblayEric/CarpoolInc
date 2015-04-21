@@ -35,6 +35,10 @@
             android:background="@color/material_deep_teal_500"
             />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,6 +55,7 @@
                     app:border_color="@color/dark"
                     android:layout_marginTop="30dp"
                     android:id="@+id/imageView1_c"
+
                 />
 
                 <LinearLayout
@@ -85,7 +90,7 @@
             </LinearLayout>
 
             <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:background="#ffc7eef8"
             android:orientation="vertical"
@@ -195,6 +200,8 @@
                     android:text="Courriel"
                     />
             </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
         </LinearLayout>
 
         <!--Button
@@ -206,8 +213,6 @@
         android:background="@color/material_deep_teal_500"
         /-->
 
-
-    </LinearLayout>
 
 </RelativeLayout>
 

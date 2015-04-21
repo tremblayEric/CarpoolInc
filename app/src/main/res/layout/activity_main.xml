@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
-        app:shadowDrawable="@drawable/header_shadow">
+        app:shadowDrawable="@drawable/header_shadow"
+        >
 
         <com.carpool.ui.design.MultiSwipeRefreshLayout
             android:id="@+id/swipe_refresh_layout"
@@ -26,8 +27,8 @@
                 android:id="@+id/session_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+        </com.carpool.ui.design.MultiSwipeRefreshLayout>
 
-        </com.carpool.ui.design.MultiSwipeRefreshLayout>>
 
 
         <!-- placeholder, empty except on L -->

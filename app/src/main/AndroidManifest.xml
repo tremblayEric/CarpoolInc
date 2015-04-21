@@ -91,6 +91,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name=".ui.activities.ProfilConducteurActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name=".ui.activities.DeconnexionActivity"
             android:label="@string/app_name" >
         </activity>

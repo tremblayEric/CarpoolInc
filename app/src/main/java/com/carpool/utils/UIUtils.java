@@ -16,34 +16,18 @@
 
 package com.carpool.utils;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.ActivityOptions;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.os.Build;
-import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.TextView;
 
-import com.carpool.R;
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.os.Build;
+import android.support.v7.app.ActionBarActivity;
+import android.util.DisplayMetrics;
 
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class UIUtils {
-    private static Typeface sMediumTypeface;
 
     protected ActionBarActivity mActivity;
-    private Handler mHandler = new Handler();
 
     private UIUtils(ActionBarActivity activity) {
         mActivity = activity;
@@ -51,76 +35,6 @@ public class UIUtils {
 
     public static UIUtils getInstance(ActionBarActivity activity) {
         return new UIUtils(activity);
-    }
-
-    private static boolean hasL() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-    }
-
-    public void startActivityWithTransition(Intent intent, final View clickedView,
-                                            final String transitionName) {
-        ActivityOptions options = null;
-        if (hasL() && clickedView != null && !TextUtils.isEmpty(transitionName)) {
-            options = ActivityOptions.makeSceneTransitionAnimation(
-                    mActivity, clickedView, transitionName);
-        }
-
-        mActivity.startActivity(intent, (options != null) ? options.toBundle() : null);
-    }
-
-    public void setMediumTypeface(TextView textView) {
-        if (hasL()) {
-            if (sMediumTypeface == null) {
-                sMediumTypeface = Typeface.create("sans-serif-medium", Typeface.NORMAL);
-            }
-
-            textView.setTypeface(sMediumTypeface);
-        } else {
-            textView.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
-        }
-    }
-
-    public int getStatusBarColor() {
-        if (!hasL()) {
-            // On pre-L devices, you can have any status bar color so long as it's black.
-            return Color.BLACK;
-        }
-
-        return mActivity.getWindow().getStatusBarColor();
-    }
-
-    public void setStatusBarColor(int color) {
-        if (!hasL()) {
-            return;
-        }
-
-        mActivity.getWindow().setStatusBarColor(color);
-    }
-
-
-
-    public static AlertDialog getProgressDialog(Activity activity){
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        final View view = LayoutInflater.from(activity).inflate(
-                R.layout.progress_dialog, null);
-        View img1 = view.findViewById(R.id.pd_circle1);
-        View img2 = view.findViewById(R.id.pd_circle2);
-        View img3 = view.findViewById(R.id.pd_circle3);
-        int ANIMATION_DURATION = 400;
-        Animator anim1 = setRepeatableAnim(activity, img1, ANIMATION_DURATION, R.animator.growndisappear);
-        Animator anim2 = setRepeatableAnim(activity, img2, ANIMATION_DURATION, R.animator.growndisappear);
-        Animator anim3 = setRepeatableAnim(activity, img3, ANIMATION_DURATION, R.animator.growndisappear);
-        setListeners(img1, anim1, anim2, ANIMATION_DURATION);
-        setListeners(img2, anim2, anim3, ANIMATION_DURATION);
-        setListeners(img3, anim3, anim1, ANIMATION_DURATION);
-        anim1.start();
-        builder.setView(view);
-        AlertDialog ad = builder.create();
-        ad.setCanceledOnTouchOutside(false);
-        ad.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE);
-        ad.show();
-        ad.getWindow().setLayout(dpToPx(200, activity), dpToPx(125, activity));
-        return ad;
     }
 
     /**
@@ -137,46 +51,6 @@ public class UIUtils {
         DisplayMetrics displayMetrics = mContext.getResources()
                 .getDisplayMetrics();
         return (int) ((i * displayMetrics.density) + 0.5);
-
     }
 
-
-    private static Animator setRepeatableAnim(Activity activity, View target, final int duration, int animRes){
-        final Animator anim = AnimatorInflater.loadAnimator(activity, animRes);
-        anim.setDuration(duration);
-        anim.setTarget(target);
-        return anim;
-    }
-
-    private static void setListeners(final View target, Animator anim, final Animator animator, final int duration){
-        anim.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animat) {
-                if(target.getVisibility() == View.INVISIBLE){
-                    target.setVisibility(View.VISIBLE);
-                }
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        animator.start();
-                    }
-                }, duration - 100);
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });
-    }
 }

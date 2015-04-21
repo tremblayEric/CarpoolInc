@@ -85,9 +85,9 @@ public class RechercheResultatActivity extends AccueilActivity implements
         super.onPostCreate(savedInstanceState);
     }
 
-    @Override
+    //@Override
     protected void onActionBarAutoShowOrHide(boolean shown) {
-        super.onActionBarAutoShowOrHide(shown);
+        //super.onActionBarAutoShowOrHide(shown);
     }
 
 
