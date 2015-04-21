@@ -5,11 +5,10 @@
     android:id="@+id/toolbar_actionbar"
     android:background="@null"
     theweatherapp:titleTextAppearance="@style/ActionBar.TitleText"
-
+    theweatherapp:theme="@style/ActionBarThemeOverlay"
+    theweatherapp:popupTheme="@style/ActionBarPopupThemeOverlay"
+    theweatherapp:contentInsetStart="?actionBarInsetStart"
     android:layout_width="match_parent"
     android:layout_height="?actionBarSize"
     />
 
-    <!--theweatherapp:theme="@style/ActionBarThemeOverlay"-->
-    <!--theweatherapp:popupTheme="@style/ActionBarPopupThemeOverlay"-->
-    <!--theweatherapp:contentInsetStart="?actionBarInsetStart"-->
