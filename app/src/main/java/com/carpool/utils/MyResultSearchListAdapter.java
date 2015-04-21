@@ -2,9 +2,11 @@ package com.carpool.utils;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.transition.Visibility;
 import android.view.LayoutInflater;
@@ -19,8 +21,10 @@ import com.carpool.R;
 import com.carpool.model.Offre;
 import com.carpool.model.Position;
 import com.carpool.model.Reservation;
+import com.carpool.ui.activities.ProfilConducteurActivity;
 import com.carpool.ui.activities.RechercheResultatActivity;
 
+import com.carpool.ui.fragments.ProfilConducteurFragment;
 import com.carpool.ui.fragments.RechercheResultatFragment;
 
 import com.carpool.ui.fragments.WarningConnectionFragment;
@@ -31,17 +35,20 @@ import com.parse.ParseInstallation;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
+import android.content.Context;
+import java.io.*;
 /***
  * Classe qui s'occupe d'afficher les résultats d'une recherche effectuée par un utilisateur
  * dans une liste qui peut être consultée.
@@ -51,13 +58,15 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
     private Activity activity;
     private LayoutInflater inflater;
     public List<Offre> listOffers;
-
+    Context context;
+    public static ParseUser userInfoConduct;
 
     public MyResultSearchListAdapter(Activity act, List<Offre> offers) {
         activity = act;
         inflater = act.getLayoutInflater();
         listOffers = offers;
     }
+
 
     @Override
     public int getGroupCount() {
@@ -173,6 +182,8 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
                 holder.txtPlaceDispo = (TextView) convertView.findViewById(R.id.tvResultSearchPlaceDispo);
                 holder.txtHeureDepart = (TextView) convertView.findViewById(R.id.tvResultSearchHeure);
                 holder.btnReservation = (Button) convertView.findViewById(R.id.btnReservation);
+                holder.btnVoirProfil = (Button)convertView.findViewById(R.id.btnProfilCond);
+
             } else
                 holder = (ListOffersDetailsHolder) convertView.getTag();
 
@@ -266,11 +277,47 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
             });
             //RechercheResultatActivity.offreSelectionne = listOffers.get(groupPosition);
             //RechercheResultatFragment.getMapsApiDirectionsUrl();
+
+            // afficher le profil du conduteur
+            holder.btnVoirProfil.setOnClickListener(
+                    new View.OnClickListener(){
+                public void onClick(View v){
+
+                     userInfoConduct = listOffers.get(postition).getUser();
+
+                    //Bundle bundle= new Bundle();
+
+                    ////try{
+                       // bundle.putByteArray("conducteurUser", object2Bytes(userInfoConduct));
+                        //Log.d("bundle","in MyResultatResearResult");
+                    //}catch (IOException e)
+                    //{
+                      //  Log.d("bundle","out MyResultatResearResult");
+                    //}
+                    Intent intent = new Intent( activity, ProfilConducteurActivity.class);
+//                    intent.putExtra("conducteur", (Parcelable)userInfoConduct);
+
+                   // Bundle bundle = new Bundle();
+                    //bundle.putSerializable("my object", myObject);
+                     //intent.putExtras(bundle);
+                    //myObject = (MyObject) getIntent().getExtras().getSerializable("my object");
+
+                    activity.startActivity(intent);
+
+                }
+            });
         }
         catch (Exception ex) {
         }
 
         return convertView;
+    }
+
+     public byte[] object2Bytes( Object o ) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream( baos );
+        oos.writeObject( o );
+        return baos.toByteArray();
     }
 
     @Override
@@ -308,5 +355,6 @@ public class MyResultSearchListAdapter extends BaseExpandableListAdapter {
         TextView txtPlaceDispo;
         TextView txtHeureDepart;
         Button btnReservation;
+        Button btnVoirProfil;
     }
 }

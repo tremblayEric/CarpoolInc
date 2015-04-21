@@ -50,6 +50,7 @@
                     app:border_width="2dp"
                     app:border_color="@color/dark"
                     android:layout_marginTop="30dp"
+                    android:id="@+id/imageView1_c"
                 />
 
                 <LinearLayout
@@ -67,9 +68,9 @@
                     android:text="Jeanne"
                     android:layout_marginTop="60dp"
                     android:textSize="16sp"
-                    android:id="@+id/indic_pseudo"
+                    android:id="@+id/indic_pseudo_c"
                     android:layout_marginLeft="20dp"
-                    android:textColor="@color/material_deep_teal_500"/>
+                    android:textColor="#ff2e3ec2"/>
 
                 </LinearLayout>
                 <TextView
@@ -78,7 +79,7 @@
                     android:text="24 ans"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:id="@+id/indic_age"
+                    android:id="@+id/indic_age_c"
                     android:textSize="16sp"/>
                 </LinearLayout>
             </LinearLayout>
@@ -86,7 +87,7 @@
             <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+            android:background="#ffc7eef8"
             android:orientation="vertical"
             android:padding="30dp"
 
@@ -129,7 +130,7 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id ="@+id/txt_nom_userProfil"
+                    android:id ="@+id/txt_nom_userProfil_c"
                     android:text="Nom:"
                     />
             </LinearLayout>
@@ -149,30 +150,11 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id ="@+id/txt_prenom_userProfil"
+                    android:id ="@+id/txt_prenom_userProfil_c"
                     android:text="Prenom"
                     />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="15dp"
-                >
-                <TextView
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:text="Date de naissance:"
-                    />
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:id ="@+id/txt_date_naiss_userProfil"
-                    android:text="Date naissance"
-                    />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -189,7 +171,7 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id ="@+id/txt_sexe_userProfil"
+                    android:id ="@+id/txt_sexe_userProfil_c"
                     android:text="Sexe"
                     />
             </LinearLayout>
@@ -209,7 +191,7 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id ="@+id/txt_courriel_userProfil"
+                    android:id ="@+id/txt_courriel_userProfil_c"
                     android:text="Courriel"
                     />
             </LinearLayout>

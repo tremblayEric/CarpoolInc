@@ -117,6 +117,7 @@ public class ProfilFragment extends CallbackFragment {//implements SurfaceHolder
             // telecharger l'image et la mettre dans le circleView
 
 
+            try {
                 ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
                         "_User");
 
@@ -144,6 +145,11 @@ public class ProfilFragment extends CallbackFragment {//implements SurfaceHolder
                                 }
                             }
                         });
+            }
+            catch (Exception e)
+            {
+
+            }
 
 
     } else {
