@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.carpool.R;
 import com.carpool.ui.adapters.SampleAdapterReservation;
 import com.carpool.ui.design.CallbackFragment;
+import com.carpool.ui.fragments.ConsultationOfrreFragment;
 import com.carpool.ui.fragments.OffreFragment;
 import com.carpool.ui.fragments.ReservationFragment;
 import android.content.Intent;
@@ -22,8 +23,7 @@ import com.carpool.ui.design.SlidingTabLayout;
 /**
  * Created by sachin on 17/1/15.
  */
-public class ReservationActivity extends  AccueilActivity implements
-        CallbackFragment.Callbacks  {
+public class ReservationActivity {
 
         @Override
         public void onItemSelected(long id) { }
@@ -78,4 +78,5 @@ public class ReservationActivity extends  AccueilActivity implements
         protected int getSelfNavDrawerItem() {
             return AccueilActivity.NAVDRAWER_ITEM_MES_RESERVATIONS;
         }
+
 }

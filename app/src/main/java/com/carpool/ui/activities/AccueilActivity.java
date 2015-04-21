@@ -500,7 +500,7 @@ public abstract class AccueilActivity extends ActionBarActivity implements
                 finish();
                 break;
             case AccueilActivity.NAVDRAWER_ITEM_MES_RESERVATIONS:
-                startActivity(new Intent(this, ReservationActivity.class));
+                startActivity(new Intent(this, MesReservationsActivity.class));
                 break;
             case AccueilActivity.NAVDRAWER_ITEM_NOTIFICATIONS:
                 startActivity(new Intent(this, NotificationsActivity.class));
