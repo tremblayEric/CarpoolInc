@@ -3,6 +3,18 @@
 # cle APK#
 La cle de l'APK est la suivante: ERAMGAJE
 
+<!-- 26 avril 2015 -->
+#Note#
+1. Ne pas faire de réservation sur une offre que l’on a posté soit même; ça ne fonctionne pas.
+
+2. On n'interdit pas les annonces postées à des dates antérieures. Mais il ne sera pas possible de les voir dans mes annonces ni même de trouver ces annonces lorsqu'on fait des recherches.
+
+3. Les destinations avec accent sont a éviter. Ex: Montréal.
+ 
+4. le nombre de places n'est pas correctement géré.
+
+
+<!-- 22 mars 2015 -->
 #Note#
 1. La version gratuite de l'auto completion des champs de google est limitée à 1000 requête par jour.Il peut arriver que l'offre et la recherche de coivoiturage ne fonctionne pas correctement  dans le cas ou cette limite serait dépassée. ref: https://developers.google.com/places/webservice/usage
 
