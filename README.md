@@ -13,6 +13,10 @@ La cle de l'APK est la suivante: ERAMGAJE
  
 4. le nombre de places n'est pas correctement géré.
 
+5. Il y a un problème avec le spinner au niveau de l’interface. Il tourne parfois indéfiniment.
+
+6. On ne vérifie pas dans l’ajout d’offre si l’heure de début est inférieure a l’heure de fin.
+
 
 <!-- 22 mars 2015 -->
 #Note#
