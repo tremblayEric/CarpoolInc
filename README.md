@@ -1,4 +1,10 @@
 # README #
+Projet de maitrise en génie logiciel développé en équipe de 4 dans le cadre du cours MGL7130
+**Gaëlle Claude
+**Jeanne Darisca
+**Amira Dahnes
+**Eric Tremblay
+
 
 # cle APK#
 La cle de l'APK est la suivante: ERAMGAJE
