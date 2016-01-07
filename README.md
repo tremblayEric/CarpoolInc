@@ -1,9 +1,9 @@
 # README #
 Projet de maitrise en génie logiciel développé en équipe de 4 dans le cadre du cours MGL7130
-**Gaëlle Claude
-**Jeanne Darisca
-**Amira Dahnes
-**Eric Tremblay
+[Gaëlle Claude,
+Jeanne Darisca,
+Amira Dahnes,
+Eric Tremblay]
 
 
 # cle APK#
